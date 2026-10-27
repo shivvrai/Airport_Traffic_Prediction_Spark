@@ -357,10 +357,20 @@ PURPLES  = [[0,"#2e1065"],[0.5,"#a855f7"],[1,"#e9d5ff"]]
 GREENS   = [[0,"#022c22"],[0.5,"#10b981"],[1,"#6ee7b7"]]
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
-BASE     = Path(__file__).parent.parent
-DATA_CSV = BASE / "airport_traffic_2025.csv"
-FORE_CSV = BASE / "colab_output.csv"
-MET_CSV  = BASE / "model_evaluation_metrics.csv"
+def resolve_data_path(filename: str) -> Path:
+    candidates = [
+        Path(filename),
+        Path(__file__).parent / filename,
+        Path(__file__).parent.parent / filename,
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    return Path(__file__).parent.parent / filename
+
+DATA_CSV = resolve_data_path("airport_traffic_2025.csv")
+FORE_CSV = resolve_data_path("colab_output.csv")
+MET_CSV  = resolve_data_path("model_evaluation_metrics.csv")
 
 # ─── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
