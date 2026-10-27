@@ -1,0 +1,332 @@
+APT_ICAO,APT_NAME,country,total_flights,avg_flights_per_observed_day,max_daily_flights
+LTFM,Istanbul,Türkiye,544121.0,1490.74,1688.0
+EHAM,Amsterdam - Schiphol,Netherlands,493042.0,1350.8,1508.0
+EGLL,London - Heathrow,United Kingdom,480072.0,1315.27,1376.0
+LFPG,Paris - Charles-de-Gaulle,France,479761.0,1314.41,1490.0
+EDDF,Frankfurt,Germany,460295.0,1261.08,1468.0
+LEMD,Madrid - Barajas,Spain,430785.0,1180.23,1318.0
+LEBL,Barcelona,Spain,360831.0,988.58,1163.0
+EDDM,Munich,Germany,334833.0,917.35,1206.0
+LIRF,Rome - Fiumicino,Italy,322766.0,884.29,1056.0
+LGAV,Athens,Greece,278241.0,762.3,1041.0
+LSZH,Zürich,Switzerland,267710.0,733.45,873.0
+LTFJ,Istanbul - Sabiha Gökçen,Türkiye,265254.0,726.72,823.0
+EGKK,London - Gatwick,United Kingdom,263105.0,720.84,895.0
+EKCH,Copenhagen - Kastrup,Denmark,256659.0,703.18,868.0
+EIDW,Dublin,Ireland,255290.0,701.35,837.0
+LOWW,Vienna,Austria,253564.0,694.7,828.0
+LEPA,Palma de Mallorca,Spain,245159.0,671.67,1110.0
+LTAI,Antalya,Türkiye,232856.0,637.96,1220.0
+LPPT,Lisbon,Portugal,230603.0,631.79,699.0
+LIMC,Milan - Malpensa,Italy,226289.0,619.97,749.0
+ENGM,Oslo - Gardermoen,Norway,223637.0,612.7,787.0
+LFPO,Paris - Orly,France,218916.0,599.77,744.0
+EGCC,Manchester,United Kingdom,203217.0,556.76,692.0
+EGSS,London - Stansted,United Kingdom,203046.0,556.29,664.0
+ESSA,Stockholm - Arlanda,Sweden,201828.0,552.95,712.0
+EPWA,Warszawa - Chopina,Poland,200167.0,548.4,639.0
+EBBR,Brussels,Belgium,199461.0,546.47,673.0
+EDDB,Berlin - Brandenburg,Germany,192654.0,527.82,673.0
+LEMG,Málaga,Spain,182057.0,498.79,679.0
+LSGG,Geneva,Switzerland,171142.0,468.88,590.0
+EDDL,Dusseldorf,Germany,159731.0,437.62,608.0
+EFHK,Helsinki - Vantaa,Finland,156035.0,427.49,488.0
+LFMN,Nice-Côte d’Azur,France,152164.0,416.89,730.0
+GCLP,Gran Canaria,Spain,141509.0,387.7,555.0
+LLBG,Tel Aviv - Ben Gurion International,Israel,140706.0,385.5,630.0
+LKPR,Prague,Czech Republic,139498.0,382.19,504.0
+LHBP,Budapest - Ferihegy,Hungary,138208.0,378.65,476.0
+EGGW,London - Luton,United Kingdom,134383.0,368.17,463.0
+LROP,Bucharest - Otopeni,Romania,127212.0,348.53,439.0
+LEAL,Alicante,Spain,125873.0,344.86,459.0
+EGPH,Edinburgh,United Kingdom,124699.0,341.64,432.0
+EDDH,Hamburg,Germany,121753.0,333.57,432.0
+LIML,Milan - Linate,Italy,121446.0,332.73,439.0
+EDDK,Cologne-Bonn,Germany,116558.0,319.34,448.0
+LPPR,Porto,Portugal,112649.0,308.63,391.0
+LIME,Bergamo,Italy,104616.0,286.62,361.0
+EGBB,Birmingham,United Kingdom,99914.0,273.74,354.0
+LFML,Marseille-Provence,France,99361.0,272.22,368.0
+LTAC,Ankara - Esenboğa,Türkiye,94073.0,257.73,319.0
+LFLL,Lyon-Saint-Exupéry,France,93674.0,256.64,319.0
+GMMN,Mohammed V International,Morocco,92920.0,254.58,328.0
+LIRN,Naples,Italy,91422.0,250.47,363.0
+LYBE,Belgrade - Nikola Tesla,Serbia,89857.0,246.18,354.0
+EPKK,Krakow - Balice,Poland,88930.0,243.64,343.0
+EDDS,Stuttgart,Germany,88824.0,243.35,337.0
+GCTS,Tenerife Sur - Reina Sofia,Spain,88789.0,243.26,359.0
+ENBR,Bergen,Norway,88705.0,243.03,340.0
+LEVC,Valencia,Spain,88236.0,241.74,315.0
+LIPZ,Venice,Italy,87533.0,239.82,329.0
+LIPE,Bologna,Italy,84289.0,230.93,299.0
+LEIB,Ibiza,Spain,83095.0,227.66,475.0
+LICC,Catania,Italy,81465.0,223.19,308.0
+GCXO,Tenerife North,Spain,81146.0,222.32,270.0
+LFSB,Bâle-Mulhouse,France,79961.0,219.07,340.0
+LCLK,Larnaca,Cyprus,76544.0,209.71,334.0
+LTBJ,Izmir - Adnan Menderes,Türkiye,76285.0,209.0,308.0
+EGGD,Bristol,United Kingdom,76210.0,208.79,274.0
+LMML,Malta,Malta,73924.0,202.53,276.0
+EGPF,Glasgow,United Kingdom,73886.0,202.43,262.0
+GCRR,Lanzarote,Spain,71972.0,197.18,258.0
+GMMX,Menara,Morocco,71844.0,196.83,300.0
+ELLX,Luxembourg,Luxembourg,71789.0,196.68,247.0
+EBCI,Brussels - Charleroi,Belgium,71507.0,196.45,245.0
+LPFR,Faro,Portugal,70898.0,194.24,338.0
+EDDP,Leipzig-Halle,Germany,70760.0,193.86,281.0
+LATI,Tirana,Albania,70068.0,191.97,301.0
+LFBO,Toulouse-Blagnac,France,69605.0,190.7,258.0
+LEZL,Sevilla,Spain,67600.0,185.21,250.0
+LBSF,Sofia,Bulgaria,67087.0,183.8,232.0
+LGIR,Heraklion,Greece,66488.0,182.16,386.0
+LICJ,Palermo Falcone-Borsellino,Italy,64503.0,176.72,253.0
+BIKF,Keflavik,Iceland,64196.0,175.88,274.0
+EVRA,Riga,Latvia,62829.0,172.13,225.0
+LGTS,Thessaloniki,Greece,62015.0,169.9,242.0
+ENZV,Stavanger,Norway,58101.0,159.18,229.0
+LFPB,Paris - Le Bourget,France,57246.0,156.84,320.0
+EGAA,Belfast - Aldergrove,United Kingdom,54975.0,150.62,200.0
+GCFV,Fuerteventura,Spain,54322.0,148.83,205.0
+EPGD,Gdansk,Poland,54097.0,148.21,195.0
+EGNX,East Midlands,United Kingdom,53842.0,147.51,216.0
+LFRS,Nantes-Atlantique,France,53631.0,146.93,208.0
+UGTB,Tbilisi,Georgia,52410.0,143.59,185.0
+EDDV,Hanover,Germany,51906.0,142.21,216.0
+LFBD,Bordeaux-Mérignac,France,51729.0,141.72,195.0
+ENVA,Trondheim,Norway,51725.0,141.71,211.0
+LDZA,Zagreb,Croatia,51432.0,140.91,185.0
+EGLC,London - City,United Kingdom,51213.0,140.31,198.0
+LEBB,Bilbao,Spain,50935.0,139.55,270.0
+EPKT,Katowice - Pyrzowice,Poland,50001.0,136.99,235.0
+ESGG,Göteborg,Sweden,49925.0,136.78,181.0
+LGRP,Rodos,Greece,48773.0,135.11,323.0
+LIRP,Pisa San Giusto,Italy,46669.0,127.86,199.0
+LUKK,Chișinău,Moldova,44604.0,122.2,177.0
+ENTC,Tromsø,Norway,44159.0,120.98,163.0
+EGNT,Newcastle,United Kingdom,42994.0,117.79,169.0
+EDDN,Nuremberg,Germany,42621.0,116.77,181.0
+LIRA,Rome - Ciampino,Italy,42395.0,116.15,168.0
+UDYZ,Yerevan,Armenia,41714.0,114.28,165.0
+EYVI,Vilnius,Lithuania,41654.0,114.12,158.0
+LIMF,Torino Caselle,Italy,40226.0,110.21,170.0
+LFOB,Beauvais-Tillé,France,40222.0,110.2,140.0
+ENBO,Bodø,Norway,40045.0,109.71,153.0
+EETN,Tallinn,Estonia,38469.0,105.39,135.0
+EPWR,Wroclaw - Strachowice,Poland,37115.0,112.81,196.0
+LEMH,Mahon,Spain,36480.0,99.95,208.0
+LPMA,Madeira,Portugal,36456.0,99.88,149.0
+EGPD,Aberdeen,United Kingdom,35961.0,98.52,132.0
+EPPO,Poznan - Lawica,Poland,34011.0,93.18,149.0
+EBLG,Liège,Belgium,33649.0,92.19,139.0
+LGKR,Corfu,Greece,32861.0,95.25,246.0
+LGSA,Khania - Souda,Greece,29870.0,81.84,197.0
+EGLF,Farnborough,United Kingdom,29811.0,81.67,151.0
+EGAC,Belfast - City Airport,United Kingdom,28565.0,78.26,97.0
+LPPD,Ponta Delgada,Portugal,27627.0,75.69,128.0
+EICK,Cork,Ireland,26765.0,73.33,105.0
+LOWS,Salzburg,Austria,26501.0,72.61,234.0
+EHRD,Rotterdam,Netherlands,26307.0,72.07,118.0
+LCPH,Paphos,Cyprus,25654.0,70.28,135.0
+LFMT,Montpellier-Méditerranée,France,24921.0,68.28,125.0
+GMAD,Al Massira,Morocco,24844.0,68.07,110.0
+EDDW,Bremen,Germany,24535.0,67.22,104.0
+EINN,Shannon,Ireland,24441.0,66.96,102.0
+LWSK,Skopje,Republic of North Macedonia,24284.0,66.53,96.0
+LIBR,Brindisi,Italy,24167.0,66.21,123.0
+LGKO,Kos,Greece,24035.0,65.85,167.0
+GCLA,La Palma,Spain,23263.0,63.73,139.0
+LZIB,Bratislava,Slovakia,22872.0,62.66,112.0
+LEST,Santiago,Spain,22851.0,62.61,88.0
+EGKB,Biggin Hill,United Kingdom,22395.0,61.36,141.0
+GMTT,Ibn Batouta,Morocco,22092.0,60.53,107.0
+LJLJ,Ljubljana,Slovenia,22059.0,60.44,93.0
+LIPH,Treviso,Italy,20685.0,56.67,77.0
+GMME,Rabat-Salé,Morocco,20516.0,56.21,86.0
+LGSR,Santorini,Greece,20488.0,58.87,148.0
+LTBA,Istanbul - Atatürk,Türkiye,20050.0,54.93,99.0
+EGHI,Southampton,United Kingdom,19794.0,54.23,81.0
+LQSA,Sarajevo,Bosnia and Herzegovina,19234.0,52.7,91.0
+LEGE,Gerona,Spain,18876.0,51.72,112.0
+EDDG,Muenster-Osnabrueck,Germany,18087.0,49.55,86.0
+LGMK,Mikonos,Greece,16357.0,49.12,161.0
+LFKB,Bastia-Poretta,France,16278.0,44.6,108.0
+LFKJ,Ajaccio-Napoléon-Bonaparte,France,16220.0,44.44,105.0
+LEJR,Jerez De La Frontera,Spain,16200.0,44.38,84.0
+LYPG,Podgorica,Montenegro,15454.0,42.34,72.0
+EPRZ,Rzeszow - Jasionka,Poland,15372.0,42.12,75.0
+LEAS,Asturias,Spain,15332.0,42.01,66.0
+LGZA,Zakinthos,Greece,15196.0,46.76,114.0
+LFMD,Cannes-Mandelieu,France,15188.0,41.61,109.0
+LFQQ,Lille-Lesquin,France,14699.0,40.27,71.0
+LOWG,Graz,Austria,14487.0,39.69,85.0
+LOWI,Innsbruck,Austria,14286.0,39.14,171.0
+GMFF,Saïss,Morocco,14086.0,38.59,54.0
+LFST,Strasbourg-Entzheim,France,13260.0,36.33,67.0
+ENAL,Alesund,Norway,13176.0,36.1,57.0
+LFRB,Brest-Bretagne,France,13000.0,35.62,62.0
+LFPN,Toussus-le-Noble,France,12319.0,33.75,72.0
+EDDC,Dresden,Germany,12232.0,33.51,57.0
+LFKF,Figari-Sud Corse,France,12027.0,32.95,150.0
+EYKA,Kaunas,Lithuania,11992.0,32.85,49.0
+LFBZ,Biarritz-Bayonne-Anglet,France,11932.0,32.69,69.0
+EPMO,Warszawa - Modlin,Poland,11891.0,32.58,64.0
+LFMP,Perpignan-Rivesaltes,France,11364.0,31.13,65.0
+GEML,Melilla,Spain,11266.0,30.87,42.0
+LFRN,Rennes-Saint-Jacques,France,11163.0,30.58,58.0
+ENEV,Harstad - Narvik Evenes,Norway,11138.0,30.52,51.0
+ENCN,Kristiansand Kjevik,Norway,11099.0,30.41,51.0
+ENHF,Hammerfest,Norway,11094.0,30.39,54.0
+LEVT,Vitoria,Spain,11085.0,30.37,85.0
+LERS,Reus,Spain,10892.0,30.42,76.0
+UGSB,Batumi,Georgia,10690.0,29.29,69.0
+EBAW,Antwerp,Belgium,10612.0,29.07,60.0
+LEGR,Granada,Spain,10538.0,28.87,45.0
+LOWL,Linz,Austria,10446.0,28.62,57.0
+LECO,La Coruna,Spain,10426.0,28.56,50.0
+UGKO,Kutaisi,Georgia,10390.0,28.47,45.0
+EHGG,Groningen,Netherlands,10273.0,28.22,66.0
+LEVX,Vigo,Spain,9887.0,27.09,58.0
+LFTH,Hyères-Le Palyvestre,France,9842.0,26.96,78.0
+LEZG,Zaragoza,Spain,9770.0,26.77,50.0
+ENKB,Kristiansund Kvernberget,Norway,9590.0,26.27,50.0
+ESSB,Stockholm - Bromma,Sweden,9560.0,26.34,67.0
+LKTB,Brno-Tuřany,Czech Republic,9443.0,25.87,77.0
+LEXJ,Santander,Spain,9321.0,25.54,53.0
+LKMT,Ostrava,Czech Republic,9306.0,25.64,62.0
+LRBS,Bucharest - Băneasa,Romania,9185.0,25.37,68.0
+LEAM,Almeria,Spain,9105.0,24.95,45.0
+LSGS,Sion,Switzerland,8868.0,24.36,116.0
+LFLY,Lyon-Bron,France,8465.0,23.19,57.0
+LFMV,Avignon-Caumont,France,8445.0,23.14,65.0
+ENAT,Alta,Norway,8365.0,22.92,36.0
+LFLS,Grenoble-Isère,France,8195.0,22.64,144.0
+LGKF,Kefallinia,Greece,8091.0,24.67,83.0
+LFLB,Chambéry-Aix-les-Bains,France,7897.0,21.75,116.0
+LFLC,Clermont-Ferrand-Auvergne,France,7886.0,21.61,51.0
+ENBN,Bronnoysund Bronnoy,Norway,7796.0,21.36,38.0
+LFBP,Pau-Pyrénées,France,7439.0,20.38,44.0
+LEMI,Región de Murcia International Airport,Spain,7375.0,20.21,46.0
+LFTW,Nîmes-Garons,France,7324.0,20.12,50.0
+LGPZ,Aktion,Greece,7271.0,21.45,84.0
+ENKR,Kirkenes Høybuktmoen,Norway,7071.0,19.37,31.0
+LPCS,Cascais,Portugal,7036.0,19.33,47.0
+LFMU,Béziers-Vias,France,7036.0,19.38,55.0
+ENHD,Haugesund,Norway,6932.0,18.99,36.0
+EBOS,Ostend-Bruges,Belgium,6899.0,18.9,44.0
+LFKC,Calvi-Sainte-Catherine,France,6878.0,18.84,63.0
+ENFL,Florø,Norway,6867.0,18.81,32.0
+ENLK,Leknes,Norway,6748.0,18.49,30.0
+EIKN,Connaught,Ireland,6726.0,18.43,34.0
+LFBL,Limoges-Bellegarde,France,6444.0,17.65,52.0
+LFBT,Tarbes-Lourdes Pyrénées,France,6332.0,17.35,40.0
+EHBK,Maastricht-Aachen,Netherlands,6126.0,16.78,82.0
+ENOV,Orsta¿Volda Hovden,Norway,6012.0,16.52,26.0
+GCHI,Hierro,Spain,5922.0,16.22,30.0
+ENSK,Stokmarknes Skagen,Norway,5666.0,15.52,39.0
+EPSC,Szczecin - Goleniów,Poland,5658.0,15.5,31.0
+LPHR,Horta,Portugal,5608.0,15.36,28.0
+EDDR,Saarbruecken,Germany,5596.0,15.42,39.0
+LGSK,Skiathos,Greece,5400.0,18.0,55.0
+EPLL,Lodz - Lublinek,Poland,5377.0,14.73,37.0
+LERT,Rota,Spain,5365.0,14.74,50.0
+LESO,San Sebastian,Spain,5345.0,14.64,47.0
+LOWK,Klagenfurt,Austria,5246.0,14.37,36.0
+EIKY,Kerry - Farranfore,Ireland,5176.0,14.18,39.0
+LFRK,Caen-Carpiquet,France,5174.0,14.25,37.0
+EPBY,Bydgoszcz,Poland,4974.0,13.63,34.0
+LFMK,Carcassonne-Salvaza,France,4885.0,13.72,32.0
+ENVD,Vadsø,Norway,4845.0,13.35,22.0
+ENSG,Sogndal Haukåsen,Norway,4746.0,14.38,20.0
+LFBH,La Rochelle-Ile de Ré,France,4733.0,13.0,33.0
+EPLB,Lublin,Poland,4686.0,12.84,26.0
+ENRA,Mo i Rana Røssvoll,Norway,4607.0,12.62,24.0
+EYPA,Palanga,Lithuania,4593.0,12.58,23.0
+LFOT,Tours-Val de Loire,France,4583.0,12.66,37.0
+LFMI,Istres-Le Tubé,France,4442.0,12.84,35.0
+ENML,Molde Årø,Norway,4269.0,11.7,23.0
+LECU,Madrid - Cuatro Viento,Spain,4212.0,11.7,32.0
+ENSH,Svolvær Helle,Norway,4197.0,11.56,32.0
+EGAE,Londonderry - Eglinton,United Kingdom,4123.0,11.3,40.0
+EDDE,Erfurt,Germany,4059.0,11.24,34.0
+ENST,Sandnessjøen Stokka,Norway,3991.0,10.96,23.0
+LFRH,Lorient-Lann Bihoué,France,3977.0,11.11,33.0
+LFCR,Rodez-Marcillac,France,3910.0,10.95,29.0
+LEPP,Noain Pamplona,Spain,3880.0,10.63,21.0
+LEDA,Lleida - Alguaire,Spain,3841.0,10.82,33.0
+EYSA,Siauliai,Lithuania,3814.0,10.65,34.0
+LFRG,Deauville-Normandie,France,3615.0,10.15,48.0
+LFOP,Rouen,France,3549.0,9.89,35.0
+LFBI,Poitiers-Biard,France,3475.0,10.04,32.0
+LFBE,Bergerac-Roumanière,France,3436.0,9.68,31.0
+LFSL,Brive-Souillac,France,3435.0,9.7,28.0
+ENMS,Mosjøen Kjærstad,Norway,3398.0,9.39,22.0
+LFLP,Annecy-Meythet,France,3312.0,9.15,29.0
+LEBZ,Badajoz,Spain,3288.0,9.13,26.0
+EHLE,Lelystad,Netherlands,3274.0,9.17,26.0
+ENDU,Bardufoss,Norway,3265.0,9.33,25.0
+ENBL,Forde Bringeland,Norway,3215.0,8.86,14.0
+ENAN,Andenes,Norway,3175.0,8.77,22.0
+LELL,Sabadell,Spain,3112.0,8.57,22.0
+LPPS,Porto Santo,Portugal,3089.0,8.46,26.0
+LFRZ,Saint-Nazaire-Montoir,France,3077.0,9.08,28.0
+LFOK,Châlons-Vatry,France,3029.0,8.34,24.0
+LESA,Salamanca Matalan,Spain,2960.0,8.65,31.0
+GCGM,La Gomera,Spain,2909.0,7.97,11.0
+LFGJ,Dôle-Tavaux,France,2844.0,9.03,28.0
+LPAZ,Santa Maria,Portugal,2792.0,7.65,23.0
+LEVD,Valladolid,Spain,2540.0,7.08,28.0
+ENNA,Lakselv Banak,Norway,2506.0,6.87,18.0
+ENSD,Sandane  Anda,Norway,2459.0,6.77,11.0
+LEMO,Seville - Moron,Spain,2300.0,8.19,22.0
+LFRD,Dinard-Pleurtuit-Saint-Malo,France,2258.0,6.4,22.0
+LPFL,Flores,Portugal,2213.0,6.06,16.0
+LJPZ,Portorož,Slovenia,2166.0,6.31,26.0
+ENSB,Svalbard Longyear,Norway,2162.0,6.04,19.0
+LFMH,Saint-Etienne-Bouthéon,France,2043.0,6.19,24.0
+LFJL,Metz-Nancy-Lorraine,France,2027.0,6.01,24.0
+LJMB,Maribor,Slovenia,2010.0,5.93,25.0
+LFLX,Châteauroux-Déols,France,1953.0,5.83,20.0
+ENMH,Mehamn,Norway,1919.0,5.89,12.0
+ENRM,Rorvik Ryum,Norway,1878.0,5.38,11.0
+LETO,Madrid - Torrejon,Spain,1867.0,5.51,18.0
+LFAQ,Albert-Bray,France,1817.0,5.61,25.0
+ENNM,Namsos Høknesøra,Norway,1787.0,5.14,10.0
+ENBS,Batsfjord,Norway,1762.0,5.46,10.0
+LKKV,Karlovy Vary,Czech Republic,1757.0,5.23,21.0
+LFLI,Annemasse,France,1738.0,5.04,19.0
+EIDL,Donegal,Ireland,1736.0,4.77,11.0
+LFRM,Le Mans,France,1713.0,5.44,96.0
+ENSS,Vardø Svartnes,Norway,1674.0,5.23,10.0
+ENBV,Berlevåg,Norway,1628.0,5.2,10.0
+LELN,Leon,Spain,1603.0,4.79,18.0
+LFJR,Angers-Marcé,France,1599.0,4.97,27.0
+EETU,Tartu,Estonia,1546.0,4.32,16.0
+ENHV,Honningsvåg Valan,Norway,1507.0,4.83,10.0
+LFBA,Agen-La Garenne,France,1484.0,4.79,18.0
+LEBG,Burgos,Spain,1365.0,4.03,22.0
+LEGT,Madrid - Getafe,Spain,1262.0,4.38,12.0
+ENRO,Roros,Norway,1256.0,4.05,8.0
+EPSY,Olsztyn-Mazury,Poland,1241.0,3.84,11.0
+LFOH,Le Havre-Octeville,France,1240.0,3.86,18.0
+ENRS,Rost,Norway,1226.0,3.38,8.0
+ENSR,Sorkjosen,Norway,1203.0,3.71,8.0
+LESB,Son Bonet,Spain,1198.0,3.55,14.0
+EPZG,Zielona Gora - Babimost,Poland,1186.0,3.75,13.0
+ENVR,Værøy,Norway,1180.0,3.27,6.0
+LFRQ,Quimper-Pluguffan,France,1075.0,3.75,17.0
+LERJ,Logrono,Spain,1012.0,3.23,11.0
+EPRA,Radom,Poland,977.0,3.38,27.0
+LEAB,Albacete,Spain,933.0,3.36,29.0
+EVLA,Liepaja,Latvia,854.0,3.9,16.0
+EIWT,Weston,Ireland,760.0,2.64,10.0
+LEBA,Cordoba,Spain,647.0,2.74,9.0
+LPMT,Montijo,Portugal,541.0,2.36,8.0
+EIWF,Waterford,Ireland,541.0,2.42,7.0
+LFRO,Lannion,France,481.0,2.36,8.0
+LELC,Murcia San Javier,Spain,335.0,2.7,16.0
+LEIZ,Abad,Spain,284.0,2.54,15.0
+LERE,Valencia - Requena,Spain,249.0,1.73,10.0
+LDZL,Lučko,Croatia,235.0,2.55,8.0
+EISG,Sligo,Ireland,168.0,1.66,4.0
+LESJ,Palma - Son San Juan,Spain,83.0,1.43,4.0
+EVVA,Ventspils,Latvia,26.0,1.44,3.0

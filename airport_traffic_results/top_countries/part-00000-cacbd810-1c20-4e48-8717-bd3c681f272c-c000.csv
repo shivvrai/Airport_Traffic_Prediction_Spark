@@ -1,0 +1,43 @@
+country,total_flights,airports
+Spain,2361488.0,54
+United Kingdom,2002205.0,19
+France,1741728.0,63
+Germany,1704444.0,15
+Italy,1358471.0,14
+Türkiye,1232639.0,6
+Norway,681781.0,43
+Greece,615086.0,13
+Netherlands,539022.0,5
+Poland,515683.0,15
+Portugal,499512.0,11
+Switzerland,447720.0,3
+Austria,324530.0,6
+Belgium,322128.0,5
+Ireland,321603.0,9
+Sweden,261313.0,3
+Denmark,256659.0,1
+Morocco,246302.0,6
+Czech Republic,160004.0,4
+Finland,156035.0,1
+Israel,140706.0,1
+Hungary,138208.0,1
+Romania,136397.0,2
+Cyprus,102198.0,2
+Serbia,89857.0,1
+Malta,73924.0,1
+Georgia,73490.0,3
+Luxembourg,71789.0,1
+Albania,70068.0,1
+Bulgaria,67087.0,1
+Iceland,64196.0,1
+Latvia,63709.0,3
+Lithuania,62053.0,4
+Croatia,51667.0,2
+Moldova,44604.0,1
+Armenia,41714.0,1
+Estonia,40015.0,2
+Slovenia,26235.0,3
+Republic of North Macedonia,24284.0,1
+Slovakia,22872.0,1
+Bosnia and Herzegovina,19234.0,1
+Montenegro,15454.0,1

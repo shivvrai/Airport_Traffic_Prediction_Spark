@@ -1,0 +1,280 @@
+date,APT_ICAO,APT_NAME,country,previous_day_flights,predicted_flights_next_day
+2026-01-01,LTFM,Istanbul,Türkiye,1326.0,1512.6
+2026-01-01,LFPG,Paris - Charles-de-Gaulle,France,1251.0,1188.5
+2026-01-01,EHAM,Amsterdam - Schiphol,Netherlands,1227.0,1173.8
+2026-01-01,EGLL,London - Heathrow,United Kingdom,1269.0,1171.6
+2026-01-01,LEMD,Madrid - Barajas,Spain,1063.0,1114.1
+2026-01-01,EGSS,London - Stansted,United Kingdom,442.0,868.4
+2026-01-01,EDDF,Frankfurt,Germany,859.0,853.7
+2026-01-01,LTFJ,Istanbul - Sabiha Gökçen,Türkiye,641.0,703.8
+2026-01-01,LEBL,Barcelona,Spain,791.0,679.7
+2026-01-01,LSZH,Zürich,Switzerland,615.0,587.2
+2026-01-01,LIRF,Rome - Fiumicino,Italy,735.0,587.2
+2026-01-01,LGAV,Athens,Greece,551.0,501.3
+2026-01-01,EDDM,Munich,Germany,560.0,492.9
+2026-01-01,LPPT,Lisbon,Portugal,556.0,490.0
+2026-01-01,LFPO,Paris - Orly,France,548.0,490.0
+2026-01-01,LOWW,Vienna,Austria,491.0,435.7
+2026-01-01,EKCH,Copenhagen - Kastrup,Denmark,424.0,423.9
+2026-01-01,LLBG,Tel Aviv - Ben Gurion International,Israel,393.0,414.6
+2026-01-01,EPWA,Warszawa - Chopina,Poland,408.0,414.3
+2026-01-01,EBBR,Brussels,Belgium,414.0,369.5
+2026-01-01,LIMC,Milan - Malpensa,Italy,530.0,347.5
+2026-01-01,EGKK,London - Gatwick,United Kingdom,620.0,341.2
+2026-01-01,GCLP,Gran Canaria,Spain,335.0,320.3
+2026-01-01,LSGG,Geneva,Switzerland,379.0,285.7
+2026-01-01,GMMN,Mohammed V International,Morocco,267.0,282.2
+2026-01-01,ESSA,Stockholm - Arlanda,Sweden,287.0,282.2
+2026-01-01,LTAC,Ankara - Esenboğa,Türkiye,199.0,254.1
+2026-01-01,EDDB,Berlin - Brandenburg,Germany,383.0,253.9
+2026-01-01,EFHK,Helsinki - Vantaa,Finland,379.0,253.1
+2026-01-01,EDDL,Dusseldorf,Germany,256.0,251.6
+2026-01-01,EGCC,Manchester,United Kingdom,489.0,248.9
+2026-01-01,LEPA,Palma de Mallorca,Spain,259.0,218.8
+2026-01-01,LEMG,Málaga,Spain,371.0,217.8
+2026-01-01,LIML,Milan - Linate,Italy,272.0,216.7
+2026-01-01,LKPR,Prague,Czech Republic,285.0,216.7
+2026-01-01,LHBP,Budapest - Ferihegy,Hungary,330.0,216.7
+2026-01-01,LFMN,Nice-Côte d’Azur,France,243.0,216.7
+2026-01-01,ENGM,Oslo - Gardermoen,Norway,299.0,216.7
+2026-01-01,LYBE,Belgrade - Nikola Tesla,Serbia,174.0,211.0
+2026-01-01,EDDH,Hamburg,Germany,210.0,211.0
+2026-01-01,LTAI,Antalya,Türkiye,215.0,210.5
+2026-01-01,EGGW,London - Luton,United Kingdom,292.0,179.7
+2026-01-01,GCXO,Tenerife North,Spain,167.0,176.6
+2026-01-01,LTBJ,Izmir - Adnan Menderes,Türkiye,138.0,175.6
+2026-01-01,LROP,Bucharest - Otopeni,Romania,238.0,151.1
+2026-01-01,GCTS,Tenerife Sur - Reina Sofia,Spain,264.0,151.1
+2026-01-01,LPPR,Porto,Portugal,249.0,151.1
+2026-01-01,GMMX,Menara,Morocco,228.0,149.8
+2026-01-01,LFML,Marseille-Provence,France,207.0,149.0
+2026-01-01,LIPZ,Venice,Italy,184.0,149.0
+2026-01-01,LFLL,Lyon-Saint-Exupéry,France,206.0,149.0
+2026-01-01,LFSB,Bâle-Mulhouse,France,195.0,149.0
+2026-01-01,EDDS,Stuttgart,Germany,132.0,147.0
+2026-01-01,LEVC,Valencia,Spain,193.0,124.0
+2026-01-01,LEZL,Sevilla,Spain,178.0,124.0
+2026-01-01,EDDK,Cologne-Bonn,Germany,245.0,123.0
+2026-01-01,LEAL,Alicante,Spain,271.0,123.0
+2026-01-01,LFBO,Toulouse-Blagnac,France,160.0,121.8
+2026-01-01,LATI,Tirana,Albania,148.0,120.2
+2026-01-01,LIRN,Naples,Italy,148.0,120.2
+2026-01-01,GCRR,Lanzarote,Spain,152.0,120.2
+2026-01-01,ELLX,Luxembourg,Luxembourg,146.0,120.2
+2026-01-01,LCLK,Larnaca,Cyprus,146.0,120.2
+2026-01-01,GCFV,Fuerteventura,Spain,143.0,120.2
+2026-01-01,LFBD,Bordeaux-Mérignac,France,125.0,118.9
+2026-01-01,UGTB,Tbilisi,Georgia,128.0,118.9
+2026-01-01,EVRA,Riga,Latvia,133.0,118.9
+2026-01-01,EGPH,Edinburgh,United Kingdom,274.0,116.2
+2026-01-01,LUKK,Chișinău,Moldova,90.0,115.8
+2026-01-01,UDYZ,Yerevan,Armenia,107.0,115.8
+2026-01-01,LEBB,Bilbao,Spain,97.0,115.8
+2026-01-01,EGGD,Bristol,United Kingdom,164.0,89.5
+2026-01-01,EBCI,Brussels - Charleroi,Belgium,197.0,85.8
+2026-01-01,EGPF,Glasgow,United Kingdom,145.0,82.1
+2026-01-01,EGAA,Belfast - Aldergrove,United Kingdom,134.0,78.6
+2026-01-01,EGBB,Birmingham,United Kingdom,188.0,77.4
+2026-01-01,LIPE,Bologna,Italy,189.0,77.4
+2026-01-01,LIME,Bergamo,Italy,209.0,76.9
+2026-01-01,EPKK,Krakow - Balice,Poland,225.0,76.8
+2026-01-01,EGLC,London - City,United Kingdom,102.0,76.6
+2026-01-01,EGAC,Belfast - City Airport,United Kingdom,79.0,76.6
+2026-01-01,EGNX,East Midlands,United Kingdom,111.0,76.3
+2026-01-01,LFOB,Beauvais-Tillé,France,93.0,76.3
+2026-01-01,LIRA,Rome - Ciampino,Italy,83.0,76.3
+2026-01-01,LIRP,Pisa San Giusto,Italy,86.0,76.3
+2026-01-01,EGNT,Newcastle,United Kingdom,82.0,76.3
+2026-01-01,ENBR,Bergen,Norway,155.0,75.2
+2026-01-01,EDDP,Leipzig-Halle,Germany,162.0,75.2
+2026-01-01,LMML,Malta,Malta,156.0,74.7
+2026-01-01,LICC,Catania,Italy,148.0,73.7
+2026-01-01,EICK,Cork,Ireland,69.0,73.2
+2026-01-01,LBSF,Sofia,Bulgaria,126.0,72.3
+2026-01-01,LFRS,Nantes-Atlantique,France,127.0,72.3
+2026-01-01,LGTS,Thessaloniki,Greece,127.0,72.3
+2026-01-01,ENTC,Tromsø,Norway,120.0,71.8
+2026-01-01,LICJ,Palermo Falcone-Borsellino,Italy,123.0,71.8
+2026-01-01,EGPD,Aberdeen,United Kingdom,68.0,71.6
+2026-01-01,ENBO,Bodø,Norway,66.0,71.6
+2026-01-01,EPPO,Poznan - Lawica,Poland,60.0,70.4
+2026-01-01,GMTT,Ibn Batouta,Morocco,52.0,70.4
+2026-01-01,LZIB,Bratislava,Slovakia,53.0,70.4
+2026-01-01,LOWI,Innsbruck,Austria,36.0,70.4
+2026-01-01,EPWR,Wroclaw - Strachowice,Poland,74.0,70.4
+2026-01-01,LPFR,Faro,Portugal,90.0,70.4
+2026-01-01,EPKT,Katowice - Pyrzowice,Poland,82.0,70.3
+2026-01-01,EPGD,Gdansk,Poland,115.0,70.3
+2026-01-01,LWSK,Skopje,Republic of North Macedonia,61.0,70.3
+2026-01-01,LFPB,Paris - Le Bourget,France,47.0,70.3
+2026-01-01,ESGG,Göteborg,Sweden,92.0,70.3
+2026-01-01,EDDV,Hanover,Germany,79.0,70.3
+2026-01-01,EETN,Tallinn,Estonia,76.0,70.3
+2026-01-01,LPMA,Madeira,Portugal,74.0,70.3
+2026-01-01,EDDN,Nuremberg,Germany,66.0,69.8
+2026-01-01,GCLA,La Palma,Spain,50.0,69.8
+2026-01-01,GMAD,Al Massira,Morocco,75.0,69.8
+2026-01-01,LEIB,Ibiza,Spain,73.0,69.8
+2026-01-01,GMME,Rabat-Salé,Morocco,64.0,69.8
+2026-01-01,LDZA,Zagreb,Croatia,113.0,69.8
+2026-01-01,LIMF,Torino Caselle,Italy,98.0,69.8
+2026-01-01,BIKF,Keflavik,Iceland,81.0,69.8
+2026-01-01,EYVI,Vilnius,Lithuania,81.0,69.8
+2026-01-01,ENZV,Stavanger,Norway,93.0,69.8
+2026-01-01,LOWS,Salzburg,Austria,36.0,69.8
+2026-01-01,EBLG,Liège,Belgium,53.0,69.8
+2026-01-01,ENVA,Trondheim,Norway,67.0,69.8
+2026-01-01,LTBA,Istanbul - Atatürk,Türkiye,23.0,41.5
+2026-01-01,LFST,Strasbourg-Entzheim,France,33.0,41.5
+2026-01-01,UGKO,Kutaisi,Georgia,22.0,26.6
+2026-01-01,LEGR,Granada,Spain,23.0,26.6
+2026-01-01,EDDW,Bremen,Germany,33.0,26.6
+2026-01-01,LGIR,Heraklion,Greece,40.0,26.6
+2026-01-01,LJLJ,Ljubljana,Slovenia,29.0,26.6
+2026-01-01,LFMT,Montpellier-Méditerranée,France,48.0,26.6
+2026-01-01,LEMH,Mahon,Spain,33.0,26.6
+2026-01-01,LFKJ,Ajaccio-Napoléon-Bonaparte,France,24.0,26.6
+2026-01-01,EHRD,Rotterdam,Netherlands,43.0,26.6
+2026-01-01,LQSA,Sarajevo,Bosnia and Herzegovina,46.0,26.6
+2026-01-01,LFQQ,Lille-Lesquin,France,27.0,26.6
+2026-01-01,LFKB,Bastia-Poretta,France,30.0,26.6
+2026-01-01,LYPG,Podgorica,Montenegro,22.0,26.6
+2026-01-01,LEAS,Asturias,Spain,35.0,26.6
+2026-01-01,LEST,Santiago,Spain,36.0,26.6
+2026-01-01,LSGS,Sion,Switzerland,17.0,26.3
+2026-01-01,LECO,La Coruna,Spain,15.0,26.3
+2026-01-01,GEML,Melilla,Spain,18.0,25.8
+2026-01-01,LFLS,Grenoble-Isère,France,10.0,17.6
+2026-01-01,EGKB,Biggin Hill,United Kingdom,17.0,17.6
+2026-01-01,LEVT,Vitoria,Spain,26.0,17.0
+2026-01-01,EYKA,Kaunas,Lithuania,30.0,17.0
+2026-01-01,EGHI,Southampton,United Kingdom,26.0,17.0
+2026-01-01,LEGE,Gerona,Spain,28.0,17.0
+2026-01-01,EGLF,Farnborough,United Kingdom,18.0,16.6
+2026-01-01,LFLB,Chambéry-Aix-les-Bains,France,10.0,16.3
+2026-01-01,LRBS,Bucharest - Băneasa,Romania,17.0,16.3
+2026-01-01,EPRZ,Rzeszow - Jasionka,Poland,27.0,16.1
+2026-01-01,EBAW,Antwerp,Belgium,9.0,15.9
+2026-01-01,LFKF,Figari-Sud Corse,France,12.0,15.9
+2026-01-01,LFLY,Lyon-Bron,France,5.0,15.9
+2026-01-01,LFRN,Rennes-Saint-Jacques,France,12.0,15.9
+2026-01-01,LGRP,Rodos,Greece,17.0,15.9
+2026-01-01,ENAL,Alesund,Norway,17.0,15.9
+2026-01-01,ENCN,Kristiansand Kjevik,Norway,14.0,15.9
+2026-01-01,LEXJ,Santander,Spain,15.0,15.9
+2026-01-01,LGSA,Khania - Souda,Greece,17.0,15.9
+2026-01-01,LFBP,Pau-Pyrénées,France,15.0,15.9
+2026-01-01,EBOS,Ostend-Bruges,Belgium,12.0,15.9
+2026-01-01,LGKO,Kos,Greece,14.0,15.9
+2026-01-01,EDDG,Muenster-Osnabrueck,Germany,10.0,15.9
+2026-01-01,LKMT,Ostrava,Czech Republic,8.0,15.9
+2026-01-01,LFMD,Cannes-Mandelieu,France,8.0,15.9
+2026-01-01,LOWG,Graz,Austria,11.0,15.9
+2026-01-01,ENEV,Harstad - Narvik Evenes,Norway,17.0,15.9
+2026-01-01,LEJR,Jerez De La Frontera,Spain,11.0,15.9
+2026-01-01,GCHI,Hierro,Spain,12.0,15.9
+2026-01-01,LFMP,Perpignan-Rivesaltes,France,12.0,15.9
+2026-01-01,LEVX,Vigo,Spain,19.0,15.7
+2026-01-01,UGSB,Batumi,Georgia,19.0,15.7
+2026-01-01,ENFL,Florø,Norway,15.0,15.5
+2026-01-01,LKTB,Brno-Tuřany,Czech Republic,9.0,15.5
+2026-01-01,ENKR,Kirkenes Høybuktmoen,Norway,11.0,15.5
+2026-01-01,ENAT,Alta,Norway,17.0,15.5
+2026-01-01,ENHD,Haugesund,Norway,8.0,15.5
+2026-01-01,EDDC,Dresden,Germany,7.0,15.5
+2026-01-01,LEZG,Zaragoza,Spain,28.0,15.3
+2026-01-01,EPMO,Warszawa - Modlin,Poland,51.0,15.3
+2026-01-01,ENKB,Kristiansund Kvernberget,Norway,24.0,15.3
+2026-01-01,LGSR,Santorini,Greece,18.0,15.3
+2026-01-01,LFRB,Brest-Bretagne,France,30.0,15.3
+2026-01-01,LPPD,Ponta Delgada,Portugal,40.0,15.3
+2026-01-01,LCPH,Paphos,Cyprus,46.0,15.3
+2026-01-01,LIPH,Treviso,Italy,35.0,15.3
+2026-01-01,LEAM,Almeria,Spain,21.0,15.3
+2026-01-01,LIBR,Brindisi,Italy,45.0,15.3
+2026-01-01,LFBZ,Biarritz-Bayonne-Anglet,France,21.0,15.3
+2026-01-01,GMFF,Saïss,Morocco,45.0,15.3
+2026-01-01,EINN,Shannon,Ireland,53.0,15.3
+2026-01-01,ENBN,Bronnoysund Bronnoy,Norway,27.0,14.9
+2026-01-01,ENHF,Hammerfest,Norway,26.0,14.9
+2026-01-01,EIKN,Connaught,Ireland,26.0,14.9
+2026-01-01,LFBI,Poitiers-Biard,France,2.0,9.8
+2026-01-01,LESO,San Sebastian,Spain,11.0,7.7
+2026-01-01,LPHR,Horta,Portugal,12.0,7.7
+2026-01-01,EPLL,Lodz - Lublinek,Poland,17.0,7.7
+2026-01-01,LEMI,Región de Murcia International Airport,Spain,12.0,7.7
+2026-01-01,EPBY,Bydgoszcz,Poland,16.0,7.7
+2026-01-01,LFTH,Hyères-Le Palyvestre,France,4.0,7.7
+2026-01-01,LGKR,Corfu,Greece,13.0,7.7
+2026-01-01,LFRK,Caen-Carpiquet,France,11.0,7.7
+2026-01-01,ENSK,Stokmarknes Skagen,Norway,12.0,7.7
+2026-01-01,LFPN,Toussus-le-Noble,France,14.0,7.7
+2026-01-01,EHBK,Maastricht-Aachen,Netherlands,10.0,7.4
+2026-01-01,LFLC,Clermont-Ferrand-Auvergne,France,9.0,7.4
+2026-01-01,LPCS,Cascais,Portugal,5.0,7.4
+2026-01-01,LFBT,Tarbes-Lourdes Pyrénées,France,10.0,7.2
+2026-01-01,LELL,Sabadell,Spain,11.0,7.1
+2026-01-01,GCGM,La Gomera,Spain,8.0,7.1
+2026-01-01,LFKC,Calvi-Sainte-Catherine,France,6.0,7.1
+2026-01-01,LOWK,Klagenfurt,Austria,6.0,7.1
+2026-01-01,LFLP,Annecy-Meythet,France,10.0,7.0
+2026-01-01,LFMV,Avignon-Caumont,France,2.0,7.0
+2026-01-01,LERT,Rota,Spain,10.0,7.0
+2026-01-01,ENML,Molde Årø,Norway,9.0,7.0
+2026-01-01,EIKY,Kerry - Farranfore,Ireland,8.0,7.0
+2026-01-01,EYPA,Palanga,Lithuania,3.0,7.0
+2026-01-01,EPSC,Szczecin - Goleniów,Poland,8.0,7.0
+2026-01-01,EPLB,Lublin,Poland,8.0,7.0
+2026-01-01,LOWL,Linz,Austria,3.0,7.0
+2026-01-01,EGAE,Londonderry - Eglinton,United Kingdom,10.0,7.0
+2026-01-01,LPPS,Porto Santo,Portugal,5.0,6.8
+2026-01-01,ENMS,Mosjøen Kjærstad,Norway,5.0,6.7
+2026-01-01,LEPP,Noain Pamplona,Spain,8.0,6.7
+2026-01-01,ENST,Sandnessjøen Stokka,Norway,3.0,6.7
+2026-01-01,ENRA,Mo i Rana Røssvoll,Norway,7.0,6.6
+2026-01-01,LFCR,Rodez-Marcillac,France,5.0,6.6
+2026-01-01,EETU,Tartu,Estonia,4.0,6.5
+2026-01-01,LEBZ,Badajoz,Spain,4.0,6.5
+2026-01-01,LEVD,Valladolid,Spain,2.0,6.5
+2026-01-01,EHGG,Groningen,Netherlands,1.0,6.4
+2026-01-01,LFBL,Limoges-Bellegarde,France,2.0,6.0
+2026-01-01,LGZA,Zakinthos,Greece,8.0,6.0
+2026-01-01,LPAZ,Santa Maria,Portugal,4.0,6.0
+2026-01-01,LGKF,Kefallinia,Greece,8.0,6.0
+2026-01-01,LEDA,Lleida - Alguaire,Spain,0.0,6.0
+2026-01-01,LGMK,Mikonos,Greece,4.0,6.0
+2026-01-01,LFTW,Nîmes-Garons,France,6.0,6.0
+2026-01-01,LFBH,La Rochelle-Ile de Ré,France,5.0,6.0
+2026-01-01,LFOP,Rouen,France,4.0,6.0
+2026-01-01,LEMO,Seville - Moron,Spain,0.0,5.8
+2026-01-01,ENMH,Mehamn,Norway,4.0,5.8
+2026-01-01,LECU,Madrid - Cuatro Viento,Spain,2.0,5.8
+2026-01-01,LFRH,Lorient-Lann Bihoué,France,1.0,5.8
+2026-01-01,LFJL,Metz-Nancy-Lorraine,France,6.0,5.6
+2026-01-01,LFBE,Bergerac-Roumanière,France,2.0,5.6
+2026-01-01,LELN,Leon,Spain,4.0,5.6
+2026-01-01,LFRD,Dinard-Pleurtuit-Saint-Malo,France,2.0,5.6
+2026-01-01,EYSA,Siauliai,Lithuania,4.0,5.6
+2026-01-01,LFRG,Deauville-Normandie,France,2.0,5.6
+2026-01-01,LFAQ,Albert-Bray,France,2.0,5.5
+2026-01-01,LESB,Son Bonet,Spain,3.0,5.5
+2026-01-01,LFOT,Tours-Val de Loire,France,2.0,5.5
+2026-01-01,ENVR,Værøy,Norway,2.0,5.5
+2026-01-01,LFOH,Le Havre-Octeville,France,2.0,5.5
+2026-01-01,ENNA,Lakselv Banak,Norway,3.0,5.5
+2026-01-01,LJMB,Maribor,Slovenia,1.0,5.5
+2026-01-01,LERS,Reus,Spain,4.0,5.5
+2026-01-01,EHLE,Lelystad,Netherlands,0.0,5.5
+2026-01-01,LFMK,Carcassonne-Salvaza,France,2.0,5.5
+2026-01-01,LFLI,Annemasse,France,5.0,5.5
+2026-01-01,LFRZ,Saint-Nazaire-Montoir,France,1.0,5.5
+2026-01-01,LFLX,Châteauroux-Déols,France,0.0,5.5
+2026-01-01,LFSL,Brive-Souillac,France,0.0,5.5
+2026-01-01,ENLK,Leknes,Norway,2.0,5.5
+2026-01-01,LFGJ,Dôle-Tavaux,France,4.0,5.5
+2026-01-01,LPMT,Montijo,Portugal,1.0,5.5
+2026-01-01,EPZG,Zielona Gora - Babimost,Poland,1.0,5.5
+2026-01-01,LPFL,Flores,Portugal,4.0,5.5
+2026-01-01,EPSY,Olsztyn-Mazury,Poland,2.0,5.5
+2026-01-01,LGPZ,Aktion,Greece,4.0,5.5
+2026-01-01,LFJR,Angers-Marcé,France,2.0,5.5
