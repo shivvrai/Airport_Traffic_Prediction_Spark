@@ -1,0 +1,5 @@
+Model,MAE (Flights/Day),RMSE (Flights/Day),WMAPE (%),R2 Score,Improvement vs Baseline (MAE)
+Previous-Day Baseline,17.43,33.75,12.09%,0.9809,0.0% (Reference)
+Linear Regression,10.37,21.17,7.20%,0.9925,+40.5%
+Gradient-Boosted Trees (GBT),12.99,25.44,9.01%,0.9891,+25.5%
+Random Forest Regressor,13.85,26.80,9.62%,0.9879,+20.5%
