@@ -21,7 +21,11 @@ Distributed data analysis, exploratory data profiling, and next-day time-series 
 5. [Key Findings & Insights](#-key-findings--insights)
 6. [Repository Structure](#-repository-structure)
 7. [How to Run](#-how-to-run)
-8. [Resume / CV Project Points](#-resume--cv-project-points)
+8. [Mathematical Proofs & Metrics Dictionary](MODEL_EXPLANATION_AND_PROOFS.md)
+9. [Resume / CV Project Points](#-resume--cv-project-points)
+
+> 🔬 **Looking for mathematical proofs and why specific values were chosen?**  
+> Check out the complete [**Model Explanation, Mathematical Proofs & Metrics Dictionary**](MODEL_EXPLANATION_AND_PROOFS.md) for empirical lag comparisons, $R^2$ derivations, and coefficient proofs.
 
 ---
 
