@@ -1,5 +1,6 @@
 """
-✈️ Airport Traffic Prediction Dashboard  –  INT315 Cluster Computing
+Airport Traffic Prediction & Network Analytics Dashboard
+Course: INT315 – Cluster Computing | PySpark MLlib Infrastructure
 Author: Rai Yashmit Ashok | Reg: 12313527
 """
 
@@ -14,349 +15,454 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings("ignore")
 
-# ─── Page config ──────────────────────────────────────────────────────────────
+# ─── Page Configuration ────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="✈️ Airport Traffic Prediction",
-    page_icon="✈️",
+    page_title="Airport Traffic Forecasting · Eurocontrol",
+    page_icon="https://cdn-icons-png.flaticon.com/512/7893/7893979.png",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-# ─── CSS ──────────────────────────────────────────────────────────────────────
-st.markdown("""
+# ─── Professional SVG Vector Icons (No Emojis) ─────────────────────────────────
+SVG_PLANE = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>'
+SVG_DATABASE = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>'
+SVG_AIRPORT = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="22.01"></line><line x1="15" y1="22" x2="15" y2="22.01"></line><line x1="9" y1="6" x2="9" y2="6.01"></line><line x1="15" y1="6" x2="15" y2="6.01"></line><line x1="9" y1="10" x2="9" y2="10.01"></line><line x1="15" y1="10" x2="15" y2="10.01"></line><line x1="9" y1="14" x2="9" y2="14.01"></line><line x1="15" y1="14" x2="15" y2="14.01"></line><line x1="9" y1="18" x2="9" y2="18.01"></line><line x1="15" y1="18" x2="15" y2="18.01"></line></svg>'
+SVG_TARGET = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>'
+SVG_TREND = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'
+SVG_CYCLE = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>'
+SVG_CALENDAR = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>'
+SVG_CHART = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>'
+SVG_GLOBE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
+SVG_LAYERS = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>'
+SVG_PIN = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'
+SVG_CLOCK = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
+
+# ─── Navigation Header & Theme Switcher ─────────────────────────────────────────
+top_left, top_right = st.columns([3.8, 1.2], vertical_alignment="center")
+
+with top_left:
+    st.markdown(f"""
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:12px;">
+      <div style="background:linear-gradient(135deg,#3b82f6,#6366f1); color:#fff; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(59,130,246,0.35);">
+        {SVG_PLANE}
+      </div>
+      <div>
+        <div style="font-size:1.05rem; font-weight:800; letter-spacing:0.04em; line-height:1.2;">EUROCONTROL AIR TRAFFIC ANALYTICS</div>
+        <div style="font-size:0.75rem; color:#64748b; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">Distributed PySpark MLlib Predictive Engine · INT315</div>
+      </div>
+      <div style="margin-left:14px; display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.35); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; color:#10b981; letter-spacing:0.06em;">
+        <span style="width:6px; height:6px; border-radius:50%; background:#10b981; display:inline-block;"></span> CLUSTER ACTIVE
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with top_right:
+    if hasattr(st, "segmented_control"):
+        theme_mode = st.segmented_control(
+            "Interface Theme",
+            options=["Dark Mode", "Light Mode"],
+            default=st.session_state.get("theme_mode", "Dark Mode"),
+            key="theme_mode",
+            label_visibility="collapsed"
+        )
+    else:
+        theme_mode = st.radio(
+            "Interface Theme",
+            options=["Dark Mode", "Light Mode"],
+            index=0 if st.session_state.get("theme_mode", "Dark Mode") == "Dark Mode" else 1,
+            horizontal=True,
+            key="theme_mode",
+            label_visibility="collapsed"
+        )
+
+is_dark = (theme_mode == "Dark Mode")
+
+# ─── Dynamic CSS & Design System ───────────────────────────────────────────────
+if is_dark:
+    BG_APP          = "#070b14"
+    BG_MESH         = "radial-gradient(ellipse at 15% 0%, rgba(59,130,246,0.14) 0%, transparent 60%), radial-gradient(ellipse at 85% 0%, rgba(99,102,241,0.10) 0%, transparent 50%)"
+    TEXT_MAIN       = "#f8fafc"
+    TEXT_MUTED      = "#94a3b8"
+    TEXT_LABEL      = "#64748b"
+    CARD_BG         = "#0d1527"
+    CARD_BORDER     = "rgba(255,255,255,0.08)"
+    CARD_HOVER      = "rgba(99,102,241,0.35)"
+    CARD_SHADOW     = "0 6px 20px rgba(0,0,0,0.3)"
+    HERO_BG         = "linear-gradient(135deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%)"
+    HERO_BORDER     = "rgba(255,255,255,0.1)"
+    HERO_TITLE_GRAD = "linear-gradient(90deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)"
+    PLOT_BG         = "#0d1527"
+    PLOT_GRID       = "#1e293b"
+    PLOT_AXIS       = "#334155"
+    TABLE_HDR_BG    = "#111c33"
+    TABLE_ROW_ALT   = "#09101f"
+    ACCENT_COLOR    = "#6366f1"
+    TAB_LIST_BG     = "#0d1527"
+    TAB_BORDER      = "rgba(255,255,255,0.08)"
+    TAB_ACTIVE_BG   = "linear-gradient(135deg, #3b82f6, #6366f1)"
+    TAB_ACTIVE_CLR  = "#ffffff"
+    SELECT_BG       = "#0d1527"
+    SELECT_BORDER   = "#334155"
+else:
+    BG_APP          = "#f8fafc"
+    BG_MESH         = "radial-gradient(ellipse at 15% 0%, rgba(59,130,246,0.06) 0%, transparent 60%), radial-gradient(ellipse at 85% 0%, rgba(99,102,241,0.04) 0%, transparent 50%)"
+    TEXT_MAIN       = "#0f172a"
+    TEXT_MUTED      = "#475569"
+    TEXT_LABEL      = "#64748b"
+    CARD_BG         = "#ffffff"
+    CARD_BORDER     = "#e2e8f0"
+    CARD_HOVER      = "rgba(59,130,246,0.35)"
+    CARD_SHADOW     = "0 4px 16px rgba(15,23,42,0.06)"
+    HERO_BG         = "linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)"
+    HERO_BORDER     = "#e2e8f0"
+    HERO_TITLE_GRAD = "linear-gradient(90deg, #0f172a 0%, #334155 50%, #1e293b 100%)"
+    PLOT_BG         = "#ffffff"
+    PLOT_GRID       = "#f1f5f9"
+    PLOT_AXIS       = "#cbd5e1"
+    TABLE_HDR_BG    = "#f1f5f9"
+    TABLE_ROW_ALT   = "#f8fafc"
+    ACCENT_COLOR    = "#2563eb"
+    TAB_LIST_BG     = "#ffffff"
+    TAB_BORDER      = "#e2e8f0"
+    TAB_ACTIVE_BG   = "linear-gradient(135deg, #2563eb, #4f46e5)"
+    TAB_ACTIVE_CLR  = "#ffffff"
+    SELECT_BG       = "#ffffff"
+    SELECT_BORDER   = "#cbd5e1"
+
+st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-html, body, * { font-family: 'Inter', sans-serif !important; }
+html, body, [class*="css"], * {{
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}}
 
-/* Background */
-.stApp {
-    background: #050816;
-    background-image:
-        radial-gradient(ellipse at 20% 10%, rgba(99,102,241,0.18) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(168,85,247,0.12) 0%, transparent 50%);
-}
+code, pre, .font-mono {{
+    font-family: 'JetBrains Mono', monospace !important;
+}}
 
-/* Sidebar collapse (we don't use it) */
-[data-testid="stSidebar"] { display: none; }
-[data-testid="collapsedControl"] { display: none; }
+.stApp {{
+    background-color: {BG_APP} !important;
+    background-image: {BG_MESH} !important;
+    color: {TEXT_MAIN} !important;
+}}
 
-/* Main content padding */
-.block-container { padding: 2rem 3rem 3rem 3rem !important; max-width: 100% !important; }
+[data-testid="stSidebar"] {{ display: none; }}
+[data-testid="collapsedControl"] {{ display: none; }}
+.block-container {{ padding: 1.5rem 2.5rem 3rem 2.5rem !important; max-width: 100% !important; }}
 
-/* ── HERO ── */
-.hero {
-    background: linear-gradient(135deg,
-        rgba(99,102,241,0.2) 0%,
-        rgba(168,85,247,0.15) 50%,
-        rgba(59,130,246,0.1) 100%);
-    border: 1px solid rgba(99,102,241,0.4);
-    border-radius: 24px;
-    padding: 32px 40px;
-    margin-bottom: 32px;
+/* Keyframes & Smooth Transitions */
+@keyframes fadeInUp {{
+    from {{ opacity: 0; transform: translateY(8px); }}
+    to   {{ opacity: 1; transform: translateY(0); }}
+}}
+
+.hero {{
+    background: {HERO_BG};
+    border: 1px solid {HERO_BORDER};
+    border-radius: 20px;
+    padding: 28px 36px;
+    margin-bottom: 24px;
+    box-shadow: {CARD_SHADOW};
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     position: relative;
     overflow: hidden;
-}
-.hero::before {
-    content:'';
-    position:absolute; top:-60px; right:-60px;
-    width:250px; height:250px;
-    background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
-    pointer-events:none;
-}
-.hero-tag {
+}}
+
+.hero-tag {{
     display: inline-block;
-    background: rgba(99,102,241,0.25);
-    border: 1px solid rgba(99,102,241,0.5);
-    color: #a5b4fc;
-    font-size: 0.7rem;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: {ACCENT_COLOR};
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 4px 12px;
     border-radius: 20px;
-    margin-bottom: 14px;
-}
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 50%, #c084fc 100%);
+    margin-bottom: 12px;
+}}
+
+.hero-title {{
+    font-size: 2.3rem;
+    font-weight: 800;
+    background: {HERO_TITLE_GRAD};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
+    line-height: 1.15;
     margin: 0 0 10px 0;
-}
-.hero-desc {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    margin: 0;
-    max-width: 680px;
-    line-height: 1.6;
-}
-.hero-right {
-    text-align: right;
-}
-.hero-stat {
-    font-size: 2.8rem;
-    font-weight: 900;
-    color: #c084fc;
-    line-height: 1;
-}
-.hero-stat-label {
-    font-size: 0.72rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 4px;
-}
+    letter-spacing: -0.02em;
+}}
 
-/* ── KPI CARDS ── */
-.kpi-row {
+.hero-desc {{
+    font-size: 0.88rem;
+    color: {TEXT_MUTED};
+    margin: 0;
+    max-width: 720px;
+    line-height: 1.6;
+}}
+
+/* KPI Metric Cards */
+.kpi-grid {{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-}
-.kpi {
-    background: #0d1117;
-    border: 1px solid #1e2433;
+    gap: 14px;
+    margin-bottom: 28px;
+}}
+
+.kpi {{
+    background: {CARD_BG};
+    border: 1px solid {CARD_BORDER};
     border-radius: 16px;
-    padding: 22px 20px;
-    text-align: center;
+    padding: 20px 18px;
+    box-shadow: {CARD_SHADOW};
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
     position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-    cursor: default;
-}
-.kpi:hover { transform: translateY(-2px); }
-.kpi.blue  { border-top: 3px solid #6366f1; }
-.kpi.purple{ border-top: 3px solid #a855f7; }
-.kpi.green { border-top: 3px solid #10b981; }
-.kpi.amber { border-top: 3px solid #f59e0b; }
-.kpi.pink  { border-top: 3px solid #ec4899; }
-.kpi-emoji { font-size: 1.6rem; margin-bottom: 10px; }
-.kpi-val {
-    font-size: 2rem;
-    font-weight: 900;
-    color: #f1f5f9;
+}}
+
+.kpi:hover {{
+    transform: translateY(-3px);
+    border-color: {CARD_HOVER};
+    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+}}
+
+.kpi-icon-wrap {{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}}
+
+.kpi.blue .kpi-icon-wrap {{ background: rgba(59,130,246,0.12); color: #3b82f6; }}
+.kpi.purple .kpi-icon-wrap {{ background: rgba(139,92,246,0.12); color: #8b5cf6; }}
+.kpi.green .kpi-icon-wrap {{ background: rgba(16,185,129,0.12); color: #10b981; }}
+.kpi.amber .kpi-icon-wrap {{ background: rgba(245,158,11,0.12); color: #f59e0b; }}
+.kpi.indigo .kpi-icon-wrap {{ background: rgba(99,102,241,0.12); color: #6366f1; }}
+
+.kpi-val {{
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: {TEXT_MAIN};
     letter-spacing: -0.03em;
     line-height: 1;
-}
-.kpi-label {
-    font-size: 0.67rem;
-    color: #475569;
+}}
+
+.kpi-label {{
+    font-size: 0.68rem;
+    color: {TEXT_LABEL};
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     font-weight: 700;
     margin-top: 8px;
-}
-.kpi-sub {
-    font-size: 0.76rem;
-    margin-top: 6px;
-    font-weight: 600;
-}
-.kpi.blue  .kpi-sub { color: #818cf8; }
-.kpi.purple .kpi-sub { color: #c084fc; }
-.kpi.green .kpi-sub { color: #34d399; }
-.kpi.amber .kpi-sub { color: #fbbf24; }
-.kpi.pink  .kpi-sub { color: #f472b6; }
+}}
 
-/* ── SECTION TITLE ── */
-.sec-title {
-    font-size: 1rem;
+.kpi-sub {{
+    font-size: 0.74rem;
+    color: {TEXT_MUTED};
+    margin-top: 4px;
+    font-weight: 500;
+}}
+
+/* Section Headings */
+.sec-head {{
+    font-size: 0.95rem;
     font-weight: 700;
-    color: #e2e8f0;
-    margin: 28px 0 16px 0;
+    color: {TEXT_MAIN};
+    margin: 24px 0 14px 0;
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-.sec-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, #1e2433, transparent);
-}
+    gap: 8px;
+    letter-spacing: 0.01em;
+}}
 
-/* ── TAB PILLS ── */
-[data-testid="stTabs"] [role="tablist"] {
-    background: #0d1117;
-    border: 1px solid #1e2433;
-    border-radius: 16px;
-    padding: 6px;
+.sec-head svg {{
+    color: {ACCENT_COLOR};
+}}
+
+/* Tab Navigation */
+[data-testid="stTabs"] [role="tablist"] {{
+    background: {TAB_LIST_BG};
+    border: 1px solid {TAB_BORDER};
+    border-radius: 14px;
+    padding: 5px;
     gap: 6px;
-}
-button[role="tab"] {
+    box-shadow: {CARD_SHADOW};
+}}
+
+button[role="tab"] {{
     background: transparent !important;
-    border-radius: 12px !important;
-    color: #475569 !important;
+    border-radius: 10px !important;
+    color: {TEXT_LABEL} !important;
     font-weight: 600 !important;
     font-size: 0.85rem !important;
-    padding: 9px 22px !important;
+    padding: 8px 20px !important;
     border: none !important;
-    transition: all 0.15s !important;
-}
-button[role="tab"][aria-selected="true"] {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 14px rgba(99,102,241,0.35) !important;
-}
-button[role="tab"]:hover:not([aria-selected="true"]) {
-    background: #1e2433 !important;
-    color: #94a3b8 !important;
-}
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}}
 
-/* ── METRIC BOXES ── */
-[data-testid="stMetric"] {
-    background: #0d1117;
-    border: 1px solid #1e2433;
-    border-radius: 14px;
-    padding: 16px 20px !important;
-}
-[data-testid="stMetricValue"] {
-    color: #f1f5f9 !important;
-    font-size: 1.7rem !important;
-    font-weight: 800 !important;
-}
-[data-testid="stMetricLabel"] {
-    color: #64748b !important;
-    font-size: 0.72rem !important;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-[data-testid="stMetricDelta"] { color: #34d399 !important; font-size: 0.8rem !important; }
-[data-testid="stMetricDelta"] svg { display: none !important; }
+button[role="tab"][aria-selected="true"] {{
+    background: {TAB_ACTIVE_BG} !important;
+    color: {TAB_ACTIVE_CLR} !important;
+    box-shadow: 0 4px 14px rgba(59,130,246,0.3) !important;
+}}
 
-/* ── SELECT BOX ── */
-[data-testid="stSelectbox"] > div > div {
-    background: #0d1117 !important;
-    border: 1px solid #2d3748 !important;
-    border-radius: 12px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.9rem !important;
-}
-[data-testid="stSelectbox"] label {
-    color: #94a3b8 !important;
-    font-weight: 600 !important;
-    font-size: 0.82rem !important;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
+button[role="tab"]:hover:not([aria-selected="true"]) {{
+    background: rgba(125,125,125,0.08) !important;
+    color: {TEXT_MAIN} !important;
+}}
 
-/* ── DATAFRAME ── */
-[data-testid="stDataFrame"] iframe { border-radius: 12px; }
-.dvn-scroller { background: #0d1117 !important; }
-
-/* ── AIRPORT CARD ── */
-.apt-card {
-    background: linear-gradient(135deg, #0d1117, #111827);
-    border: 1px solid #1e2433;
+/* Airport Detail Card */
+.apt-card {{
+    background: {CARD_BG};
+    border: 1px solid {CARD_BORDER};
     border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-}
-.apt-card-name {
-    font-size: 1.3rem;
+    padding: 24px 26px;
+    box-shadow: {CARD_SHADOW};
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}}
+
+.apt-card-name {{
+    font-size: 1.35rem;
     font-weight: 800;
-    color: #f1f5f9;
-}
-.apt-card-icao {
+    color: {TEXT_MAIN};
+}}
+
+.apt-card-icao {{
     display: inline-block;
-    background: rgba(99,102,241,0.2);
-    border: 1px solid rgba(99,102,241,0.4);
-    color: #a5b4fc;
-    font-size: 0.75rem;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: {ACCENT_COLOR};
+    font-size: 0.72rem;
     font-weight: 700;
     padding: 2px 10px;
     border-radius: 6px;
     margin-top: 4px;
-}
-.apt-card-country {
-    font-size: 0.82rem;
-    color: #64748b;
-    margin-top: 4px;
-}
+}}
 
-/* ── FORECAST BANNER ── */
-.forecast-banner {
-    background: linear-gradient(135deg,
-        rgba(99,102,241,0.15), rgba(168,85,247,0.1));
-    border: 1px solid rgba(99,102,241,0.35);
+.apt-card-country {{
+    font-size: 0.82rem;
+    color: {TEXT_LABEL};
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}}
+
+/* Forecast Banner */
+.forecast-card {{
+    background: {CARD_BG};
+    border: 1px solid {CARD_BORDER};
     border-radius: 16px;
-    padding: 20px 24px;
+    padding: 22px 24px;
     text-align: center;
-    margin-top: 12px;
-}
-.forecast-num {
-    font-size: 2.8rem;
-    font-weight: 900;
-    color: #a5b4fc;
+    box-shadow: {CARD_SHADOW};
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}}
+
+.forecast-num {{
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: {ACCENT_COLOR};
     letter-spacing: -0.04em;
     line-height: 1;
-}
-.forecast-label {
-    font-size: 0.72rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 6px;
+    margin: 8px 0;
+}}
+
+.forecast-badge {{
+    display: inline-block;
+    font-size: 0.68rem;
     font-weight: 700;
-}
-.forecast-date {
-    font-size: 0.85rem;
-    color: #34d399;
-    font-weight: 600;
-    margin-top: 8px;
-}
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: {TEXT_LABEL};
+}}
 
-/* ── FOOTER ── */
-.footer {
+/* Custom Table Styles */
+.custom-table {{
+    width: 100%;
+    border-collapse: collapse;
+    background: {CARD_BG};
+    border: 1px solid {CARD_BORDER};
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: {CARD_SHADOW};
+}}
+
+.custom-table th {{
+    padding: 10px 14px;
+    background: {TABLE_HDR_BG};
+    color: {TEXT_LABEL};
+    font-size: 0.70rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 1px solid {CARD_BORDER};
+}}
+
+.custom-table td {{
+    padding: 10px 14px;
+    color: {TEXT_MAIN};
+    font-size: 0.84rem;
+    border-bottom: 1px solid {CARD_BORDER};
+}}
+
+.custom-table tr:last-child td {{ border-bottom: none; }}
+.custom-table tr:hover td {{ background: rgba(125,125,125,0.04); }}
+
+/* Footer */
+.footer {{
     margin-top: 48px;
-    padding-top: 20px;
-    border-top: 1px solid #1e2433;
+    padding-top: 24px;
+    border-top: 1px solid {CARD_BORDER};
     text-align: center;
-    color: #334155;
+    color: {TEXT_LABEL};
     font-size: 0.78rem;
-}
+    line-height: 1.6;
+}}
 
-/* Hide Streamlit branding */
-#MainMenu, footer, header, .stDeployButton { visibility: hidden !important; }
+/* Hide Default Streamlit Elements */
+#MainMenu, footer, header, .stDeployButton {{ visibility: hidden !important; }}
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Chart theme ──────────────────────────────────────────────────────────────
-PLOT_BG   = "#0d1117"
-PAPER_BG  = "rgba(0,0,0,0)"
-FONT_CLR  = "#94a3b8"
-GRID_CLR  = "#1e2433"
-AXIS_CLR  = "#2d3748"
-
+# ─── Plotly Base Layout ────────────────────────────────────────────────────────
 def base_layout(h=320, legend=False):
+    font_clr = TEXT_MUTED
+    grid_clr = PLOT_GRID
+    axis_clr = PLOT_AXIS
+    plot_bg  = PLOT_BG
+    template = "plotly_dark" if is_dark else "plotly_white"
+
     d = dict(
-        template="plotly_dark",
-        paper_bgcolor=PAPER_BG,
-        plot_bgcolor=PLOT_BG,
-        font=dict(family="Inter", color=FONT_CLR, size=11),
-        margin=dict(l=8, r=8, t=28, b=8),
+        template=template,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor=plot_bg,
+        font=dict(family="Plus Jakarta Sans, sans-serif", color=font_clr, size=11),
+        margin=dict(l=14, r=14, t=32, b=14),
         height=h,
-        xaxis=dict(gridcolor=GRID_CLR, zerolinecolor=AXIS_CLR, linecolor=AXIS_CLR),
-        yaxis=dict(gridcolor=GRID_CLR, zerolinecolor=AXIS_CLR, linecolor=AXIS_CLR),
+        xaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
+        yaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
     )
     if legend:
         d["legend"] = dict(
-            bgcolor="rgba(13,17,23,0.8)",
-            bordercolor=GRID_CLR, borderwidth=1,
-            font=dict(size=11), orientation="h", y=1.08
+            bgcolor="rgba(0,0,0,0)",
+            font=dict(size=11, color=font_clr),
+            orientation="h",
+            y=1.09,
+            x=0
         )
     return d
 
-ACCENT   = ["#6366f1","#a855f7","#10b981","#f59e0b","#ec4899","#06b6d4"]
-BLUES    = [[0,"#1e1b4b"],[0.5,"#6366f1"],[1,"#a5b4fc"]]
-PURPLES  = [[0,"#2e1065"],[0.5,"#a855f7"],[1,"#e9d5ff"]]
-GREENS   = [[0,"#022c22"],[0.5,"#10b981"],[1,"#6ee7b7"]]
+BLUES_SCALE   = [[0, "#1e293b" if is_dark else "#dbeafe"], [0.5, "#3b82f6"], [1, "#93c5fd" if is_dark else "#1d4ed8"]]
+PURPLES_SCALE = [[0, "#2e1065" if is_dark else "#ede9fe"], [0.5, "#8b5cf6"], [1, "#c084fc" if is_dark else "#6d28d9"]]
+GREENS_SCALE  = [[0, "#064e3b" if is_dark else "#d1fae5"], [0.5, "#10b981"], [1, "#6ee7b7" if is_dark else "#047857"]]
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
+# ─── Resilient File Path Resolution ────────────────────────────────────────────
 def resolve_data_path(filename: str) -> Path:
     candidates = [
         Path(filename),
@@ -372,16 +478,16 @@ DATA_CSV = resolve_data_path("airport_traffic_2025.csv")
 FORE_CSV = resolve_data_path("colab_output.csv")
 MET_CSV  = resolve_data_path("model_evaluation_metrics.csv")
 
-# ─── Data loaders ─────────────────────────────────────────────────────────────
+# ─── Cached Data Loaders ───────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
 def load_hist():
     df = pd.read_csv(DATA_CSV, parse_dates=["FLT_DATE"])
     df["FLT_TOT_1"] = pd.to_numeric(df["FLT_TOT_1"], errors="coerce")
-    df = df.dropna(subset=["FLT_TOT_1","FLT_DATE"])
-    df["MONTH_NUM"]  = df["FLT_DATE"].dt.month
-    df["MONTH_ABB"]  = df["FLT_DATE"].dt.strftime("%b")
-    df["DOW"]        = df["FLT_DATE"].dt.day_name()
-    df["DOW_NUM"]    = df["FLT_DATE"].dt.dayofweek
+    df = df.dropna(subset=["FLT_TOT_1", "FLT_DATE"])
+    df["MONTH_NUM"] = df["FLT_DATE"].dt.month
+    df["MONTH_ABB"] = df["FLT_DATE"].dt.strftime("%b")
+    df["DOW"]       = df["FLT_DATE"].dt.day_name()
+    df["DOW_NUM"]   = df["FLT_DATE"].dt.dayofweek
     return df
 
 @st.cache_data(show_spinner=False)
@@ -395,13 +501,13 @@ def load_metrics():
     return pd.read_csv(MET_CSV)
 
 @st.cache_data(show_spinner=False)
-def build_profiles(hist):
-    p = hist.groupby(["APT_ICAO","APT_NAME","STATE_NAME"]).agg(
-        total   =("FLT_TOT_1","sum"),
-        avg_day =("FLT_TOT_1","mean"),
-        peak    =("FLT_TOT_1","max"),
-        variab  =("FLT_TOT_1","std"),
-        days    =("FLT_DATE","nunique"),
+def build_profiles(hist_df):
+    p = hist_df.groupby(["APT_ICAO", "APT_NAME", "STATE_NAME"]).agg(
+        total   =("FLT_TOT_1", "sum"),
+        avg_day =("FLT_TOT_1", "mean"),
+        peak    =("FLT_TOT_1", "max"),
+        variab  =("FLT_TOT_1", "std"),
+        days    =("FLT_DATE", "nunique"),
     ).reset_index()
     p["avg_day"] = p["avg_day"].round(1)
     p["peak"]    = p["peak"].round(0).astype(int)
@@ -409,93 +515,90 @@ def build_profiles(hist):
     return p
 
 @st.cache_data(show_spinner=False)
-def cluster_airports(profile):
-    feats = profile[["avg_day","variab","peak"]].fillna(0)
+def cluster_airports(profile_df):
+    feats = profile_df[["avg_day", "variab", "peak"]].fillna(0)
     X = StandardScaler().fit_transform(feats)
     labels = KMeans(n_clusters=3, random_state=42, n_init=10).fit_predict(X)
-    profile = profile.copy()
-    profile["_c"] = labels
-    means = profile.groupby("_c")["avg_day"].mean().sort_values()
-    tier_map  = {i:t for i,t in zip(means.index,["Small / Regional","Medium Hub","Major Hub"])}
-    color_map = {i:c for i,c in zip(means.index,["#10b981","#f59e0b","#6366f1"])}
-    profile["tier"]  = profile["_c"].map(tier_map)
-    profile["color"] = profile["_c"].map(color_map)
-    return profile
+    res = profile_df.copy()
+    res["_c"] = labels
+    means = res.groupby("_c")["avg_day"].mean().sort_values()
+    tier_map  = {i: t for i, t in zip(means.index, ["Small / Regional", "Medium Hub", "Major Hub"])}
+    color_map = {i: c for i, c in zip(means.index, ["#10b981", "#f59e0b", "#6366f1"])}
+    res["tier"]  = res["_c"].map(tier_map)
+    res["color"] = res["_c"].map(color_map)
+    return res
 
-# ─── Load ─────────────────────────────────────────────────────────────────────
 hist     = load_hist()
 forecast = load_forecast()
 metrics  = load_metrics()
 profile  = cluster_airports(build_profiles(hist))
 
-# ─── HERO ─────────────────────────────────────────────────────────────────────
-c_left, c_right = st.columns([3,1])
-with c_left:
-    st.markdown("""
-    <div class="hero">
-      <div class="hero-tag">INT315 · Cluster Computing · PySpark MLlib</div>
-      <h1 class="hero-title">✈️ Airport Traffic<br>Prediction Dashboard</h1>
-      <p class="hero-desc">
-        Distributed analysis &amp; next-day forecasting of IFR flight movements across
-        <strong style="color:#a5b4fc">331 European airports in 42 countries</strong>
-        using Apache Spark MLlib — Linear Regression · Random Forest · Gradient-Boosted Trees.
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
+# ─── Hero Overview Card ────────────────────────────────────────────────────────
+st.markdown(f"""
+<div class="hero">
+  <div class="hero-tag">Aviation Infrastructure · Distributed PySpark MLlib</div>
+  <h1 class="hero-title">Airport Traffic Forecasting &amp; Network Analytics</h1>
+  <p class="hero-desc">
+    Scalable distributed processing, time-series feature engineering, and next-day forecasting of IFR flight movements across
+    <strong style="color:{ACCENT_COLOR}">331 European airports in 42 sovereign states</strong> using Apache Spark MLlib 
+    (Linear Regression · Random Forest · Gradient-Boosted Trees).
+  </p>
+</div>
+""", unsafe_allow_html=True)
 
-# ─── KPI CARDS ────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="kpi-row">
+# ─── KPI Metric Cards (No Emojis, Pure SVG) ────────────────────────────────────
+st.markdown(f"""
+<div class="kpi-grid">
   <div class="kpi blue">
-    <div class="kpi-emoji">🗃️</div>
+    <div class="kpi-icon-wrap">{SVG_DATABASE}</div>
     <div class="kpi-val">116,020</div>
     <div class="kpi-label">Records Processed</div>
     <div class="kpi-sub">365 calendar days · 2025</div>
   </div>
   <div class="kpi purple">
-    <div class="kpi-emoji">🏭</div>
+    <div class="kpi-icon-wrap">{SVG_AIRPORT}</div>
     <div class="kpi-val">331</div>
-    <div class="kpi-label">European Airports</div>
-    <div class="kpi-sub">across 42 countries</div>
+    <div class="kpi-label">Monitored Airports</div>
+    <div class="kpi-sub">across 42 European states</div>
   </div>
   <div class="kpi green">
-    <div class="kpi-emoji">🎯</div>
+    <div class="kpi-icon-wrap">{SVG_TARGET}</div>
     <div class="kpi-val">0.9925</div>
-    <div class="kpi-label">R² Score (Test Set)</div>
-    <div class="kpi-sub">Linear Regression · Best</div>
+    <div class="kpi-label">Test Set R² Score</div>
+    <div class="kpi-sub">Linear Regression · Best Model</div>
   </div>
   <div class="kpi amber">
-    <div class="kpi-emoji">📉</div>
+    <div class="kpi-icon-wrap">{SVG_TREND}</div>
     <div class="kpi-val">40.5%</div>
     <div class="kpi-label">MAE Improvement</div>
     <div class="kpi-sub">17.43 → 10.37 flights/day</div>
   </div>
-  <div class="kpi pink">
-    <div class="kpi-emoji">🔁</div>
-    <div class="kpi-val">95.5%</div>
-    <div class="kpi-label">Weekly Lag Importance</div>
-    <div class="kpi-sub">dominant signal · lag-7</div>
+  <div class="kpi indigo">
+    <div class="kpi-icon-wrap">{SVG_CYCLE}</div>
+    <div class="kpi-val">70.0%</div>
+    <div class="kpi-label">Weekly Cycle Weight</div>
+    <div class="kpi-sub">β = 0.700 · 7-Day Timetable</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ─── TABS ─────────────────────────────────────────────────────────────────────
+# ─── Navigation Tabs ───────────────────────────────────────────────────────────
 T1, T2, T3, T4 = st.tabs([
-    "📊  Traffic Overview",
-    "🔍  Airport Explorer",
-    "🤖  Model Performance",
-    "🗂️  Airport Clustering",
+    "Traffic Overview",
+    "Airport Explorer",
+    "Model Benchmarks",
+    "Cluster Segmentation"
 ])
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  TAB 1 — TRAFFIC OVERVIEW
 # ══════════════════════════════════════════════════════════════════════════════
 with T1:
-    r1c1, r1c2 = st.columns([3,2], gap="large")
+    r1c1, r1c2 = st.columns([3, 2], gap="large")
 
     with r1c1:
-        st.markdown('<p class="sec-title">📅 Monthly Flight Totals across Europe (2025)</p>', unsafe_allow_html=True)
-        monthly = (hist.groupby(["MONTH_NUM","MONTH_ABB"])["FLT_TOT_1"]
+        st.markdown(f'<div class="sec-head">{SVG_CALENDAR} Monthly Flight Volume (Pan-European Aggregate)</div>', unsafe_allow_html=True)
+        monthly = (hist.groupby(["MONTH_NUM", "MONTH_ABB"])["FLT_TOT_1"]
                    .sum().reset_index().sort_values("MONTH_NUM"))
 
         fig = go.Figure()
@@ -503,50 +606,49 @@ with T1:
             x=monthly["MONTH_ABB"], y=monthly["FLT_TOT_1"],
             marker=dict(
                 color=monthly["FLT_TOT_1"],
-                colorscale=BLUES,
+                colorscale=BLUES_SCALE,
                 line=dict(width=0)
             ),
             text=monthly["FLT_TOT_1"].apply(lambda x: f"{x/1e6:.2f}M"),
             textposition="outside",
-            textfont=dict(color="#94a3b8", size=10),
+            textfont=dict(color=TEXT_MUTED, size=10),
             hovertemplate="<b>%{x}</b><br>%{y:,.0f} flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=310), yaxis_title="Total Flights")
-        fig.update_xaxes(tickfont=dict(color="#e2e8f0", size=11))
+        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=11))
         st.plotly_chart(fig, use_container_width=True)
 
     with r1c2:
-        st.markdown('<p class="sec-title">🏆 Top 10 Busiest Airports</p>', unsafe_allow_html=True)
-        top10 = profile.nlargest(10,"total")[["APT_NAME","total","avg_day"]].sort_values("total")
-        top10["name_short"] = top10["APT_NAME"].str.replace(" - "," ").str[:22]
-        top10["total_k"] = (top10["total"]/1000).round(0).astype(int)
+        st.markdown(f'<div class="sec-head">{SVG_CHART} Top 10 Busiest European Airports</div>', unsafe_allow_html=True)
+        top10 = profile.nlargest(10, "total")[["APT_NAME", "total", "avg_day"]].sort_values("total")
+        top10["name_short"] = top10["APT_NAME"].str.replace(" - ", " ").str[:22]
+        top10["total_k"] = (top10["total"] / 1000).round(0).astype(int)
 
         fig = go.Figure(go.Bar(
             x=top10["total_k"], y=top10["name_short"],
             orientation="h",
             marker=dict(
                 color=top10["total_k"],
-                colorscale=PURPLES,
+                colorscale=PURPLES_SCALE,
                 line=dict(width=0)
             ),
             text=top10["total_k"].apply(lambda x: f"{x:,}K"),
             textposition="outside",
-            textfont=dict(color="#c084fc", size=10, family="Inter"),
+            textfont=dict(color=ACCENT_COLOR, size=10),
             hovertemplate="<b>%{y}</b><br>%{x:,}K flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=310))
-        fig.update_yaxes(tickfont=dict(color="#e2e8f0", size=10))
+        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         fig.update_xaxes(showticklabels=False)
         st.plotly_chart(fig, use_container_width=True)
 
     r2c1, r2c2 = st.columns(2, gap="large")
 
     with r2c1:
-        st.markdown('<p class="sec-title">📆 Total Flights by Day of Week (All Europe)</p>', unsafe_allow_html=True)
-        dow_order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-        # SUM across all airports — shows total European airspace load per day of week
+        st.markdown(f'<div class="sec-head">{SVG_CYCLE} Total Flight Volume by Day of Week</div>', unsafe_allow_html=True)
+        dow_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         dow = hist.groupby("DOW")["FLT_TOT_1"].sum().reindex(dow_order).reset_index()
-        dow.columns = ["Day","Total"]
+        dow.columns = ["Day", "Total"]
         dow["TotalM"] = (dow["Total"] / 1e6).round(2)
 
         fig = go.Figure()
@@ -556,37 +658,36 @@ with T1:
             fill="tozeroy",
             fillcolor="rgba(99,102,241,0.12)",
             line=dict(color="#6366f1", width=3),
-            marker=dict(color="#a5b4fc", size=9,
-                        line=dict(color="#312e81", width=2)),
+            marker=dict(color="#a5b4fc", size=8, line=dict(color="#312e81", width=2)),
             text=dow["TotalM"].apply(lambda x: f"{x:.2f}M"),
             textposition="top center",
-            textfont=dict(color="#a5b4fc", size=9),
-            hovertemplate="<b>%{x}</b><br>%{y:.2f}M total flights across all airports<extra></extra>",
+            textfont=dict(color=TEXT_MUTED, size=9),
+            hovertemplate="<b>%{x}</b><br>%{y:.2f}M total flights across Europe<extra></extra>",
         ))
         l_dow = base_layout(h=260)
         l_dow["yaxis"]["title"] = "Millions of Flights"
         fig.update_layout(**l_dow)
-        fig.update_xaxes(tickfont=dict(color="#e2e8f0", size=10))
+        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig, use_container_width=True)
 
     with r2c2:
-        st.markdown('<p class="sec-title">🌍 Top 12 Countries by Total Volume</p>', unsafe_allow_html=True)
+        st.markdown(f'<div class="sec-head">{SVG_GLOBE} Top 12 Sovereign States by Flight Volume</div>', unsafe_allow_html=True)
         ctry = (hist.groupby("STATE_NAME")["FLT_TOT_1"].sum()
                 .nlargest(12).reset_index().sort_values("FLT_TOT_1"))
-        ctry.columns = ["Country","Total"]
-        ctry["TotalM"] = (ctry["Total"]/1e6).round(2)
+        ctry.columns = ["Country", "Total"]
+        ctry["TotalM"] = (ctry["Total"] / 1e6).round(2)
 
         fig = go.Figure(go.Bar(
             x=ctry["TotalM"], y=ctry["Country"],
             orientation="h",
-            marker=dict(color=ctry["TotalM"], colorscale=GREENS, line=dict(width=0)),
+            marker=dict(color=ctry["TotalM"], colorscale=GREENS_SCALE, line=dict(width=0)),
             text=ctry["TotalM"].apply(lambda x: f"{x:.1f}M"),
             textposition="outside",
-            textfont=dict(color="#34d399", size=9),
+            textfont=dict(color="#10b981", size=9),
             hovertemplate="<b>%{y}</b><br>%{x:.2f}M flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=260))
-        fig.update_yaxes(tickfont=dict(color="#e2e8f0", size=9))
+        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=9))
         fig.update_xaxes(showticklabels=False)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -594,65 +695,64 @@ with T1:
 #  TAB 2 — AIRPORT EXPLORER
 # ══════════════════════════════════════════════════════════════════════════════
 with T2:
-    # Airport selector INSIDE this tab — visible and obvious
     airports_sorted = sorted(hist["APT_NAME"].dropna().unique())
     default_idx = airports_sorted.index("London - Heathrow") if "London - Heathrow" in airports_sorted else 0
 
-    col_sel, col_gap = st.columns([2, 3])
+    col_sel, col_empty = st.columns([2.5, 2.5])
     with col_sel:
         sel_name = st.selectbox(
-            "Select an Airport to Explore",
+            "Select Airport by Name",
             airports_sorted,
             index=default_idx,
-            key="airport_sel",
+            key="airport_selector",
         )
 
-    # Filter data
-    sel_icao = hist[hist["APT_NAME"] == sel_name]["APT_ICAO"].iloc[0]
+    sel_icao    = hist[hist["APT_NAME"] == sel_name]["APT_ICAO"].iloc[0]
     sel_country = hist[hist["APT_ICAO"] == sel_icao]["STATE_NAME"].iloc[0]
-    apt_h = hist[hist["APT_ICAO"] == sel_icao].sort_values("FLT_DATE").copy()
-    apt_p = profile[profile["APT_ICAO"] == sel_icao]
-    apt_f = forecast[forecast["APT_ICAO"] == sel_icao]
+    apt_h       = hist[hist["APT_ICAO"] == sel_icao].sort_values("FLT_DATE").copy()
+    apt_p       = profile[profile["APT_ICAO"] == sel_icao]
+    apt_f       = forecast[forecast["APT_ICAO"] == sel_icao]
 
-    # Airport header card + forecast in same row
-    ac1, ac2 = st.columns([3, 1], gap="large")
+    ac1, ac2 = st.columns([3, 1.2], gap="large")
 
     with ac1:
-        tier_color  = apt_p["color"].iloc[0] if not apt_p.empty else "#6366f1"
-        tier_name   = apt_p["tier"].iloc[0]  if not apt_p.empty else "—"
-        total_f     = int(apt_p["total"].iloc[0]) if not apt_p.empty else 0
-        avg_f       = apt_p["avg_day"].iloc[0]    if not apt_p.empty else 0
-        peak_f      = int(apt_p["peak"].iloc[0])  if not apt_p.empty else 0
+        tier_color = apt_p["color"].iloc[0] if not apt_p.empty else "#6366f1"
+        tier_name  = apt_p["tier"].iloc[0]  if not apt_p.empty else "—"
+        total_f    = int(apt_p["total"].iloc[0]) if not apt_p.empty else 0
+        avg_f      = apt_p["avg_day"].iloc[0]    if not apt_p.empty else 0
+        peak_f     = int(apt_p["peak"].iloc[0])  if not apt_p.empty else 0
 
         st.markdown(f"""
         <div class="apt-card">
-          <div style="display:flex; align-items:flex-start; gap:16px">
-            <div style="font-size:2.4rem">🏢</div>
+          <div style="display:flex; align-items:flex-start; justify-content:space-between;">
             <div>
               <div class="apt-card-name">{sel_name}</div>
-              <span class="apt-card-icao">{sel_icao}</span>
-              <div class="apt-card-country">📍 {sel_country}</div>
-            </div>
-            <div style="margin-left:auto; text-align:right">
-              <div style="color:{tier_color}; font-size:0.75rem; font-weight:700;
-                           background:rgba(255,255,255,0.05); padding:4px 12px;
-                           border-radius:20px; border:1px solid {tier_color}44">
-                ● {tier_name}
+              <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+                <span class="apt-card-icao">{sel_icao}</span>
+                <span class="apt-card-country">{SVG_PIN} {sel_country}</span>
               </div>
             </div>
+            <div>
+              <span style="color:{tier_color}; font-size:0.75rem; font-weight:700;
+                           background:rgba(125,125,125,0.08); padding:5px 14px;
+                           border-radius:20px; border:1px solid {tier_color}44; display:inline-flex; align-items:center; gap:6px;">
+                <span style="width:6px; height:6px; border-radius:50%; background:{tier_color}; display:inline-block;"></span>
+                {tier_name}
+              </span>
+            </div>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; padding-top:16px; border-top:1px solid {CARD_BORDER}">
             <div style="text-align:center">
-              <div style="font-size:1.6rem; font-weight:900; color:#f1f5f9">{total_f:,}</div>
-              <div style="font-size:0.65rem; color:#475569; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Total 2025 Flights</div>
+              <div style="font-size:1.65rem; font-weight:800; color:{TEXT_MAIN}">{total_f:,}</div>
+              <div style="font-size:0.65rem; color:{TEXT_LABEL}; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Annual Volume 2025</div>
             </div>
-            <div style="text-align:center; border-left:1px solid #1e2433">
-              <div style="font-size:1.6rem; font-weight:900; color:#f1f5f9">{avg_f:,.1f}</div>
-              <div style="font-size:0.65rem; color:#475569; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Avg Flights / Day</div>
+            <div style="text-align:center; border-left:1px solid {CARD_BORDER}">
+              <div style="font-size:1.65rem; font-weight:800; color:{TEXT_MAIN}">{avg_f:,.1f}</div>
+              <div style="font-size:0.65rem; color:{TEXT_LABEL}; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Daily Average</div>
             </div>
-            <div style="text-align:center; border-left:1px solid #1e2433">
-              <div style="font-size:1.6rem; font-weight:900; color:#f1f5f9">{peak_f:,}</div>
-              <div style="font-size:0.65rem; color:#475569; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Peak Single Day</div>
+            <div style="text-align:center; border-left:1px solid {CARD_BORDER}">
+              <div style="font-size:1.65rem; font-weight:800; color:{TEXT_MAIN}">{peak_f:,}</div>
+              <div style="font-size:0.65rem; color:{TEXT_LABEL}; text-transform:uppercase; letter-spacing:.08em; margin-top:4px">Peak Day Record</div>
             </div>
           </div>
         </div>
@@ -661,107 +761,107 @@ with T2:
     with ac2:
         if not apt_f.empty:
             row  = apt_f.iloc[0]
-            pred = row["prediction"]; prev = row["yesterday"]
+            pred = row["prediction"]
+            prev = row["yesterday"]
             chg  = ((pred - prev) / prev * 100) if prev > 0 else 0
-            chg_color = "#34d399" if chg >= 0 else "#f87171"
-            chg_arrow = "▲" if chg >= 0 else "▼"
+            chg_color = "#10b981" if chg >= 0 else "#f87171"
+            chg_symbol = "+" if chg >= 0 else ""
             st.markdown(f"""
-            <div class="forecast-banner">
-              <div class="forecast-label">🔮 Next-Day Forecast</div>
+            <div class="forecast-card">
+              <div class="forecast-badge">{SVG_CLOCK} NEXT-DAY BATCH FORECAST</div>
               <div class="forecast-num">{pred:,.0f}</div>
-              <div class="forecast-label">Predicted Flights</div>
-              <div class="forecast-date">2026-01-01</div>
-              <div style="margin-top:12px; font-size:0.8rem; color:{chg_color}; font-weight:700">
-                {chg_arrow} {abs(chg):.1f}% vs prev day ({int(prev):,} flights)
+              <div style="font-size:0.75rem; color:{TEXT_MUTED}; font-weight:600;">Predicted Flight Movements</div>
+              <div style="font-size:0.80rem; color:{ACCENT_COLOR}; font-weight:700; margin-top:8px;">Target Date: 2026-01-01</div>
+              <div style="margin-top:12px; font-size:0.78rem; color:{chg_color}; font-weight:700; background:rgba(125,125,125,0.06); padding:6px 10px; border-radius:8px;">
+                {chg_symbol}{chg:.1f}% vs previous day ({int(prev):,} flights)
               </div>
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.info("No forecast data for this airport.")
+            st.info("No forecast data available for this station.")
 
-    # Daily traffic history
-    st.markdown('<p class="sec-title">📈 Daily Traffic History — Full Year 2025</p>', unsafe_allow_html=True)
+    st.markdown(f'<div class="sec-head">{SVG_CHART} Daily Flight Movements History (Full Year 2025)</div>', unsafe_allow_html=True)
     apt_h["roll7"] = apt_h["FLT_TOT_1"].rolling(7, center=True, min_periods=1).mean()
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
         x=apt_h["FLT_DATE"], y=apt_h["FLT_TOT_1"],
-        name="Daily Flights",
-        marker=dict(color="rgba(99,102,241,0.35)", line=dict(width=0)),
+        name="Observed Flights",
+        marker=dict(color="rgba(59,130,246,0.30)", line=dict(width=0)),
         hovertemplate="<b>%{x|%b %d}</b><br>%{y:,} flights<extra></extra>",
     ))
     fig.add_trace(go.Scatter(
         x=apt_h["FLT_DATE"], y=apt_h["roll7"],
-        name="7-Day Rolling Avg",
-        line=dict(color="#a5b4fc", width=2.5),
+        name="7-Day Centered Average",
+        line=dict(color=ACCENT_COLOR, width=2.5),
         mode="lines",
-        hovertemplate="7-day avg: %{y:,.0f}<extra></extra>",
+        hovertemplate="7-Day Avg: %{y:,.0f}<extra></extra>",
     ))
     l = base_layout(h=300, legend=True)
-    fig.update_layout(**l, xaxis_title="", yaxis_title="Flights per Day")
+    fig.update_layout(**l, xaxis_title="", yaxis_title="Flights / Day")
     st.plotly_chart(fig, use_container_width=True)
 
     hc1, hc2 = st.columns(2, gap="large")
 
     with hc1:
-        st.markdown('<p class="sec-title">📅 Monthly Breakdown</p>', unsafe_allow_html=True)
-        am = (apt_h.groupby(["MONTH_NUM","MONTH_ABB"])["FLT_TOT_1"]
+        st.markdown(f'<div class="sec-head">{SVG_CALENDAR} Monthly Distribution Profile</div>', unsafe_allow_html=True)
+        am = (apt_h.groupby(["MONTH_NUM", "MONTH_ABB"])["FLT_TOT_1"]
               .agg(total="sum", avg="mean").reset_index().sort_values("MONTH_NUM"))
 
         fig2 = make_subplots(specs=[[{"secondary_y": True}]])
         fig2.add_trace(go.Bar(
             x=am["MONTH_ABB"], y=am["total"],
-            name="Total Flights",
-            marker=dict(color="rgba(99,102,241,0.7)", line=dict(width=0)),
+            name="Total Movements",
+            marker=dict(color="rgba(99,102,241,0.65)", line=dict(width=0)),
         ), secondary_y=False)
         fig2.add_trace(go.Scatter(
             x=am["MONTH_ABB"], y=am["avg"],
-            name="Daily Avg",
+            name="Daily Average",
             mode="lines+markers",
             line=dict(color="#f59e0b", width=2.5),
-            marker=dict(color="#fde68a", size=7),
+            marker=dict(color="#f59e0b", size=6),
         ), secondary_y=True)
         l2 = base_layout(h=270, legend=True)
         fig2.update_layout(**l2)
-        fig2.update_yaxes(secondary_y=False,  gridcolor=GRID_CLR, title_text="Total")
-        fig2.update_yaxes(secondary_y=True,   gridcolor="rgba(0,0,0,0)", title_text="Daily Avg")
+        fig2.update_yaxes(secondary_y=False, gridcolor=PLOT_GRID, title_text="Total Flights")
+        fig2.update_yaxes(secondary_y=True, gridcolor="rgba(0,0,0,0)", title_text="Daily Average")
         st.plotly_chart(fig2, use_container_width=True)
 
     with hc2:
-        st.markdown('<p class="sec-title">📆 Day-of-Week Traffic Pattern</p>', unsafe_allow_html=True)
-        dow_order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        st.markdown(f'<div class="sec-head">{SVG_CYCLE} Day-of-Week Operational Pattern</div>', unsafe_allow_html=True)
+        dow_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         dow_apt = apt_h.groupby("DOW")["FLT_TOT_1"].mean().reindex(dow_order).reset_index()
-        dow_apt.columns = ["Day","Avg"]
+        dow_apt.columns = ["Day", "Avg"]
 
         fig3 = go.Figure(go.Bar(
             x=dow_apt["Day"], y=dow_apt["Avg"],
             marker=dict(
                 color=dow_apt["Avg"],
-                colorscale=[[0,"#134e4a"],[0.5,"#10b981"],[1,"#6ee7b7"]],
+                colorscale=GREENS_SCALE,
                 line=dict(width=0)
             ),
             text=dow_apt["Avg"].apply(lambda x: f"{x:,.0f}"),
             textposition="outside",
-            textfont=dict(color="#34d399", size=9),
+            textfont=dict(color="#10b981", size=9),
             hovertemplate="<b>%{x}</b><br>Avg %{y:,.0f} flights<extra></extra>",
         ))
         fig3.update_layout(**base_layout(h=270))
-        fig3.update_xaxes(tickfont=dict(color="#e2e8f0", size=10))
+        fig3.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig3, use_container_width=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  TAB 3 — MODEL PERFORMANCE
+#  TAB 3 — MODEL BENCHMARKS
 # ══════════════════════════════════════════════════════════════════════════════
 with T3:
-    st.markdown('<p class="sec-title">📋 Model Benchmark — Out-of-Time Test Set (28,402 records · Oct–Dec 2025)</p>', unsafe_allow_html=True)
+    st.markdown(f'<div class="sec-head">{SVG_TARGET} Model Evaluation Matrix — Out-of-Time Test Set (28,402 records · Oct–Dec 2025)</div>', unsafe_allow_html=True)
     st.dataframe(
         metrics, use_container_width=True, hide_index=True,
         column_config={
-            "Model": st.column_config.TextColumn("Model", width="medium"),
+            "Model": st.column_config.TextColumn("Model Specification", width="medium"),
             "MAE (Flights/Day)": st.column_config.NumberColumn("MAE ↓", format="%.2f"),
             "RMSE (Flights/Day)": st.column_config.NumberColumn("RMSE ↓", format="%.2f"),
             "WMAPE (%)": st.column_config.TextColumn("WMAPE ↓"),
-            "R2 Score": st.column_config.TextColumn("R² ↑"),
+            "R2 Score": st.column_config.TextColumn("R² Score ↑"),
             "Improvement vs Baseline (MAE)": st.column_config.TextColumn("MAE Improvement"),
         }
     )
@@ -769,38 +869,37 @@ with T3:
     mc1, mc2 = st.columns(2, gap="large")
 
     with mc1:
-        st.markdown('<p class="sec-title">📊 MAE & RMSE Comparison</p>', unsafe_allow_html=True)
-        m_names = ["Baseline","Linear Reg","GBT","Random Forest"]
+        st.markdown(f'<div class="sec-head">{SVG_CHART} Loss Metric Comparison (MAE &amp; RMSE)</div>', unsafe_allow_html=True)
+        m_names = ["Baseline", "Linear Regression", "GBT Regressor", "Random Forest"]
         mae_v   = [17.43, 10.37, 12.99, 13.85]
         rmse_v  = [33.75, 21.17, 25.44, 26.80]
-        bar_clr = ["#334155","#6366f1","#8b5cf6","#a855f7"]
+        bar_clr = ["#475569", "#3b82f6", "#8b5cf6", "#a855f7"]
 
         fig = go.Figure()
         fig.add_trace(go.Bar(
-            name="MAE", x=m_names, y=mae_v,
+            name="MAE (Mean Absolute Error)", x=m_names, y=mae_v,
             marker_color=bar_clr, marker_line_width=0,
             text=[f"{v:.2f}" for v in mae_v],
-            textposition="outside", textfont=dict(color="#a5b4fc", size=11),
+            textposition="outside", textfont=dict(color=TEXT_MUTED, size=11),
             hovertemplate="MAE: %{y:.2f}<extra></extra>",
         ))
         fig.add_trace(go.Bar(
-            name="RMSE", x=m_names, y=rmse_v,
-            marker_color=[c+"88" for c in bar_clr], marker_line_width=0,
+            name="RMSE (Root Mean Squared Error)", x=m_names, y=rmse_v,
+            marker_color=[c + "88" for c in bar_clr], marker_line_width=0,
             text=[f"{v:.2f}" for v in rmse_v],
-            textposition="outside", textfont=dict(color="#c084fc", size=11),
+            textposition="outside", textfont=dict(color=TEXT_MUTED, size=11),
             hovertemplate="RMSE: %{y:.2f}<extra></extra>",
         ))
         l3 = base_layout(h=300, legend=True)
         fig.update_layout(**l3, barmode="group")
-        fig.update_xaxes(tickfont=dict(color="#e2e8f0", size=11))
+        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=11))
         st.plotly_chart(fig, use_container_width=True)
 
     with mc2:
-        st.markdown('<p class="sec-title">📊 Model Feature Importance (Gradient-Boosted Trees)</p>', unsafe_allow_html=True)
-        st.caption("Which input features matter most for predicting flight volumes?")
-        fi_labels = ["Lag-7 — flights 7 days ago","7-Day Rolling Avg","Lag-1 — yesterday's flights","Month (seasonality)","Airport identity","Day of week","Other"]
+        st.markdown(f'<div class="sec-head">{SVG_LAYERS} Feature Attribution (Gradient-Boosted Trees)</div>', unsafe_allow_html=True)
+        fi_labels = ["Lag-7 (Same Day Last Week)", "7-Day Rolling Mean", "Lag-1 (Previous Day)", "Month (Seasonality)", "Airport Identifier (One-Hot)", "Day of Week", "Residual Features"]
         fi_vals   = [95.52, 1.74, 0.69, 0.76, 0.79, 0.23, 0.27]
-        fi_colors = ["#6366f1","#8b5cf6","#a855f7","#ec4899","#f59e0b","#10b981","#334155"]
+        fi_colors = ["#3b82f6", "#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981", "#64748b"]
 
         fig = go.Figure(go.Bar(
             x=fi_vals,
@@ -809,20 +908,20 @@ with T3:
             marker=dict(color=fi_colors, line=dict(width=0)),
             text=[f"{v:.2f}%" for v in fi_vals],
             textposition="outside",
-            textfont=dict(color="#e2e8f0", size=11),
+            textfont=dict(color=TEXT_MUTED, size=10),
             hovertemplate="<b>%{y}</b><br>Importance: %{x:.2f}%<extra></extra>",
         ))
         lfi = base_layout(h=300)
-        lfi["xaxis"]["title"] = "Importance (%)"
+        lfi["xaxis"]["title"] = "Predictive Contribution (%)"
         lfi["xaxis"]["range"] = [0, 110]
         fig.update_layout(**lfi)
-        fig.update_yaxes(tickfont=dict(color="#e2e8f0", size=10))
+        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown('<p class="sec-title">📈 R² Score — All Models vs Baseline</p>', unsafe_allow_html=True)
-    r2_m = ["Baseline","Random Forest","Gradient-Boosted Trees","⭐ Linear Regression"]
+    st.markdown(f'<div class="sec-head">{SVG_TARGET} Coefficient of Determination (R² Score Comparison)</div>', unsafe_allow_html=True)
+    r2_m = ["Naive Baseline", "Random Forest", "Gradient-Boosted Trees", "Linear Regression (Production)"]
     r2_v = [0.9809, 0.9879, 0.9891, 0.9925]
-    r2_c = ["#334155","#8b5cf6","#6366f1","#10b981"]
+    r2_c = ["#475569", "#8b5cf6", "#6366f1", "#10b981"]
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
@@ -830,29 +929,28 @@ with T3:
         marker=dict(color=r2_c, line=dict(width=0)),
         text=[f"{v:.4f}" for v in r2_v],
         textposition="outside",
-        textfont=dict(color="#e2e8f0", size=13, family="Inter"),
+        textfont=dict(color=TEXT_MAIN, size=12),
         hovertemplate="<b>%{x}</b><br>R² = %{y:.4f}<extra></extra>",
     ))
     fig.add_shape(type="line", x0=-0.5, x1=3.5, y0=0.9809, y1=0.9809,
                   line=dict(color="#f87171", dash="dot", width=2))
-    fig.add_annotation(x=3.5, y=0.981, text="  Baseline R²",
+    fig.add_annotation(x=3.5, y=0.981, text="  Baseline R² (0.9809)",
                        showarrow=False, font=dict(color="#f87171", size=10), xanchor="left")
     l4 = base_layout(h=290)
     l4["yaxis"]["range"] = [0.975, 0.997]
     fig.update_layout(**l4)
-    fig.update_xaxes(tickfont=dict(color="#e2e8f0", size=11))
+    fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=11))
     st.plotly_chart(fig, use_container_width=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  TAB 4 — CLUSTERING
+#  TAB 4 — CLUSTER SEGMENTATION
 # ══════════════════════════════════════════════════════════════════════════════
 with T4:
-    st.markdown('<p class="sec-title">🗂️ K-Means Airport Segmentation — 3 Operational Tiers</p>', unsafe_allow_html=True)
-    st.caption("Scikit-Learn KMeans · Features: avg daily flights · daily variability (std) · peak day capacity · Bubble size = total annual volume")
+    st.markdown(f'<div class="sec-head">{SVG_LAYERS} K-Means Airport Segmentation — 3 Operational Tiers</div>', unsafe_allow_html=True)
 
     tier_colors = {
-        "Major Hub":      "#6366f1",
-        "Medium Hub":     "#f59e0b",
+        "Major Hub":        "#6366f1",
+        "Medium Hub":       "#f59e0b",
         "Small / Regional": "#10b981",
     }
     fig = px.scatter(
@@ -870,80 +968,72 @@ with T4:
             "variab":     False,
         },
         color_discrete_map=tier_colors,
-        labels={"avg_day":"Average Daily Flights","variab":"Daily Variability (Std Dev)","tier":"Tier"},
-        size_max=35,
+        labels={"avg_day": "Average Daily Flights", "variab": "Daily Variability (Std Dev)", "tier": "Operational Tier"},
+        size_max=32,
     )
     fig.update_traces(
-        marker=dict(line=dict(width=1.5, color="#050816")),
-        hovertemplate="<b>%{hovertext}</b><br>Country: %{customdata[0]}<br>Avg/day: %{customdata[1]:.0f}<br>Peak day: %{customdata[2]:.0f}<extra></extra>",
+        marker=dict(line=dict(width=1.5, color=BG_APP)),
+        hovertemplate="<b>%{hovertext}</b><br>State: %{customdata[0]}<br>Daily Avg: %{customdata[1]:.0f}<br>Peak Record: %{customdata[2]:.0f}<extra></extra>",
     )
-    l5 = base_layout(h=430, legend=True)
+    l5 = base_layout(h=420, legend=True)
     l5["legend"]["y"] = 1.06
-    l5["legend"]["title"] = dict(text="Tier")
     fig.update_layout(**l5)
     st.plotly_chart(fig, use_container_width=True)
 
-    cc1, cc2 = st.columns([1,2], gap="large")
+    cc1, cc2 = st.columns([1, 1.8], gap="large")
 
     with cc1:
-        st.markdown('<p class="sec-title">🥧 Distribution</p>', unsafe_allow_html=True)
+        st.markdown(f'<div class="sec-head">{SVG_CHART} Airport Tier Distribution</div>', unsafe_allow_html=True)
         tc = profile["tier"].value_counts().reset_index()
-        tc.columns = ["Tier","Count"]
+        tc.columns = ["Tier", "Count"]
         fig = go.Figure(go.Pie(
-            labels=tc["Tier"], values=tc["Count"], hole=0.58,
+            labels=tc["Tier"], values=tc["Count"], hole=0.62,
             marker=dict(colors=[tier_colors[t] for t in tc["Tier"]],
-                        line=dict(color="#050816", width=3)),
-            textfont=dict(size=11, color="#f1f5f9"),
+                        line=dict(color=BG_APP, width=2.5)),
+            textfont=dict(size=11, color=TEXT_MAIN),
             textinfo="label+value",
             hovertemplate="<b>%{label}</b><br>%{value} airports<extra></extra>",
         ))
         fig.add_annotation(text="331<br>Airports", x=0.5, y=0.5,
-                           font=dict(size=14, color="#94a3b8"), showarrow=False)
+                           font=dict(size=13, color=TEXT_MUTED, family="Plus Jakarta Sans"), showarrow=False)
         fig.update_layout(**base_layout(h=290), showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
 
     with cc2:
-        st.markdown('<p class="sec-title">📋 Top Airports per Tier</p>', unsafe_allow_html=True)
-        tier_colors_map = {"Major Hub":"#6366f1","Medium Hub":"#f59e0b","Small / Regional":"#10b981"}
-        tier_emoji_map  = {"Major Hub":"🔵","Medium Hub":"🟡","Small / Regional":"🟢"}
-        for tier_name in ["Major Hub","Medium Hub","Small / Regional"]:
-            grp = (profile[profile["tier"]==tier_name]
-                   .nlargest(5, "avg_day")
-                   [["APT_NAME","STATE_NAME","avg_day","peak","total"]]
+        st.markdown(f'<div class="sec-head">{SVG_AIRPORT} Leading Airports by Operational Tier</div>', unsafe_allow_html=True)
+        tier_colors_map = {"Major Hub": "#6366f1", "Medium Hub": "#f59e0b", "Small / Regional": "#10b981"}
+        
+        for tier_name in ["Major Hub", "Medium Hub", "Small / Regional"]:
+            grp = (profile[profile["tier"] == tier_name]
+                   .nlargest(4, "avg_day")
+                   [["APT_NAME", "STATE_NAME", "avg_day", "peak", "total"]]
                    .reset_index(drop=True))
-            tc  = tier_colors_map[tier_name]
-            em  = tier_emoji_map[tier_name]
+            tc = tier_colors_map[tier_name]
+            
             rows_html = ""
             for _, row in grp.iterrows():
                 rows_html += f"""
                 <tr>
-                  <td style='padding:8px 12px; color:#e2e8f0; font-size:.85rem; font-weight:600'>{row['APT_NAME']}</td>
-                  <td style='padding:8px 12px; color:#94a3b8; font-size:.82rem'>{row['STATE_NAME']}</td>
-                  <td style='padding:8px 12px; color:{tc}; font-weight:700; text-align:center'>{row['avg_day']:,.0f}</td>
-                  <td style='padding:8px 12px; color:#f1f5f9; text-align:center'>{int(row['peak']):,}</td>
-                  <td style='padding:8px 12px; color:#94a3b8; text-align:center'>{int(row['total']):,}</td>
+                  <td style="font-weight:600;">{row['APT_NAME']}</td>
+                  <td style="color:{TEXT_MUTED};">{row['STATE_NAME']}</td>
+                  <td style="color:{tc}; font-weight:700; text-align:center;">{row['avg_day']:,.0f}</td>
+                  <td style="text-align:center;">{int(row['peak']):,}</td>
+                  <td style="color:{TEXT_MUTED}; text-align:center;">{int(row['total']):,}</td>
                 </tr>"""
+
             st.markdown(f"""
-            <div style='margin-bottom:18px'>
-              <div style='font-size:.88rem; font-weight:700; color:{tc};
-                          margin-bottom:8px; display:flex; align-items:center; gap:6px'>
-                {em} {tier_name}
+            <div style="margin-bottom:14px;">
+              <div style="font-size:0.80rem; font-weight:700; color:{tc}; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <span style="width:6px; height:6px; border-radius:50%; background:{tc}; display:inline-block;"></span> {tier_name}
               </div>
-              <table style='width:100%; border-collapse:collapse;
-                            background:#0d1117; border:1px solid #1e2433;
-                            border-radius:10px; overflow:hidden'>
+              <table class="custom-table">
                 <thead>
-                  <tr style='background:#111827'>
-                    <th style='padding:8px 12px; color:#475569; font-size:.72rem;
-                               text-transform:uppercase; letter-spacing:.06em; text-align:left'>Airport</th>
-                    <th style='padding:8px 12px; color:#475569; font-size:.72rem;
-                               text-transform:uppercase; letter-spacing:.06em; text-align:left'>Country</th>
-                    <th style='padding:8px 12px; color:#475569; font-size:.72rem;
-                               text-transform:uppercase; letter-spacing:.06em; text-align:center'>Avg/Day</th>
-                    <th style='padding:8px 12px; color:#475569; font-size:.72rem;
-                               text-transform:uppercase; letter-spacing:.06em; text-align:center'>Peak Day</th>
-                    <th style='padding:8px 12px; color:#475569; font-size:.72rem;
-                               text-transform:uppercase; letter-spacing:.06em; text-align:center'>Total 2025</th>
+                  <tr>
+                    <th>Airport</th>
+                    <th>Country</th>
+                    <th style="text-align:center;">Avg / Day</th>
+                    <th style="text-align:center;">Peak Day</th>
+                    <th style="text-align:center;">Annual Total</th>
                   </tr>
                 </thead>
                 <tbody>{rows_html}</tbody>
@@ -951,12 +1041,11 @@ with T4:
             </div>
             """, unsafe_allow_html=True)
 
-# ─── FOOTER ───────────────────────────────────────────────────────────────────
-st.markdown("""
+# ─── Professional Institutional Footer ─────────────────────────────────────────
+st.markdown(f"""
 <div class="footer">
-  ✈️ Airport Traffic Prediction · INT315 Cluster Computing ·
-  <strong style="color:#6366f1">Rai Yashmit Ashok</strong> ·
-  Reg: 12313527 · RK4M2310A ·
-  Data: EUROCONTROL 2025 (116,020 records)
+  Eurocontrol Air Traffic Analytics Platform · Distributed PySpark MLlib Predictive Engine<br>
+  Author: <strong>Rai Yashmit Ashok</strong> · Registration: <strong>12313527</strong> · INT315 Cluster Computing<br>
+  Data Source: Official EUROCONTROL Historical Trajectory Records (116,020 records across 331 airports)
 </div>
 """, unsafe_allow_html=True)
