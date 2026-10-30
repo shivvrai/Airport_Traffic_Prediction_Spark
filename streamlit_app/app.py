@@ -466,22 +466,120 @@ div[data-testid="stSegmentedControl"] button[aria-checked="true"] * {{
     color: {ACCENT_COLOR};
 }}
 
-/* Select Box */
+/* Universal SelectBox & ComboBox Contrast (Fix Barcelona Grey-on-White) */
 [data-testid="stSelectbox"] label,
-[data-testid="stSelectbox"] label p {{
+[data-testid="stSelectbox"] label p,
+[data-testid="stSelectbox"] label span {{
     color: {TEXT_MAIN} !important;
     font-weight: 700 !important;
-    font-size: 0.86rem !important;
+    font-size: 0.88rem !important;
+    margin-bottom: 6px !important;
 }}
-[data-testid="stSelectbox"] > div > div {{
+
+/* The selectbox container */
+[data-testid="stSelectbox"] .react-aria-ComboBox > div,
+[data-testid="stSelectbox"] div[role="group"],
+[data-testid="stSelectbox"] > div > div,
+div[data-baseweb="select"] > div {{
     background: {SELECT_BG} !important;
+    background-color: {SELECT_BG} !important;
     border: 1px solid {SELECT_BORDER} !important;
-    color: {TEXT_MAIN} !important;
     border-radius: 12px !important;
-    box-shadow: 0 1px 3px rgba(15,23,42,0.05);
+    box-shadow: 0 1px 3px rgba(15,23,42,0.06) !important;
 }}
-[data-testid="stSelectbox"] span, [data-testid="stSelectbox"] div, [data-testid="stSelectbox"] p {{
+
+/* The actual text input where "Barcelona" is displayed */
+[data-testid="stSelectbox"] input,
+[data-testid="stSelectbox"] input:focus,
+[data-testid="stSelectbox"] input[type="text"],
+.react-aria-ComboBox input,
+div[role="combobox"] input,
+div[data-baseweb="select"] input,
+input[aria-label="Select Airport by Station Name"],
+input {{
     color: {TEXT_MAIN} !important;
+    -webkit-text-fill-color: {TEXT_MAIN} !important;
+    background: transparent !important;
+    font-weight: 700 !important;
+    font-size: 0.92rem !important;
+}}
+
+/* All text and elements inside selectbox */
+[data-testid="stSelectbox"] *,
+.react-aria-ComboBox * {{
+    color: {TEXT_MAIN} !important;
+}}
+
+/* Placeholder text */
+[data-testid="stSelectbox"] input::placeholder,
+.react-aria-ComboBox input::placeholder {{
+    color: {TEXT_MUTED} !important;
+    -webkit-text-fill-color: {TEXT_MUTED} !important;
+}}
+
+/* Dropdown arrow button and SVG */
+[data-testid="stSelectbox"] button,
+.react-aria-ComboBox button,
+button[aria-label="Open"] {{
+    background: transparent !important;
+    border: none !important;
+}}
+
+[data-testid="stSelectbox"] svg,
+.react-aria-ComboBox svg,
+button[aria-label="Open"] svg {{
+    fill: {TEXT_MUTED} !important;
+    color: {TEXT_MUTED} !important;
+}}
+
+/* Dropdown Menu / Popover Listbox (When User Clicks Dropdown) */
+div[role="listbox"],
+ul[role="listbox"],
+div[data-rac][role="listbox"],
+[data-baseweb="popover"],
+[data-baseweb="menu"],
+ul[data-testid="stSelectboxOptions"],
+div[data-testid="stSelectbox"] ul {{
+    background: {CARD_BG} !important;
+    background-color: {CARD_BG} !important;
+    border: 1px solid {CARD_BORDER} !important;
+    border-radius: 12px !important;
+    box-shadow: {CARD_SHADOW} !important;
+}}
+
+div[role="option"],
+li[role="option"],
+div[data-rac][role="option"],
+[data-baseweb="menu"] li {{
+    background: transparent !important;
+    color: {TEXT_MAIN} !important;
+    font-weight: 600 !important;
+    padding: 9px 14px !important;
+}}
+
+div[role="option"] *,
+li[role="option"] *,
+div[data-rac][role="option"] * {{
+    color: {TEXT_MAIN} !important;
+}}
+
+div[role="option"]:hover,
+div[role="option"][data-focused="true"],
+div[role="option"][aria-selected="true"],
+li[role="option"]:hover,
+li[role="option"][aria-selected="true"],
+[data-baseweb="menu"] li:hover {{
+    background: {'rgba(59,130,246,0.15)' if is_dark else '#eff6ff'} !important;
+    color: {ACCENT_COLOR} !important;
+}}
+
+div[role="option"]:hover *,
+div[role="option"][data-focused="true"] *,
+div[role="option"][aria-selected="true"] *,
+li[role="option"]:hover *,
+li[role="option"][aria-selected="true"] * {{
+    color: {ACCENT_COLOR} !important;
+    font-weight: 700 !important;
 }}
 
 /* Airport Detail Card */
