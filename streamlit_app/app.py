@@ -1,7 +1,7 @@
 """
-Airport Traffic Prediction & Network Analytics Dashboard
-Course: INT315 – Cluster Computing | PySpark MLlib Infrastructure
-Author: Rai Yashmit Ashok | Reg: 12313527
+Airport Traffic Prediction & Network Analytics Platform
+Distributed PySpark MLlib Predictive Engine
+Author: Rai Yashmit
 """
 
 import streamlit as st
@@ -50,7 +50,7 @@ with top_left:
       </div>
       <div>
         <div style="font-size:1.05rem; font-weight:800; letter-spacing:0.04em; line-height:1.2;">EUROCONTROL AIR TRAFFIC ANALYTICS</div>
-        <div style="font-size:0.75rem; color:#64748b; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">Distributed PySpark MLlib Predictive Engine · INT315</div>
+        <div style="font-size:0.75rem; color:#64748b; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">Distributed PySpark MLlib Predictive Engine · Enterprise Analytics</div>
       </div>
       <div style="margin-left:14px; display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.35); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; color:#10b981; letter-spacing:0.06em;">
         <span style="width:6px; height:6px; border-radius:50%; background:#10b981; display:inline-block;"></span> CLUSTER ACTIVE
@@ -97,7 +97,8 @@ if is_dark:
     PLOT_BG         = "#0f172a"
     PLOT_GRID       = "#1e293b"
     PLOT_AXIS       = "#334155"
-    PLOT_FONT       = "#94a3b8"
+    PLOT_FONT       = "#e2e8f0"
+    PLOT_TITLE_FONT = "#f8fafc"
     TABLE_HDR_BG    = "#1e293b"
     TABLE_ROW_ALT   = "#09101f"
     ACCENT_COLOR    = "#6366f1"
@@ -109,6 +110,7 @@ if is_dark:
     TAB_ACTIVE_SHADOW= "rgba(59,130,246,0.35)"
     SELECT_BG       = "#0f172a"
     SELECT_BORDER   = "#334155"
+    SEGMENTED_BG    = "#0f172a"
     FORECAST_CARD_BG= "#0f172a"
     FORECAST_CARD_BORDER= "#1e293b"
     FORECAST_NUM_CLR= "#a5b4fc"
@@ -139,18 +141,20 @@ else:
     PLOT_BG         = "#ffffff"
     PLOT_GRID       = "#f1f5f9"
     PLOT_AXIS       = "#cbd5e1"
-    PLOT_FONT       = "#334155"
+    PLOT_FONT       = "#1e293b"
+    PLOT_TITLE_FONT = "#0f172a"
     TABLE_HDR_BG    = "#f1f5f9"
     TABLE_ROW_ALT   = "#f8fafc"
     ACCENT_COLOR    = "#2563eb"
     TAB_LIST_BG     = "#f1f5f9"
     TAB_BORDER      = "#e2e8f0"
-    TAB_INACTIVE_CLR= "#475569"
+    TAB_INACTIVE_CLR= "#334155"
     TAB_ACTIVE_BG   = "#ffffff"
     TAB_ACTIVE_CLR  = "#2563eb"
     TAB_ACTIVE_SHADOW= "rgba(15,23,42,0.12)"
     SELECT_BG       = "#ffffff"
     SELECT_BORDER   = "#cbd5e1"
+    SEGMENTED_BG    = "#e2e8f0"
     FORECAST_CARD_BG= "#eff6ff"
     FORECAST_CARD_BORDER= "#bfdbfe"
     FORECAST_NUM_CLR= "#1d4ed8"
@@ -245,6 +249,61 @@ html, body, [class*="css"], * {{
     line-height: 1.6;
 }}
 
+/* Segmented Control & ButtonGroup Theme Overrides (Fix Image 2) */
+div[data-testid="stButtonGroup"],
+div[data-testid="stSegmentedControl"],
+div[role="radiogroup"] {{
+    background: {SEGMENTED_BG} !important;
+    border: 1px solid {CARD_BORDER} !important;
+    border-radius: 20px !important;
+    padding: 3px !important;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+    display: inline-flex !important;
+}}
+
+div[data-testid="stButtonGroup"] button,
+div[data-testid="stSegmentedControl"] button {{
+    border-radius: 16px !important;
+    border: none !important;
+    padding: 6px 16px !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}}
+
+div[data-testid="stButtonGroup"] button:not([data-selected="true"]),
+div[data-testid="stButtonGroup"] button[aria-checked="false"],
+div[data-testid="stSegmentedControl"] button:not([aria-checked="true"]),
+div[data-testid="stSegmentedControl"] button[aria-checked="false"] {{
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}}
+
+div[data-testid="stButtonGroup"] button:not([data-selected="true"]) *,
+div[data-testid="stButtonGroup"] button[aria-checked="false"] *,
+div[data-testid="stSegmentedControl"] button:not([aria-checked="true"]) *,
+div[data-testid="stSegmentedControl"] button[aria-checked="false"] * {{
+    color: {TEXT_MUTED} !important;
+    font-weight: 600 !important;
+}}
+
+div[data-testid="stButtonGroup"] button[data-selected="true"],
+div[data-testid="stButtonGroup"] button[aria-checked="true"],
+div[data-testid="stSegmentedControl"] button[aria-checked="true"] {{
+    background: {TAB_ACTIVE_BG} !important;
+    background-color: {ACCENT_COLOR if is_dark else '#ffffff'} !important;
+    box-shadow: 0 2px 8px {TAB_ACTIVE_SHADOW} !important;
+    {'border: 1px solid #cbd5e1 !important;' if not is_dark else ''}
+}}
+
+div[data-testid="stButtonGroup"] button[data-selected="true"] *,
+div[data-testid="stButtonGroup"] button[aria-checked="true"] *,
+div[data-testid="stSegmentedControl"] button[aria-checked="true"] * {{
+    color: {TAB_ACTIVE_CLR} !important;
+    font-weight: 700 !important;
+}}
+
 /* Spacious Architectural KPI Cards */
 .kpi-grid {{
     display: grid;
@@ -317,12 +376,13 @@ html, body, [class*="css"], * {{
     font-weight: 500;
 }}
 
-/* Universal Streamlit Tab Visibility Overrides */
+/* Universal Streamlit Tab Visibility Overrides (Fix Image 1) */
 [data-testid="stTabs"] {{
     margin-top: 14px !important;
     margin-bottom: 26px !important;
 }}
 
+[data-testid="stTabs"] div[role="tablist"],
 [data-testid="stTabs"] [role="tablist"],
 [data-testid="stTabs"] [data-baseweb="tab-list"] {{
     background: {TAB_LIST_BG} !important;
@@ -333,49 +393,60 @@ html, body, [class*="css"], * {{
     box-shadow: {CARD_SHADOW} !important;
 }}
 
+[data-testid="stTabs"] div[data-testid="stTab"],
+[data-testid="stTabs"] div[role="tab"],
 [data-testid="stTabs"] button[role="tab"],
 [data-testid="stTabs"] button[data-baseweb="tab"] {{
     background: transparent !important;
+    background-color: transparent !important;
     border: none !important;
     border-radius: 10px !important;
     padding: 9px 22px !important;
+    cursor: pointer !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
-/* Force Inactive Tab Label Contrast */
-[data-testid="stTabs"] button[role="tab"] p,
-[data-testid="stTabs"] button[role="tab"] div,
-[data-testid="stTabs"] button[role="tab"] span,
-[data-testid="stTabs"] button[data-baseweb="tab"] p,
-[data-testid="stTabs"] button[data-baseweb="tab"] div,
-[data-testid="stTabs"] button[data-baseweb="tab"] span {{
+/* Inactive Tab Label Contrast */
+[data-testid="stTabs"] div[data-testid="stTab"]:not([aria-selected="true"]),
+[data-testid="stTabs"] div[data-testid="stTab"]:not([aria-selected="true"]) *,
+[data-testid="stTabs"] div[role="tab"]:not([aria-selected="true"]),
+[data-testid="stTabs"] div[role="tab"]:not([aria-selected="true"]) *,
+[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]),
+[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]) *,
+[data-testid="stTabs"] button[data-baseweb="tab"]:not([aria-selected="true"]),
+[data-testid="stTabs"] button[data-baseweb="tab"]:not([aria-selected="true"]) * {{
     color: {TAB_INACTIVE_CLR} !important;
     font-weight: 600 !important;
     font-size: 0.88rem !important;
 }}
 
-/* Force Active Tab Label Highlight */
+/* Active Tab Label Highlight */
+[data-testid="stTabs"] div[data-testid="stTab"][aria-selected="true"],
+[data-testid="stTabs"] div[data-testid="stTab"][aria-selected="true"] *,
+[data-testid="stTabs"] div[role="tab"][aria-selected="true"],
+[data-testid="stTabs"] div[role="tab"][aria-selected="true"] *,
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"],
-[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] {{
-    background: {TAB_ACTIVE_BG} !important;
-    box-shadow: 0 2px 8px {TAB_ACTIVE_SHADOW} !important;
-    {'border: 1px solid #cbd5e1 !important;' if not is_dark else ''}
-}}
-
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] p,
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] div,
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] span,
-[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] p,
-[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] div,
-[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] span {{
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] *,
+[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"],
+[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] * {{
     color: {TAB_ACTIVE_CLR} !important;
     font-weight: 700 !important;
+    font-size: 0.88rem !important;
 }}
 
+/* Active Selection Underline Bar */
+[data-testid="stTabs"] .react-aria-SelectionIndicator {{
+    background-color: {ACCENT_COLOR} !important;
+    height: 3px !important;
+    border-radius: 2px !important;
+}}
+
+[data-testid="stTabs"] div[role="tab"]:hover:not([aria-selected="true"]),
 [data-testid="stTabs"] button[role="tab"]:hover:not([aria-selected="true"]) {{
     background: rgba(125, 125, 125, 0.08) !important;
 }}
-[data-testid="stTabs"] button[role="tab"]:hover:not([aria-selected="true"]) p {{
+[data-testid="stTabs"] div[role="tab"]:hover:not([aria-selected="true"]) *,
+[data-testid="stTabs"] button[role="tab"]:hover:not([aria-selected="true"]) * {{
     color: {TEXT_MAIN} !important;
 }}
 
@@ -503,10 +574,10 @@ html, body, [class*="css"], * {{
 }}
 
 .custom-table th {{
-    padding: 10px 14px;
+    padding: 11px 14px;
     background: {TABLE_HDR_BG};
     color: {TEXT_LABEL} !important;
-    font-size: 0.70rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     font-weight: 700;
@@ -515,23 +586,14 @@ html, body, [class*="css"], * {{
 }}
 
 .custom-table td {{
-    padding: 10px 14px;
+    padding: 11px 14px;
     color: {TEXT_MAIN} !important;
-    font-size: 0.84rem;
+    font-size: 0.85rem;
     border-bottom: 1px solid {CARD_BORDER};
 }}
 
 .custom-table tr:last-child td {{ border-bottom: none; }}
 .custom-table tr:hover td {{ background: rgba(125,125,125,0.04); }}
-
-/* Native Streamlit Dataframe Overrides */
-[data-testid="stDataFrame"] {{
-    background: {CARD_BG} !important;
-    border: 1px solid {CARD_BORDER} !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    box-shadow: {CARD_SHADOW} !important;
-}}
 
 /* Footer */
 .footer {{
@@ -548,23 +610,39 @@ html, body, [class*="css"], * {{
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Plotly Base Layout ────────────────────────────────────────────────────────
+# ─── Plotly Base Layout (Fix Images 3 & 4) ─────────────────────────────────────
 def base_layout(h=320, legend=False):
-    font_clr = PLOT_FONT
-    grid_clr = PLOT_GRID
-    axis_clr = PLOT_AXIS
-    plot_bg  = PLOT_BG
-    template = "plotly_dark" if is_dark else "plotly_white"
+    font_clr       = PLOT_FONT        # High-contrast tick font (#1e293b in light, #e2e8f0 in dark)
+    title_font_clr = PLOT_TITLE_FONT  # High-contrast axis title font (#0f172a in light, #f8fafc in dark)
+    grid_clr       = PLOT_GRID
+    axis_clr       = PLOT_AXIS
+    plot_bg        = PLOT_BG
 
     d = dict(
-        template=template,
+        template="none",  # Do not inherit washed-out defaults from template
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=plot_bg,
         font=dict(family="Plus Jakarta Sans, sans-serif", color=font_clr, size=11),
-        margin=dict(l=14, r=14, t=32, b=14),
+        margin=dict(l=18, r=18, t=36, b=18),
         height=h,
-        xaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
-        yaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
+        xaxis=dict(
+            gridcolor=grid_clr,
+            zerolinecolor=axis_clr,
+            linecolor=axis_clr,
+            tickfont=dict(color=font_clr, size=10),
+            title=dict(font=dict(color=title_font_clr, size=11))
+        ),
+        yaxis=dict(
+            gridcolor=grid_clr,
+            zerolinecolor=axis_clr,
+            linecolor=axis_clr,
+            tickfont=dict(color=font_clr, size=10),
+            title=dict(font=dict(color=title_font_clr, size=11))
+        ),
+        xaxis_tickfont_color=font_clr,
+        yaxis_tickfont_color=font_clr,
+        xaxis_title_font_color=title_font_clr,
+        yaxis_title_font_color=title_font_clr,
         hoverlabel=dict(
             bgcolor=CARD_BG,
             font_color=TEXT_MAIN,
@@ -751,7 +829,6 @@ with T1:
             hovertemplate="<b>%{x}</b><br>%{y:,.0f} flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=310), yaxis_title="Total Flights")
-        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=11))
         st.plotly_chart(fig, use_container_width=True)
 
     with r1c2:
@@ -774,7 +851,6 @@ with T1:
             hovertemplate="<b>%{y}</b><br>%{x:,}K flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=310))
-        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         fig.update_xaxes(showticklabels=False)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -801,9 +877,8 @@ with T1:
             hovertemplate="<b>%{x}</b><br>%{y:.2f}M total flights across Europe<extra></extra>",
         ))
         l_dow = base_layout(h=260)
-        l_dow["yaxis"]["title"] = "Millions of Flights"
+        l_dow["yaxis"]["title"] = dict(text="Millions of Flights", font=dict(color=PLOT_TITLE_FONT, size=11))
         fig.update_layout(**l_dow)
-        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig, use_container_width=True)
 
     with r2c2:
@@ -823,7 +898,6 @@ with T1:
             hovertemplate="<b>%{y}</b><br>%{x:.2f}M flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=260))
-        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=9))
         fig.update_xaxes(showticklabels=False)
         st.plotly_chart(fig, use_container_width=True)
 
@@ -840,14 +914,13 @@ with T1:
         fig_q = go.Figure()
         fig_q.add_trace(go.Bar(
             x=q_names, y=q_data["total_M"],
-            marker=dict(color=["#64748b", "#3b82f6", "#f59e0b", "#8b5cf6"], line=dict(width=0)),
+            marker=dict(color=["#64748b", "#3b82f6", "#f59e0b", "#8b5cf6"] if is_dark else ["#64748b", "#2563eb", "#d97706", "#7c3aed"], line=dict(width=0)),
             text=q_data["total_M"].apply(lambda x: f"{x:.2f}M"),
             textposition="outside",
             textfont=dict(color=TEXT_MUTED, size=10),
             hovertemplate="<b>%{x}</b><br>%{y:.2f}M Flights<extra></extra>",
         ))
         fig_q.update_layout(**base_layout(h=260), yaxis_title="Total Flights (Millions)")
-        fig_q.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig_q, use_container_width=True)
 
     with r3c2:
@@ -858,7 +931,7 @@ with T1:
 
         fig_ww = go.Figure(go.Pie(
             labels=ww["is_weekend"], values=ww["total_M"], hole=0.55,
-            marker=dict(colors=["#2563eb", "#10b981"], line=dict(color=BG_APP, width=2)),
+            marker=dict(colors=["#2563eb", "#10b981"] if not is_dark else ["#3b82f6", "#10b981"], line=dict(color=BG_APP, width=2)),
             textfont=dict(size=11, color=TEXT_MAIN),
             textinfo="label+percent",
             hovertemplate="<b>%{label}</b><br>%{value:.2f}M Flights<extra></extra>",
@@ -888,7 +961,6 @@ with T2:
     apt_p       = profile[profile["APT_ICAO"] == sel_icao]
     apt_f       = forecast[forecast["APT_ICAO"] == sel_icao]
     
-    # Calculate Station-Specific Model Accuracy
     apt_test = test_df[test_df["APT_ICAO"] == sel_icao].sort_values("date") if not test_df.empty else pd.DataFrame()
     has_test_metrics = not apt_test.empty and len(apt_test) >= 5
 
@@ -1092,25 +1164,62 @@ with T2:
             hovertemplate="<b>%{x}</b><br>Avg %{y:,.0f} flights<extra></extra>",
         ))
         fig3.update_layout(**base_layout(h=270))
-        fig3.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig3, use_container_width=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  TAB 3 — MODEL BENCHMARKS
+#  TAB 3 — MODEL BENCHMARKS (Fix Image 2 with Custom HTML Table)
 # ══════════════════════════════════════════════════════════════════════════════
 with T3:
     st.markdown(f'<div class="sec-head">{SVG_TARGET} Model Evaluation Matrix — Out-of-Time Test Set (28,402 records · Oct–Dec 2025)</div>', unsafe_allow_html=True)
-    st.dataframe(
-        metrics, use_container_width=True, hide_index=True,
-        column_config={
-            "Model": st.column_config.TextColumn("Model Specification", width="medium"),
-            "MAE (Flights/Day)": st.column_config.NumberColumn("MAE ↓", format="%.2f"),
-            "RMSE (Flights/Day)": st.column_config.NumberColumn("RMSE ↓", format="%.2f"),
-            "WMAPE (%)": st.column_config.TextColumn("WMAPE ↓"),
-            "R2 Score": st.column_config.TextColumn("R² Score ↑"),
-            "Improvement vs Baseline (MAE)": st.column_config.TextColumn("MAE Improvement"),
-        }
-    )
+    
+    # Custom HTML Table for Model Evaluation Matrix (Fix Image 2 - Zero black box in light mode)
+    badge_html = ('<span style="background:rgba(16,185,129,0.15); color:#10b981; border:1px solid rgba(16,185,129,0.35); padding:2px 8px; border-radius:12px; font-size:0.68rem; font-weight:700; margin-left:8px;">BEST MODEL</span>'
+                  if is_dark else
+                  '<span style="background:#dcfce7; color:#15803d; border:1px solid #86efac; padding:2px 8px; border-radius:12px; font-size:0.68rem; font-weight:700; margin-left:8px;">BEST MODEL</span>')
+
+    matrix_rows = [
+        {"model": "Previous-Day Baseline", "mae": "17.43", "rmse": "33.75", "wmape": "12.09%", "r2": "0.9809", "imp": "0.0% (Reference)", "badge": ""},
+        {"model": "Linear Regression", "mae": "10.37", "rmse": "21.17", "wmape": "7.20%", "r2": "0.9925", "imp": "+40.5%", "badge": badge_html},
+        {"model": "Gradient-Boosted Trees (GBT)", "mae": "12.99", "rmse": "25.44", "wmape": "9.01%", "r2": "0.9891", "imp": "+25.5%", "badge": ""},
+        {"model": "Random Forest Regressor", "mae": "13.85", "rmse": "26.80", "wmape": "9.62%", "r2": "0.9879", "imp": "+20.5%", "badge": ""},
+    ]
+
+    table_rows_html = ""
+    for r in matrix_rows:
+        is_best = "Linear Regression" in r["model"]
+        row_bg = ("rgba(16,185,129,0.08)" if is_dark else "#f0fdf4") if is_best else "transparent"
+        row_weight = "700" if is_best else "500"
+        cell_clr = ("#10b981" if is_dark else "#15803d") if is_best else TEXT_MAIN
+        imp_clr = ("#10b981" if is_dark else "#15803d") if is_best else ACCENT_COLOR
+
+        table_rows_html += f"""
+        <tr style="background:{row_bg}; font-weight:{row_weight};">
+          <td style="font-weight:700; color:{cell_clr};">{r['model']} {r['badge']}</td>
+          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['mae']}</td>
+          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['rmse']}</td>
+          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['wmape']}</td>
+          <td style="text-align:center; color:{cell_clr}; font-weight:700;">{r['r2']}</td>
+          <td style="text-align:center; color:{imp_clr}; font-weight:700;">{r['imp']}</td>
+        </tr>
+        """
+
+    st.markdown(f"""
+    <table class="custom-table" style="margin-bottom:24px;">
+      <thead>
+        <tr>
+          <th>Model Specification</th>
+          <th style="text-align:center;">MAE (Flights/Day) ↓</th>
+          <th style="text-align:center;">RMSE (Flights/Day) ↓</th>
+          <th style="text-align:center;">WMAPE (%) ↓</th>
+          <th style="text-align:center;">R² Score ↑</th>
+          <th style="text-align:center;">MAE Improvement vs Baseline</th>
+        </tr>
+      </thead>
+      <tbody>
+        {table_rows_html}
+      </tbody>
+    </table>
+    """, unsafe_allow_html=True)
 
     mc1, mc2 = st.columns(2, gap="large")
 
@@ -1138,7 +1247,6 @@ with T3:
         ))
         l3 = base_layout(h=300, legend=True)
         fig.update_layout(**l3, barmode="group")
-        fig.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=11))
         st.plotly_chart(fig, use_container_width=True)
 
     with mc2:
@@ -1158,10 +1266,9 @@ with T3:
             hovertemplate="<b>%{y}</b><br>Importance: %{x:.2f}%<extra></extra>",
         ))
         lfi = base_layout(h=300)
-        lfi["xaxis"]["title"] = "Predictive Contribution (%)"
+        lfi["xaxis"]["title"] = dict(text="Predictive Contribution (%)", font=dict(color=PLOT_TITLE_FONT, size=11))
         lfi["xaxis"]["range"] = [0, 110]
         fig.update_layout(**lfi)
-        fig.update_yaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig, use_container_width=True)
 
     r4c1, r4c2 = st.columns(2, gap="large")
@@ -1188,10 +1295,10 @@ with T3:
         l4 = base_layout(h=290)
         l4["yaxis"]["range"] = [0.975, 0.997]
         fig_r2.update_layout(**l4)
-        fig_r2.update_xaxes(tickfont=dict(color=TEXT_MUTED, size=10))
         st.plotly_chart(fig_r2, use_container_width=True)
 
     with r4c2:
+        # Prediction Residual Error Distribution (Fix Images 3 & 4)
         st.markdown(f'<div class="sec-head">{SVG_CHART} Prediction Residual Error Distribution (Test Set)</div>', unsafe_allow_html=True)
         if not test_df.empty:
             errors = (test_df["target"] - test_df["prediction"]).clip(-50, 50)
@@ -1199,9 +1306,12 @@ with T3:
                 x=errors,
                 nbinsx=40,
                 marker=dict(color="#3b82f6" if is_dark else "#2563eb", line=dict(color=BG_APP, width=1)),
-                hovertemplate="Error Range: %{x}<br>Airport-Days: %{y:,}<extra></extra>",
+                hovertemplate="Error: %{x:.1f}<br>Count: %{y:,} flights<extra></extra>",
             ))
-            fig_err.update_layout(**base_layout(h=290), xaxis_title="Prediction Error (Actual - Predicted Flights)", yaxis_title="Frequency")
+            l_err = base_layout(h=290)
+            l_err["xaxis"]["title"] = dict(text="Prediction Error (Actual - Predicted Flights)", font=dict(color=PLOT_TITLE_FONT, size=11))
+            l_err["yaxis"]["title"] = dict(text="Frequency", font=dict(color=PLOT_TITLE_FONT, size=11))
+            fig_err.update_layout(**l_err)
             fig_err.add_vline(x=0, line_dash="dash", line_color="#10b981" if is_dark else "#059669", line_width=2)
             st.plotly_chart(fig_err, use_container_width=True)
         else:
@@ -1294,10 +1404,10 @@ with T4:
             for _, row in grp.iterrows():
                 rows_html += f"""
                 <tr>
-                  <td style="font-weight:600;">{row['APT_NAME']}</td>
+                  <td style="font-weight:600; color:{TEXT_MAIN};">{row['APT_NAME']}</td>
                   <td style="color:{TEXT_MUTED};">{row['STATE_NAME']}</td>
                   <td style="color:{tc}; font-weight:700; text-align:center;">{row['avg_day']:,.0f}</td>
-                  <td style="text-align:center;">{int(row['peak']):,}</td>
+                  <td style="text-align:center; color:{TEXT_MAIN}; font-weight:600;">{int(row['peak']):,}</td>
                   <td style="color:{TEXT_MUTED}; text-align:center;">{int(row['total']):,}</td>
                 </tr>"""
 
@@ -1321,11 +1431,11 @@ with T4:
             </div>
             """, unsafe_allow_html=True)
 
-# ─── Professional Institutional Footer ─────────────────────────────────────────
+# ─── Clean Production Footer ───────────────────────────────────────────────────
 st.markdown(f"""
 <div class="footer">
   Eurocontrol Air Traffic Analytics Platform · Distributed PySpark MLlib Predictive Engine<br>
-  Author: <strong>Rai Yashmit Ashok</strong> · Registration: <strong>12313527</strong> · INT315 Cluster Computing<br>
+  Author: <strong>Rai Yashmit</strong><br>
   Data Source: Official EUROCONTROL Historical Trajectory Records (116,020 records across 331 airports)
 </div>
 """, unsafe_allow_html=True)

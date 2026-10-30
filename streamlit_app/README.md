@@ -1,6 +1,6 @@
 # ✈️ Airport Traffic Prediction — Streamlit Dashboard
 
-An interactive web dashboard built with **Streamlit + Plotly + Scikit-Learn**, powered by the PySpark MLlib model results from the INT315 Cluster Computing project.
+An interactive web dashboard built with **Streamlit + Plotly + Scikit-Learn**, powered by distributed PySpark MLlib model pipelines.
 
 ---
 

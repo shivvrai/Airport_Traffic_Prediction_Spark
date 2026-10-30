@@ -5,9 +5,7 @@
 [![PySpark](https://img.shields.io/badge/PySpark-MLlib-brightgreen)](https://spark.apache.org/mllib/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **INT315 – Cluster Computing Project**  
-> **Author:** Rai Yashmit Ashok  
-> **Course:** School of AI and Emerging Technology  
+> **Author:** Rai Yashmit  
 
 Distributed data analysis, exploratory data profiling, and next-day time-series forecasting of daily IFR (Instrument Flight Rules) flight movements across **331 European airports in 42 countries** using **Apache Spark (PySpark MLlib)**.
 
@@ -108,7 +106,7 @@ Models were evaluated on unseen chronological test data (**28,402 records** from
 ├── airport_traffic_analysis.py    # Main PySpark distributed ETL & ML modeling script
 ├── airport_traffic_2025.csv       # EUROCONTROL 2025 flight movements dataset (116K rows)
 ├── model_evaluation_metrics.csv   # Benchmarking metrics (MAE, RMSE, WMAPE, R²)
-├── spark_report.pdf               # Comprehensive project report (INT315)
+├── spark_report.pdf               # Comprehensive technical project report
 └── README.md                      # Project documentation and resume points
 ```
 
@@ -151,6 +149,5 @@ Models were evaluated on unseen chronological test data (**28,402 records** from
 ---
 
 ## 👤 Author
-- **Rai Yashmit Ashok**  
-- **GitHub:** [@shivvrai](https://github.com/shivvrai)  
-- **Course:** INT315 – Cluster Computing, School of AI and Emerging Technology
+- **Rai Yashmit**  
+- **GitHub:** [@shivvrai](https://github.com/shivvrai)

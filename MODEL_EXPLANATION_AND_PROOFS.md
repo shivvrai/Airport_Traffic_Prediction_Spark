@@ -1,7 +1,6 @@
 # ✈️ Model Explanation, Mathematical Proofs & Project Metrics Dictionary
 > **Project:** Distributed Airport Traffic Prediction using Apache Spark (PySpark MLlib)  
-> **Course:** INT315 – Cluster Computing  
-> **Author:** Rai Yashmit Ashok (Reg: 12313527)  
+> **Author:** Rai Yashmit  
 > **Repository:** [github.com/shivvrai/Airport_Traffic_Prediction_Spark](https://github.com/shivvrai/Airport_Traffic_Prediction_Spark)  
 > **Live App:** [airporttrafficpredictionspark.streamlit.app](https://airporttrafficpredictionspark.streamlit.app/)
 
