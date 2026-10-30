@@ -1184,42 +1184,32 @@ with T3:
         {"model": "Random Forest Regressor", "mae": "13.85", "rmse": "26.80", "wmape": "9.62%", "r2": "0.9879", "imp": "+20.5%", "badge": ""},
     ]
 
-    table_rows_html = ""
-    for r in matrix_rows:
-        is_best = "Linear Regression" in r["model"]
-        row_bg = ("rgba(16,185,129,0.08)" if is_dark else "#f0fdf4") if is_best else "transparent"
-        row_weight = "700" if is_best else "500"
-        cell_clr = ("#10b981" if is_dark else "#15803d") if is_best else TEXT_MAIN
-        imp_clr = ("#10b981" if is_dark else "#15803d") if is_best else ACCENT_COLOR
+    table_rows_html = "".join([
+        f'<tr style="background:{("rgba(16,185,129,0.08)" if is_dark else "#f0fdf4") if "Linear Regression" in r["model"] else "transparent"}; font-weight:{"700" if "Linear Regression" in r["model"] else "500"};">'
+        f'<td style="font-weight:700; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else TEXT_MAIN};">{r["model"]} {r["badge"]}</td>'
+        f'<td style="text-align:center; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else TEXT_MAIN}; font-weight:{"700" if "Linear Regression" in r["model"] else "500"};">{r["mae"]}</td>'
+        f'<td style="text-align:center; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else TEXT_MAIN}; font-weight:{"700" if "Linear Regression" in r["model"] else "500"};">{r["rmse"]}</td>'
+        f'<td style="text-align:center; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else TEXT_MAIN}; font-weight:{"700" if "Linear Regression" in r["model"] else "500"};">{r["wmape"]}</td>'
+        f'<td style="text-align:center; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else TEXT_MAIN}; font-weight:700;">{r["r2"]}</td>'
+        f'<td style="text-align:center; color:{("#10b981" if is_dark else "#15803d") if "Linear Regression" in r["model"] else ACCENT_COLOR}; font-weight:700;">{r["imp"]}</td>'
+        f'</tr>'
+        for r in matrix_rows
+    ])
 
-        table_rows_html += f"""
-        <tr style="background:{row_bg}; font-weight:{row_weight};">
-          <td style="font-weight:700; color:{cell_clr};">{r['model']} {r['badge']}</td>
-          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['mae']}</td>
-          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['rmse']}</td>
-          <td style="text-align:center; color:{cell_clr}; font-weight:{row_weight};">{r['wmape']}</td>
-          <td style="text-align:center; color:{cell_clr}; font-weight:700;">{r['r2']}</td>
-          <td style="text-align:center; color:{imp_clr}; font-weight:700;">{r['imp']}</td>
-        </tr>
-        """
-
-    st.markdown(f"""
-    <table class="custom-table" style="margin-bottom:24px;">
-      <thead>
-        <tr>
-          <th>Model Specification</th>
-          <th style="text-align:center;">MAE (Flights/Day) ↓</th>
-          <th style="text-align:center;">RMSE (Flights/Day) ↓</th>
-          <th style="text-align:center;">WMAPE (%) ↓</th>
-          <th style="text-align:center;">R² Score ↑</th>
-          <th style="text-align:center;">MAE Improvement vs Baseline</th>
-        </tr>
-      </thead>
-      <tbody>
-        {table_rows_html}
-      </tbody>
-    </table>
-    """, unsafe_allow_html=True)
+    matrix_table_html = (
+        f'<table class="custom-table" style="margin-bottom:24px;">'
+        f'<thead><tr>'
+        f'<th>Model Specification</th>'
+        f'<th style="text-align:center;">MAE (Flights/Day) ↓</th>'
+        f'<th style="text-align:center;">RMSE (Flights/Day) ↓</th>'
+        f'<th style="text-align:center;">WMAPE (%) ↓</th>'
+        f'<th style="text-align:center;">R² Score ↑</th>'
+        f'<th style="text-align:center;">MAE Improvement vs Baseline</th>'
+        f'</tr></thead>'
+        f'<tbody>{table_rows_html}</tbody>'
+        f'</table>'
+    )
+    st.markdown(matrix_table_html, unsafe_allow_html=True)
 
     mc1, mc2 = st.columns(2, gap="large")
 
@@ -1400,36 +1390,35 @@ with T4:
                    .reset_index(drop=True))
             tc = tier_colors_map[tier_name]
             
-            rows_html = ""
-            for _, row in grp.iterrows():
-                rows_html += f"""
-                <tr>
-                  <td style="font-weight:600; color:{TEXT_MAIN};">{row['APT_NAME']}</td>
-                  <td style="color:{TEXT_MUTED};">{row['STATE_NAME']}</td>
-                  <td style="color:{tc}; font-weight:700; text-align:center;">{row['avg_day']:,.0f}</td>
-                  <td style="text-align:center; color:{TEXT_MAIN}; font-weight:600;">{int(row['peak']):,}</td>
-                  <td style="color:{TEXT_MUTED}; text-align:center;">{int(row['total']):,}</td>
-                </tr>"""
+            rows_html = "".join([
+                f'<tr>'
+                f'<td style="font-weight:600; color:{TEXT_MAIN};">{row["APT_NAME"]}</td>'
+                f'<td style="color:{TEXT_MUTED};">{row["STATE_NAME"]}</td>'
+                f'<td style="color:{tc}; font-weight:700; text-align:center;">{row["avg_day"]:,.0f}</td>'
+                f'<td style="text-align:center; color:{TEXT_MAIN}; font-weight:600;">{int(row["peak"]):,}</td>'
+                f'<td style="color:{TEXT_MUTED}; text-align:center;">{int(row["total"]):,}</td>'
+                f'</tr>'
+                for _, row in grp.iterrows()
+            ])
 
-            st.markdown(f"""
-            <div style="margin-bottom:16px;">
-              <div style="font-size:0.80rem; font-weight:700; color:{tc}; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
-                <span style="width:6px; height:6px; border-radius:50%; background:{tc}; display:inline-block;"></span> {tier_name}
-              </div>
-              <table class="custom-table">
-                <thead>
-                  <tr>
-                    <th>Airport</th>
-                    <th>Country</th>
-                    <th style="text-align:center;">Avg / Day</th>
-                    <th style="text-align:center;">Peak Day</th>
-                    <th style="text-align:center;">Annual Total</th>
-                  </tr>
-                </thead>
-                <tbody>{rows_html}</tbody>
-              </table>
-            </div>
-            """, unsafe_allow_html=True)
+            tier_table_html = (
+                f'<div style="margin-bottom:16px;">'
+                f'<div style="font-size:0.80rem; font-weight:700; color:{tc}; margin-bottom:6px; display:flex; align-items:center; gap:6px;">'
+                f'<span style="width:6px; height:6px; border-radius:50%; background:{tc}; display:inline-block;"></span> {tier_name}'
+                f'</div>'
+                f'<table class="custom-table">'
+                f'<thead><tr>'
+                f'<th>Airport</th>'
+                f'<th>Country</th>'
+                f'<th style="text-align:center;">Avg / Day</th>'
+                f'<th style="text-align:center;">Peak Day</th>'
+                f'<th style="text-align:center;">Annual Total</th>'
+                f'</tr></thead>'
+                f'<tbody>{rows_html}</tbody>'
+                f'</table>'
+                f'</div>'
+            )
+            st.markdown(tier_table_html, unsafe_allow_html=True)
 
 # ─── Clean Production Footer ───────────────────────────────────────────────────
 st.markdown(f"""
