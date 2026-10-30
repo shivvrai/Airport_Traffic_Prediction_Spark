@@ -81,6 +81,7 @@ is_dark = (theme_mode == "Dark Mode")
 
 # ─── Dynamic CSS & Design System ───────────────────────────────────────────────
 if is_dark:
+    # ── DARK MODE (Obsidian Midnight) ──
     BG_APP          = "#080d1a"
     BG_MESH         = "radial-gradient(ellipse at 15% 0%, rgba(59,130,246,0.14) 0%, transparent 60%), radial-gradient(ellipse at 85% 0%, rgba(99,102,241,0.10) 0%, transparent 50%)"
     TEXT_MAIN       = "#f8fafc"
@@ -89,13 +90,14 @@ if is_dark:
     CARD_BG         = "#0f172a"
     CARD_BORDER     = "#1e293b"
     CARD_HOVER      = "rgba(99,102,241,0.4)"
-    CARD_SHADOW     = "0 6px 20px rgba(0,0,0,0.35)"
+    CARD_SHADOW     = "0 8px 24px rgba(0,0,0,0.35)"
     HERO_BG         = "linear-gradient(135deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%)"
     HERO_BORDER     = "rgba(255,255,255,0.1)"
-    HERO_TITLE_GRAD = "linear-gradient(90deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)"
+    HERO_TITLE      = "background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
     PLOT_BG         = "#0f172a"
     PLOT_GRID       = "#1e293b"
     PLOT_AXIS       = "#334155"
+    PLOT_FONT       = "#94a3b8"
     TABLE_HDR_BG    = "#1e293b"
     TABLE_ROW_ALT   = "#09101f"
     ACCENT_COLOR    = "#6366f1"
@@ -103,36 +105,65 @@ if is_dark:
     TAB_BORDER      = "#1e293b"
     TAB_INACTIVE_CLR= "#94a3b8"
     TAB_ACTIVE_BG   = "linear-gradient(135deg, #3b82f6, #6366f1)"
+    TAB_ACTIVE_CLR  = "#ffffff"
     TAB_ACTIVE_SHADOW= "rgba(59,130,246,0.35)"
     SELECT_BG       = "#0f172a"
     SELECT_BORDER   = "#334155"
+    FORECAST_CARD_BG= "#0f172a"
+    FORECAST_CARD_BORDER= "#1e293b"
+    FORECAST_NUM_CLR= "#a5b4fc"
+    ICON_BLUE_BG    = "rgba(59,130,246,0.12)"
+    ICON_BLUE_CLR   = "#3b82f6"
+    ICON_PURPLE_BG  = "rgba(139,92,246,0.12)"
+    ICON_PURPLE_CLR = "#8b5cf6"
+    ICON_GREEN_BG   = "rgba(16,185,129,0.12)"
+    ICON_GREEN_CLR  = "#10b981"
+    ICON_AMBER_BG   = "rgba(245,158,11,0.12)"
+    ICON_AMBER_CLR  = "#f59e0b"
+    ICON_INDIGO_BG  = "rgba(99,102,241,0.12)"
+    ICON_INDIGO_CLR = "#6366f1"
 else:
-    # High Contrast Light Mode
-    BG_APP          = "#f1f5f9"
-    BG_MESH         = "radial-gradient(ellipse at 15% 0%, rgba(59,130,246,0.06) 0%, transparent 60%), radial-gradient(ellipse at 85% 0%, rgba(99,102,241,0.04) 0%, transparent 50%)"
+    # ── LIGHT MODE (Enterprise Crisp White & Pure Slate) ──
+    BG_APP          = "#f8fafc"
+    BG_MESH         = "radial-gradient(ellipse at 15% 0%, rgba(37,99,235,0.06) 0%, transparent 60%), radial-gradient(ellipse at 85% 0%, rgba(99,102,241,0.04) 0%, transparent 50%)"
     TEXT_MAIN       = "#0f172a"
     TEXT_MUTED      = "#334155"
     TEXT_LABEL      = "#475569"
     CARD_BG         = "#ffffff"
-    CARD_BORDER     = "#cbd5e1"
-    CARD_HOVER      = "rgba(37,99,235,0.4)"
-    CARD_SHADOW     = "0 4px 16px rgba(15,23,42,0.08)"
-    HERO_BG         = "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)"
-    HERO_BORDER     = "#cbd5e1"
-    HERO_TITLE_GRAD = "linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #334155 100%)"
+    CARD_BORDER     = "#e2e8f0"
+    CARD_HOVER      = "rgba(37,99,235,0.35)"
+    CARD_SHADOW     = "0 2px 4px -1px rgba(15,23,42,0.04), 0 4px 12px -2px rgba(15,23,42,0.06)"
+    HERO_BG         = "#ffffff"
+    HERO_BORDER     = "#e2e8f0"
+    HERO_TITLE      = "color: #0f172a;"
     PLOT_BG         = "#ffffff"
     PLOT_GRID       = "#f1f5f9"
     PLOT_AXIS       = "#cbd5e1"
-    TABLE_HDR_BG    = "#e2e8f0"
+    PLOT_FONT       = "#334155"
+    TABLE_HDR_BG    = "#f1f5f9"
     TABLE_ROW_ALT   = "#f8fafc"
     ACCENT_COLOR    = "#2563eb"
-    TAB_LIST_BG     = "#ffffff"
-    TAB_BORDER      = "#cbd5e1"
-    TAB_INACTIVE_CLR= "#1e293b"
-    TAB_ACTIVE_BG   = "linear-gradient(135deg, #2563eb, #4f46e5)"
-    TAB_ACTIVE_SHADOW= "rgba(37,99,235,0.3)"
+    TAB_LIST_BG     = "#f1f5f9"
+    TAB_BORDER      = "#e2e8f0"
+    TAB_INACTIVE_CLR= "#475569"
+    TAB_ACTIVE_BG   = "#ffffff"
+    TAB_ACTIVE_CLR  = "#2563eb"
+    TAB_ACTIVE_SHADOW= "rgba(15,23,42,0.12)"
     SELECT_BG       = "#ffffff"
-    SELECT_BORDER   = "#94a3b8"
+    SELECT_BORDER   = "#cbd5e1"
+    FORECAST_CARD_BG= "#eff6ff"
+    FORECAST_CARD_BORDER= "#bfdbfe"
+    FORECAST_NUM_CLR= "#1d4ed8"
+    ICON_BLUE_BG    = "#eff6ff"
+    ICON_BLUE_CLR   = "#2563eb"
+    ICON_PURPLE_BG  = "#f5f3ff"
+    ICON_PURPLE_CLR = "#7c3aed"
+    ICON_GREEN_BG   = "#ecfdf5"
+    ICON_GREEN_CLR  = "#059669"
+    ICON_AMBER_BG   = "#fffbeb"
+    ICON_AMBER_CLR  = "#d97706"
+    ICON_INDIGO_BG  = "#eef2ff"
+    ICON_INDIGO_CLR = "#4f46e5"
 
 st.markdown(f"""
 <style>
@@ -159,8 +190,9 @@ html, body, [class*="css"], * {{
 [data-testid="collapsedControl"] {{ display: none; }}
 .block-container {{ padding: 1.5rem 2.5rem 3.5rem 2.5rem !important; max-width: 100% !important; }}
 
-/* Force Markdown paragraph colors */
-[data-testid="stMarkdownContainer"] p {{
+/* Force Markdown paragraph and span colors */
+[data-testid="stMarkdownContainer"] p, 
+[data-testid="stMarkdownContainer"] span {{
     color: {TEXT_MAIN} !important;
 }}
 
@@ -184,8 +216,8 @@ html, body, [class*="css"], * {{
 
 .hero-tag {{
     display: inline-block;
-    background: rgba(59,130,246,0.12);
-    border: 1px solid rgba(59,130,246,0.3);
+    background: {'rgba(59,130,246,0.12)' if is_dark else '#eff6ff'};
+    border: 1px solid {'rgba(59,130,246,0.3)' if is_dark else '#bfdbfe'};
     color: {ACCENT_COLOR};
     font-size: 0.68rem;
     font-weight: 700;
@@ -199,9 +231,7 @@ html, body, [class*="css"], * {{
 .hero-title {{
     font-size: 2.3rem;
     font-weight: 800;
-    background: {HERO_TITLE_GRAD};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    {HERO_TITLE}
     line-height: 1.15;
     margin: 0 0 10px 0;
     letter-spacing: -0.02em;
@@ -248,20 +278,20 @@ html, body, [class*="css"], * {{
 .kpi.indigo {{ border-top: 4px solid #6366f1; }}
 
 .kpi-icon-wrap {{
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 14px;
 }}
 
-.kpi.blue .kpi-icon-wrap   {{ background: rgba(59,130,246,0.12); color: #3b82f6; }}
-.kpi.purple .kpi-icon-wrap {{ background: rgba(139,92,246,0.12); color: #8b5cf6; }}
-.kpi.green .kpi-icon-wrap  {{ background: rgba(16,185,129,0.12); color: #10b981; }}
-.kpi.amber .kpi-icon-wrap  {{ background: rgba(245,158,11,0.12); color: #f59e0b; }}
-.kpi.indigo .kpi-icon-wrap {{ background: rgba(99,102,241,0.12); color: #6366f1; }}
+.kpi.blue .kpi-icon-wrap   {{ background: {ICON_BLUE_BG}; color: {ICON_BLUE_CLR}; border: 1px solid rgba(59,130,246,0.2); }}
+.kpi.purple .kpi-icon-wrap {{ background: {ICON_PURPLE_BG}; color: {ICON_PURPLE_CLR}; border: 1px solid rgba(139,92,246,0.2); }}
+.kpi.green .kpi-icon-wrap  {{ background: {ICON_GREEN_BG}; color: {ICON_GREEN_CLR}; border: 1px solid rgba(16,185,129,0.2); }}
+.kpi.amber .kpi-icon-wrap  {{ background: {ICON_AMBER_BG}; color: {ICON_AMBER_CLR}; border: 1px solid rgba(245,158,11,0.2); }}
+.kpi.indigo .kpi-icon-wrap {{ background: {ICON_INDIGO_BG}; color: {ICON_INDIGO_CLR}; border: 1px solid rgba(99,102,241,0.2); }}
 
 .kpi-val {{
     font-size: 1.95rem;
@@ -289,8 +319,8 @@ html, body, [class*="css"], * {{
 
 /* Universal Streamlit Tab Visibility Overrides */
 [data-testid="stTabs"] {{
-    margin-top: 10px !important;
-    margin-bottom: 24px !important;
+    margin-top: 14px !important;
+    margin-bottom: 26px !important;
 }}
 
 [data-testid="stTabs"] [role="tablist"],
@@ -299,7 +329,7 @@ html, body, [class*="css"], * {{
     border: 1px solid {TAB_BORDER} !important;
     border-radius: 14px !important;
     padding: 6px 8px !important;
-    gap: 10px !important;
+    gap: 8px !important;
     box-shadow: {CARD_SHADOW} !important;
 }}
 
@@ -308,7 +338,7 @@ html, body, [class*="css"], * {{
     background: transparent !important;
     border: none !important;
     border-radius: 10px !important;
-    padding: 10px 24px !important;
+    padding: 9px 22px !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }}
 
@@ -328,7 +358,8 @@ html, body, [class*="css"], * {{
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"],
 [data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] {{
     background: {TAB_ACTIVE_BG} !important;
-    box-shadow: 0 4px 14px {TAB_ACTIVE_SHADOW} !important;
+    box-shadow: 0 2px 8px {TAB_ACTIVE_SHADOW} !important;
+    {'border: 1px solid #cbd5e1 !important;' if not is_dark else ''}
 }}
 
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"] p,
@@ -337,7 +368,7 @@ html, body, [class*="css"], * {{
 [data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] p,
 [data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] div,
 [data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] span {{
-    color: #ffffff !important;
+    color: {TAB_ACTIVE_CLR} !important;
     font-weight: 700 !important;
 }}
 
@@ -376,6 +407,10 @@ html, body, [class*="css"], * {{
     border: 1px solid {SELECT_BORDER} !important;
     color: {TEXT_MAIN} !important;
     border-radius: 12px !important;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.05);
+}}
+[data-testid="stSelectbox"] span, [data-testid="stSelectbox"] div, [data-testid="stSelectbox"] p {{
+    color: {TEXT_MAIN} !important;
 }}
 
 /* Airport Detail Card */
@@ -396,8 +431,8 @@ html, body, [class*="css"], * {{
 
 .apt-card-icao {{
     display: inline-block;
-    background: rgba(59,130,246,0.12);
-    border: 1px solid rgba(59,130,246,0.3);
+    background: {'rgba(59,130,246,0.12)' if is_dark else '#eff6ff'};
+    border: 1px solid {'rgba(59,130,246,0.3)' if is_dark else '#bfdbfe'};
     color: {ACCENT_COLOR};
     font-size: 0.72rem;
     font-weight: 700;
@@ -417,8 +452,8 @@ html, body, [class*="css"], * {{
 
 /* Forecast Banner */
 .forecast-card {{
-    background: {CARD_BG};
-    border: 1px solid {CARD_BORDER};
+    background: {FORECAST_CARD_BG};
+    border: 1px solid {FORECAST_CARD_BORDER};
     border-radius: 18px;
     padding: 22px 24px;
     text-align: center;
@@ -429,7 +464,7 @@ html, body, [class*="css"], * {{
 .forecast-num {{
     font-size: 2.6rem;
     font-weight: 800;
-    color: {ACCENT_COLOR};
+    color: {FORECAST_NUM_CLR};
     letter-spacing: -0.04em;
     line-height: 1;
     margin: 8px 0;
@@ -489,6 +524,15 @@ html, body, [class*="css"], * {{
 .custom-table tr:last-child td {{ border-bottom: none; }}
 .custom-table tr:hover td {{ background: rgba(125,125,125,0.04); }}
 
+/* Native Streamlit Dataframe Overrides */
+[data-testid="stDataFrame"] {{
+    background: {CARD_BG} !important;
+    border: 1px solid {CARD_BORDER} !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: {CARD_SHADOW} !important;
+}}
+
 /* Footer */
 .footer {{
     margin-top: 48px;
@@ -506,7 +550,7 @@ html, body, [class*="css"], * {{
 
 # ─── Plotly Base Layout ────────────────────────────────────────────────────────
 def base_layout(h=320, legend=False):
-    font_clr = TEXT_MUTED
+    font_clr = PLOT_FONT
     grid_clr = PLOT_GRID
     axis_clr = PLOT_AXIS
     plot_bg  = PLOT_BG
@@ -521,6 +565,11 @@ def base_layout(h=320, legend=False):
         height=h,
         xaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
         yaxis=dict(gridcolor=grid_clr, zerolinecolor=axis_clr, linecolor=axis_clr),
+        hoverlabel=dict(
+            bgcolor=CARD_BG,
+            font_color=TEXT_MAIN,
+            font_family="Plus Jakarta Sans, sans-serif"
+        )
     )
     if legend:
         d["legend"] = dict(
@@ -743,9 +792,9 @@ with T1:
             x=dow["Day"], y=dow["TotalM"],
             mode="lines+markers",
             fill="tozeroy",
-            fillcolor="rgba(99,102,241,0.12)",
-            line=dict(color="#6366f1", width=3),
-            marker=dict(color="#a5b4fc", size=8, line=dict(color="#312e81", width=2)),
+            fillcolor="rgba(99,102,241,0.12)" if is_dark else "rgba(37,99,235,0.08)",
+            line=dict(color=ACCENT_COLOR, width=3),
+            marker=dict(color="#a5b4fc" if is_dark else "#2563eb", size=8, line=dict(color="#312e81" if is_dark else "#1d4ed8", width=2)),
             text=dow["TotalM"].apply(lambda x: f"{x:.2f}M"),
             textposition="top center",
             textfont=dict(color=TEXT_MUTED, size=9),
@@ -770,7 +819,7 @@ with T1:
             marker=dict(color=ctry["TotalM"], colorscale=GREENS_SCALE, line=dict(width=0)),
             text=ctry["TotalM"].apply(lambda x: f"{x:.1f}M"),
             textposition="outside",
-            textfont=dict(color="#10b981", size=9),
+            textfont=dict(color="#10b981" if is_dark else "#059669", size=9),
             hovertemplate="<b>%{y}</b><br>%{x:.2f}M flights<extra></extra>",
         ))
         fig.update_layout(**base_layout(h=260))
@@ -809,7 +858,7 @@ with T1:
 
         fig_ww = go.Figure(go.Pie(
             labels=ww["is_weekend"], values=ww["total_M"], hole=0.55,
-            marker=dict(colors=["#3b82f6", "#10b981"], line=dict(color=BG_APP, width=2)),
+            marker=dict(colors=["#2563eb", "#10b981"], line=dict(color=BG_APP, width=2)),
             textfont=dict(size=11, color=TEXT_MAIN),
             textinfo="label+percent",
             hovertemplate="<b>%{label}</b><br>%{value:.2f}M Flights<extra></extra>",
@@ -864,7 +913,7 @@ with T2:
             </div>
             <div>
               <span style="color:{tier_color}; font-size:0.75rem; font-weight:700;
-                           background:rgba(125,125,125,0.08); padding:5px 14px;
+                           background:{'rgba(125,125,125,0.08)' if is_dark else '#f1f5f9'}; padding:5px 14px;
                            border-radius:20px; border:1px solid {tier_color}44; display:inline-flex; align-items:center; gap:6px;">
                 <span style="width:6px; height:6px; border-radius:50%; background:{tier_color}; display:inline-block;"></span>
                 {tier_name}
@@ -902,7 +951,7 @@ with T2:
               <div class="forecast-num">{pred:,.0f}</div>
               <div style="font-size:0.75rem; color:{TEXT_MUTED}; font-weight:600;">Predicted Flight Movements</div>
               <div style="font-size:0.80rem; color:{ACCENT_COLOR}; font-weight:700; margin-top:8px;">Target Date: 2026-01-01</div>
-              <div style="margin-top:12px; font-size:0.78rem; color:{chg_color}; font-weight:700; background:rgba(125,125,125,0.06); padding:6px 10px; border-radius:8px;">
+              <div style="margin-top:12px; font-size:0.78rem; color:{chg_color}; font-weight:700; background:{'rgba(125,125,125,0.06)' if is_dark else '#ffffff'}; padding:6px 10px; border-radius:8px; border:1px solid {CARD_BORDER}">
                 {chg_symbol}{chg:.1f}% vs previous day ({int(prev):,} flights)
               </div>
             </div>
@@ -924,7 +973,7 @@ with T2:
         <div class="accuracy-card">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
             <div style="display:flex; align-items:center; gap:12px;">
-              <div style="background:rgba(16,185,129,0.12); color:#10b981; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+              <div style="background:{'rgba(16,185,129,0.12)' if is_dark else '#ecfdf5'}; color:{'#10b981' if is_dark else '#059669'}; border:1px solid {'rgba(16,185,129,0.25)' if is_dark else '#a7f3d0'}; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
                 {SVG_SHIELD}
               </div>
               <div>
@@ -960,7 +1009,7 @@ with T2:
         fig_test.add_trace(go.Scatter(
             x=apt_test["date"], y=apt_test["target"],
             name="Observed Actual Flights",
-            line=dict(color="#3b82f6", width=2.5),
+            line=dict(color="#2563eb", width=2.5),
             mode="lines+markers",
             marker=dict(size=4),
             hovertemplate="<b>%{x|%b %d}</b><br>Actual: %{y:.0f} flights<extra></extra>",
@@ -984,7 +1033,7 @@ with T2:
     fig.add_trace(go.Bar(
         x=apt_h["FLT_DATE"], y=apt_h["FLT_TOT_1"],
         name="Observed Flights",
-        marker=dict(color="rgba(59,130,246,0.30)", line=dict(width=0)),
+        marker=dict(color="rgba(59,130,246,0.35)" if is_dark else "rgba(37,99,235,0.25)", line=dict(width=0)),
         hovertemplate="<b>%{x|%b %d}</b><br>%{y:,} flights<extra></extra>",
     ))
     fig.add_trace(go.Scatter(
@@ -1009,7 +1058,7 @@ with T2:
         fig2.add_trace(go.Bar(
             x=am["MONTH_ABB"], y=am["total"],
             name="Total Movements",
-            marker=dict(color="rgba(99,102,241,0.65)", line=dict(width=0)),
+            marker=dict(color="rgba(99,102,241,0.65)" if is_dark else "rgba(37,99,235,0.65)", line=dict(width=0)),
         ), secondary_y=False)
         fig2.add_trace(go.Scatter(
             x=am["MONTH_ABB"], y=am["avg"],
@@ -1039,7 +1088,7 @@ with T2:
             ),
             text=dow_apt["Avg"].apply(lambda x: f"{x:,.0f}"),
             textposition="outside",
-            textfont=dict(color="#10b981", size=9),
+            textfont=dict(color="#10b981" if is_dark else "#059669", size=9),
             hovertemplate="<b>%{x}</b><br>Avg %{y:,.0f} flights<extra></extra>",
         ))
         fig3.update_layout(**base_layout(h=270))
@@ -1070,7 +1119,7 @@ with T3:
         m_names = ["Baseline", "Linear Regression", "GBT Regressor", "Random Forest"]
         mae_v   = [17.43, 10.37, 12.99, 13.85]
         rmse_v  = [33.75, 21.17, 25.44, 26.80]
-        bar_clr = ["#475569", "#3b82f6", "#8b5cf6", "#a855f7"]
+        bar_clr = ["#475569", "#3b82f6", "#8b5cf6", "#a855f7"] if is_dark else ["#64748b", "#2563eb", "#7c3aed", "#9333ea"]
 
         fig = go.Figure()
         fig.add_trace(go.Bar(
@@ -1096,7 +1145,7 @@ with T3:
         st.markdown(f'<div class="sec-head">{SVG_LAYERS} Feature Attribution (Gradient-Boosted Trees)</div>', unsafe_allow_html=True)
         fi_labels = ["Lag-7 (Same Day Last Week)", "7-Day Rolling Mean", "Lag-1 (Previous Day)", "Month (Seasonality)", "Airport Identifier (One-Hot)", "Day of Week", "Residual Features"]
         fi_vals   = [95.52, 1.74, 0.69, 0.76, 0.79, 0.23, 0.27]
-        fi_colors = ["#3b82f6", "#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981", "#64748b"]
+        fi_colors = ["#3b82f6", "#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981", "#64748b"] if is_dark else ["#2563eb", "#4f46e5", "#7c3aed", "#db2777", "#d97706", "#059669", "#64748b"]
 
         fig = go.Figure(go.Bar(
             x=fi_vals,
@@ -1121,7 +1170,7 @@ with T3:
         st.markdown(f'<div class="sec-head">{SVG_TARGET} Coefficient of Determination (R² Score Comparison)</div>', unsafe_allow_html=True)
         r2_m = ["Naive Baseline", "Random Forest", "Gradient-Boosted Trees", "Linear Regression (Production)"]
         r2_v = [0.9809, 0.9879, 0.9891, 0.9925]
-        r2_c = ["#475569", "#8b5cf6", "#6366f1", "#10b981"]
+        r2_c = ["#475569", "#8b5cf6", "#6366f1", "#10b981"] if is_dark else ["#64748b", "#7c3aed", "#4f46e5", "#059669"]
 
         fig_r2 = go.Figure()
         fig_r2.add_trace(go.Bar(
@@ -1133,9 +1182,9 @@ with T3:
             hovertemplate="<b>%{x}</b><br>R² = %{y:.4f}<extra></extra>",
         ))
         fig_r2.add_shape(type="line", x0=-0.5, x1=3.5, y0=0.9809, y1=0.9809,
-                         line=dict(color="#f87171", dash="dot", width=2))
+                         line=dict(color="#f87171" if is_dark else "#dc2626", dash="dot", width=2))
         fig_r2.add_annotation(x=3.5, y=0.981, text="  Baseline R² (0.9809)",
-                              showarrow=False, font=dict(color="#f87171", size=10), xanchor="left")
+                              showarrow=False, font=dict(color="#f87171" if is_dark else "#dc2626", size=10), xanchor="left")
         l4 = base_layout(h=290)
         l4["yaxis"]["range"] = [0.975, 0.997]
         fig_r2.update_layout(**l4)
@@ -1149,11 +1198,11 @@ with T3:
             fig_err = go.Figure(go.Histogram(
                 x=errors,
                 nbinsx=40,
-                marker=dict(color="#3b82f6", line=dict(color=BG_APP, width=1)),
+                marker=dict(color="#3b82f6" if is_dark else "#2563eb", line=dict(color=BG_APP, width=1)),
                 hovertemplate="Error Range: %{x}<br>Airport-Days: %{y:,}<extra></extra>",
             ))
             fig_err.update_layout(**base_layout(h=290), xaxis_title="Prediction Error (Actual - Predicted Flights)", yaxis_title="Frequency")
-            fig_err.add_vline(x=0, line_dash="dash", line_color="#10b981", line_width=2)
+            fig_err.add_vline(x=0, line_dash="dash", line_color="#10b981" if is_dark else "#059669", line_width=2)
             st.plotly_chart(fig_err, use_container_width=True)
         else:
             st.info("Residual data unavailable.")
@@ -1165,9 +1214,9 @@ with T4:
     st.markdown(f'<div class="sec-head">{SVG_LAYERS} K-Means Airport Segmentation — 3 Operational Tiers</div>', unsafe_allow_html=True)
 
     tier_colors = {
-        "Major Hub":        "#6366f1",
-        "Medium Hub":       "#f59e0b",
-        "Small / Regional": "#10b981",
+        "Major Hub":        "#6366f1" if is_dark else "#4f46e5",
+        "Medium Hub":       "#f59e0b" if is_dark else "#d97706",
+        "Small / Regional": "#10b981" if is_dark else "#059669",
     }
     fig = px.scatter(
         profile, x="avg_day", y="variab",
@@ -1232,7 +1281,7 @@ with T4:
 
     with cc2:
         st.markdown(f'<div class="sec-head">{SVG_AIRPORT} Leading Airports by Operational Tier</div>', unsafe_allow_html=True)
-        tier_colors_map = {"Major Hub": "#6366f1", "Medium Hub": "#f59e0b", "Small / Regional": "#10b981"}
+        tier_colors_map = tier_colors
         
         for tier_name in ["Major Hub", "Medium Hub", "Small / Regional"]:
             grp = (profile[profile["tier"] == tier_name]
