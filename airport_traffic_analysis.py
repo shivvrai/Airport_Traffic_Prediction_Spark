@@ -1,254 +1,404 @@
-# Airport flight prediction using three simple PySpark ML models
-# Includes basic data analysis before training the models.
-
+import os
+import sys
 from datetime import timedelta
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
-from pyspark.sql.types import NumericType
+
+# Auto-locate PySpark from SPARK_HOME or default directories if not in site-packages
+try:
+    import pyspark
+except ImportError:
+    for candidate in [
+        os.environ.get("SPARK_HOME", ""),
+        r"C:\spark-3.5.9-bin-hadoop3",
+        r"C:\spark",
+        r"/opt/spark",
+        r"/usr/local/spark",
+    ]:
+        if candidate and os.path.exists(candidate):
+            py_dir = os.path.join(candidate, "python")
+            lib_dir = os.path.join(py_dir, "lib")
+            if os.path.exists(py_dir):
+                sys.path.insert(0, py_dir)
+            if os.path.exists(lib_dir):
+                for f in os.listdir(lib_dir):
+                    if f.endswith(".zip"):
+                        sys.path.insert(0, os.path.join(lib_dir, f))
+            try:
+                import pyspark
+                break
+            except ImportError:
+                continue
+
+from pyspark.sql import SparkSession, functions as F
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression, RandomForestRegressor, GBTRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
+import matplotlib.pyplot as plt
 
-# Change these paths if your files are somewhere else
-INPUT_PATH = "/content/airport_traffic_2025.csv"
-OUTPUT_PATH = "/content/airport_results"
+# Auto-detect dataset path (Google Colab vs. Local Windows/Linux Environment)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in locals() else os.getcwd()
+if os.path.exists("/content/airport_traffic_2025.csv"):
+    INPUT_PATH = "/content/airport_traffic_2025.csv"
+    OUTPUT_PATH = "/content/airport_results"
+elif os.path.exists(os.path.join(BASE_DIR, "airport_traffic_2025.csv")):
+    INPUT_PATH = os.path.join(BASE_DIR, "airport_traffic_2025.csv")
+    OUTPUT_PATH = os.path.join(BASE_DIR, "airport_results")
+else:
+    INPUT_PATH = "airport_traffic_2025.csv"
+    OUTPUT_PATH = "airport_results"
 
-spark = SparkSession.builder.appName("AirportTrafficModels").getOrCreate()
-spark.sparkContext.setLogLevel("ERROR")
+os.makedirs(OUTPUT_PATH, exist_ok=True)
 
-try:
-    # 1. Read the CSV
-    raw = (
-        spark.read
-        .option("header", True)
-        .option("inferSchema", True)
-        .csv(INPUT_PATH)
+spark = (
+    SparkSession.builder
+    .appName("AirportTrafficModels")
+    .master("local[*]")
+    .getOrCreate()
+)
+spark.sparkContext.setLogLevel("WARN")
+
+raw = spark.read.option("header", True).option("inferSchema", True).csv(INPUT_PATH)
+
+print("DATASET INFORMATION")
+print("Rows:", raw.count())
+print("Columns:", len(raw.columns))
+print("Column names:", raw.columns)
+raw.printSchema()
+raw.show(10, truncate=False)
+
+print("STATISTICAL SUMMARY")
+raw.describe("FLT_TOT_1").show()
+
+print("MISSING VALUES")
+raw.select([
+    F.sum(F.col(c).isNull().cast("int")).alias(c)
+    for c in raw.columns
+]).show(truncate=False)
+
+print("DUPLICATE ROWS:", raw.count() - raw.dropDuplicates().count())
+
+print("DATASET COUNTS")
+raw.agg(
+    F.countDistinct("APT_ICAO").alias("airports"),
+    F.countDistinct("FLT_DATE").alias("dates"),
+    F.countDistinct("STATE_NAME").alias("states_or_countries")
+).show()
+
+print("MONTHLY FLIGHT TOTALS")
+raw.groupBy(
+    F.month(F.to_date(F.col("FLT_DATE").cast("string"))).alias("month")
+).agg(
+    F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights")
+).orderBy("month").show()
+
+print("10 BUSIEST AIRPORTS")
+raw.groupBy("APT_ICAO", "APT_NAME").agg(
+    F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights"),
+    F.round(F.avg(F.col("FLT_TOT_1").cast("double")), 2).alias("average_flights")
+).orderBy(F.desc("total_flights")).show(10, truncate=False)
+
+df = raw.select(
+    F.to_date(F.col("FLT_DATE").cast("string")).alias("date"),
+    F.trim(F.col("APT_ICAO").cast("string")).alias("APT_ICAO"),
+    F.trim(F.col("APT_NAME").cast("string")).alias("APT_NAME"),
+    F.col("FLT_TOT_1").cast("double").alias("flights")
+)
+
+df = df.dropna().filter(F.col("flights") >= 0)
+df = df.dropDuplicates(["date", "APT_ICAO"])
+
+print("CLEAN DATA")
+df.show(5, truncate=False)
+print("Rows after cleaning:", df.count())
+
+yesterday = df.select(
+    "APT_ICAO",
+    F.date_add("date", 1).alias("date"),
+    F.col("flights").alias("yesterday")
+)
+
+last_week = df.select(
+    "APT_ICAO",
+    F.date_add("date", 7).alias("date"),
+    F.col("flights").alias("last_week")
+)
+
+data = df.join(yesterday, ["APT_ICAO", "date"], "left")
+data = data.join(last_week, ["APT_ICAO", "date"], "left")
+data = data.dropna(subset=["yesterday", "last_week"])
+
+train = data.filter(F.col("date") < F.lit("2025-10-01").cast("date"))
+test = data.filter(F.col("date") >= F.lit("2025-10-01").cast("date"))
+
+train_count = train.count()
+test_count = test.count()
+
+print("Training rows:", train_count)
+print("Testing rows:", test_count)
+
+if train_count == 0 or test_count == 0:
+    raise ValueError("Training or testing data is empty. Check the date cutoff.")
+
+assembler = VectorAssembler(
+    inputCols=["yesterday", "last_week"],
+    outputCol="features"
+)
+
+train = assembler.transform(train)
+test = assembler.transform(test)
+
+mae_evaluator = RegressionEvaluator(
+    labelCol="flights",
+    predictionCol="prediction",
+    metricName="mae"
+)
+
+rmse_evaluator = RegressionEvaluator(
+    labelCol="flights",
+    predictionCol="prediction",
+    metricName="rmse"
+)
+
+baseline_mae = RegressionEvaluator(
+    labelCol="flights",
+    predictionCol="yesterday",
+    metricName="mae"
+).evaluate(test)
+
+baseline_rmse = RegressionEvaluator(
+    labelCol="flights",
+    predictionCol="yesterday",
+    metricName="rmse"
+).evaluate(test)
+
+results = [("Previous-day baseline", baseline_mae, baseline_rmse)]
+
+models = [
+    ("Linear Regression", LinearRegression(
+        featuresCol="features",
+        labelCol="flights"
+    )),
+    ("Random Forest", RandomForestRegressor(
+        featuresCol="features",
+        labelCol="flights",
+        numTrees=20,
+        maxDepth=5,
+        seed=42
+    )),
+    ("Gradient-Boosted Trees", GBTRegressor(
+        featuresCol="features",
+        labelCol="flights",
+        maxIter=20,
+        maxDepth=3,
+        seed=42
+    ))
+]
+
+best_model = None
+best_name = ""
+best_rmse = float("inf")
+best_predictions = None
+
+for name, algorithm in models:
+    print("Training:", name)
+
+    model = algorithm.fit(train)
+    predictions = model.transform(test)
+
+    predictions = predictions.withColumn(
+        "prediction",
+        F.greatest(F.col("prediction"), F.lit(0.0))
     )
 
-    # ==================== DATA ANALYSIS ====================
-    print("\n========== 1. BASIC DATA INFORMATION ==========")
-    print("Number of rows:", raw.count())
-    print("Number of columns:", len(raw.columns))
-    print("Column names:", raw.columns)
+    mae = mae_evaluator.evaluate(predictions)
+    rmse = rmse_evaluator.evaluate(predictions)
 
-    print("\nColumn data types:")
-    raw.printSchema()
+    results.append((name, mae, rmse))
 
-    print("\nFirst 10 rows:")
-    raw.show(10, truncate=False)
+    print("MAE:", round(mae, 2))
+    print("RMSE:", round(rmse, 2))
 
-    print("\n========== 2. STATISTICAL SUMMARY ==========")
-    numeric_cols = [
-        field.name for field in raw.schema.fields
-        if isinstance(field.dataType, NumericType)
-    ]
+    if rmse < best_rmse:
+        best_model = model
+        best_name = name
+        best_rmse = rmse
+        best_predictions = predictions
 
-    if numeric_cols:
-        raw.select(*numeric_cols).describe().show(truncate=False)
-    else:
-        print("No numeric columns were detected.")
+print("MODEL COMPARISON")
 
-    print("\n========== 3. MISSING VALUES ==========")
-    raw.select([
-        F.sum(
-            F.when(
-                F.col(c).isNull() | (F.trim(F.col(c).cast("string")) == ""),
-                1
-            ).otherwise(0)
-        ).alias(c)
-        for c in raw.columns
-    ]).show(truncate=False)
+comparison = spark.createDataFrame(
+    results, ["model", "MAE", "RMSE"]
+).orderBy("RMSE")
 
-    print("\n========== 4. DUPLICATE ROWS ==========")
-    print("Duplicate full rows:", raw.count() - raw.dropDuplicates().count())
+comparison.show(truncate=False)
 
-    print("\n========== 5. DATASET COUNTS ==========")
-    raw.agg(
-        F.countDistinct("APT_ICAO").alias("unique_airports"),
-        F.countDistinct("FLT_DATE").alias("unique_dates"),
-        F.countDistinct("STATE_NAME").alias("unique_states_or_countries")
-    ).show()
+print("Best model:", best_name)
 
-    print("\n========== 6. MONTHLY FLIGHT TOTALS ==========")
-    raw.withColumn(
-        "month", F.month(F.to_date(F.col("FLT_DATE").cast("string")))
-    ).groupBy("month").agg(
-        F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights")
-    ).orderBy("month").show(12)
+print("ACTUAL VS PREDICTED FLIGHTS")
+best_predictions.select(
+    "date", "APT_ICAO", "APT_NAME", "flights", "prediction"
+).orderBy("date").show(20, truncate=False)
 
-    print("\n========== 7. TEN BUSIEST AIRPORTS ==========")
-    raw.groupBy("APT_ICAO", "APT_NAME").agg(
-        F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights"),
-        F.round(F.avg(F.col("FLT_TOT_1").cast("double")), 2).alias("average_flights")
-    ).orderBy(F.desc("total_flights")).show(10, truncate=False)
+last_date = df.agg(F.max("date")).first()[0]
 
-    # ==================== PREPARE DATA FOR ML ====================
-    print("\n========== 8. PREPARE DATA FOR MACHINE LEARNING ==========")
-    df = raw.select(
-        F.to_date(F.col("FLT_DATE").cast("string")).alias("date"),
-        F.trim(F.col("APT_ICAO").cast("string")).alias("APT_ICAO"),
-        F.trim(F.col("APT_NAME").cast("string")).alias("APT_NAME"),
-        F.col("FLT_TOT_1").cast("double").alias("flights")
-    )
+if last_date is None:
+    raise ValueError("No valid dates found in the dataset.")
 
-    df = df.dropna().filter(F.col("flights") >= 0)
-    df = df.dropDuplicates(["date", "APT_ICAO"])
+forecast_date = last_date + timedelta(days=1)
 
-    print("Clean data sample:")
-    df.show(5, truncate=False)
-    print("Rows after cleaning:", df.count())
+forecast = df.filter(F.col("date") == F.lit(last_date)).select(
+    "APT_ICAO",
+    "APT_NAME",
+    F.col("flights").alias("yesterday")
+)
 
-    # 9. Add the flight count from yesterday and from 7 days ago
-    yesterday = df.select(
-        "APT_ICAO",
-        F.date_add("date", 1).alias("date"),
-        F.col("flights").alias("yesterday")
-    )
+forecast = forecast.withColumn("date", F.lit(forecast_date).cast("date"))
+forecast = forecast.join(last_week, ["APT_ICAO", "date"], "left")
+forecast = forecast.dropna(subset=["yesterday", "last_week"])
+forecast = assembler.transform(forecast)
 
-    last_week = df.select(
-        "APT_ICAO",
-        F.date_add("date", 7).alias("date"),
-        F.col("flights").alias("last_week")
-    )
+forecast = best_model.transform(forecast).withColumn(
+    "prediction",
+    F.greatest(F.col("prediction"), F.lit(0.0))
+)
 
-    data = df.join(yesterday, ["APT_ICAO", "date"], "left")
-    data = data.join(last_week, ["APT_ICAO", "date"], "left")
-    data = data.dropna(subset=["yesterday", "last_week"])
+print("FORECAST DATE:", forecast_date)
 
-    print("Rows with both previous-day and previous-week data:", data.count())
+forecast.select(
+    "date", "APT_ICAO", "APT_NAME", "yesterday", "last_week", "prediction"
+).orderBy(F.desc("prediction")).show(20, truncate=False)
 
-    # 10. Train on earlier dates and test on later dates
-    # This cutoff assumes the CSV contains data from 2025.
-    train = data.filter(F.col("date") < F.to_date(F.lit("2025-10-01")))
-    test = data.filter(F.col("date") >= F.to_date(F.lit("2025-10-01")))
+best_predictions.select(
+    "date", "APT_ICAO", "APT_NAME", "flights", "prediction"
+).coalesce(1).write.mode("overwrite").option(
+    "header", True
+).csv(OUTPUT_PATH + "/test_predictions")
 
-    if train.limit(1).count() == 0 or test.limit(1).count() == 0:
-        raise ValueError(
-            "Training or test data is empty. Check the dates and the 2025-10-01 cutoff."
-        )
+forecast.select(
+    "date", "APT_ICAO", "APT_NAME", "yesterday", "last_week", "prediction"
+).coalesce(1).write.mode("overwrite").option(
+    "header", True
+).csv(OUTPUT_PATH + "/next_day_predictions")
 
-    print("Training rows:", train.count())
-    print("Testing rows:", test.count())
+print("Results saved to:", OUTPUT_PATH)
 
-    # 11. Put the two input columns into the format Spark ML needs
-    assembler = VectorAssembler(
-        inputCols=["yesterday", "last_week"],
-        outputCol="features"
-    )
+monthly = raw.withColumn(
+    "month",
+    F.month(F.to_date(F.col("FLT_DATE").cast("string")))
+).groupBy("month").agg(
+    F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights")
+).orderBy("month").toPandas()
 
-    train = assembler.transform(train)
-    test = assembler.transform(test)
+month_names = {
+    1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr",
+    5: "May", 6: "Jun", 7: "Jul", 8: "Aug",
+    9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"
+}
 
-    # 12. Compare a simple baseline with three machine-learning models
-    # The baseline just assumes today's flights will equal yesterday's.
-    mae_evaluator = RegressionEvaluator(
-        labelCol="flights", predictionCol="prediction", metricName="mae"
-    )
-    rmse_evaluator = RegressionEvaluator(
-        labelCol="flights", predictionCol="prediction", metricName="rmse"
-    )
+monthly["month_name"] = monthly["month"].map(month_names)
 
-    baseline_rmse = RegressionEvaluator(
-        labelCol="flights", predictionCol="yesterday", metricName="rmse"
-    ).evaluate(test)
-    baseline_mae = RegressionEvaluator(
-        labelCol="flights", predictionCol="yesterday", metricName="mae"
-    ).evaluate(test)
+plt.figure(figsize=(10, 5))
+plt.bar(monthly["month_name"], monthly["total_flights"])
+plt.title("Monthly Flight Traffic")
+plt.xlabel("Month")
+plt.ylabel("Total Flights")
+plt.tight_layout()
+plt.savefig(OUTPUT_PATH + "/monthly_flights.png", dpi=150)
+plt.show()
+plt.close()
 
-    results = [("Previous-day baseline", baseline_mae, baseline_rmse)]
+top_airports = raw.groupBy("APT_NAME").agg(
+    F.sum(F.col("FLT_TOT_1").cast("double")).alias("total_flights")
+).orderBy(F.desc("total_flights")).limit(10).toPandas()
 
-    models = [
-        ("Linear Regression", LinearRegression(
-            featuresCol="features", labelCol="flights"
-        )),
-        ("Random Forest", RandomForestRegressor(
-            featuresCol="features", labelCol="flights",
-            numTrees=20, maxDepth=5, seed=42
-        )),
-        ("Gradient-Boosted Trees", GBTRegressor(
-            featuresCol="features", labelCol="flights",
-            maxIter=20, maxDepth=3, seed=42
-        ))
-    ]
+top_airports = top_airports.sort_values("total_flights")
 
-    best_model = None
-    best_name = ""
-    best_rmse = None
-    best_predictions = None
+plt.figure(figsize=(10, 6))
+plt.barh(top_airports["APT_NAME"], top_airports["total_flights"])
+plt.title("Top 10 Busiest Airports")
+plt.xlabel("Total Flights")
+plt.ylabel("Airport")
+plt.tight_layout()
+plt.savefig(OUTPUT_PATH + "/busiest_airports.png", dpi=150)
+plt.show()
+plt.close()
 
-    for name, algorithm in models:
-        print("Training", name, "...")
-        fitted_model = algorithm.fit(train)
-        predictions = fitted_model.transform(test)
+comparison_pd = comparison.toPandas()
 
-        # Flight counts cannot be negative, so set negative predictions to zero.
-        predictions = predictions.withColumn(
-            "prediction", F.greatest(F.col("prediction"), F.lit(0.0))
-        )
+comparison_pd.plot(
+    x="model",
+    y=["MAE", "RMSE"],
+    kind="bar",
+    figsize=(10, 5)
+)
+plt.title("Model Performance Comparison")
+plt.xlabel("Model")
+plt.ylabel("Prediction Error")
+plt.xticks(rotation=20, ha="right")
+plt.legend()
+plt.tight_layout()
+plt.savefig(OUTPUT_PATH + "/model_comparison.png", dpi=150)
+plt.show()
+plt.close()
 
-        mae = mae_evaluator.evaluate(predictions)
-        rmse = rmse_evaluator.evaluate(predictions)
-        results.append((name, mae, rmse))
-        print(name, "MAE:", round(mae, 2), "RMSE:", round(rmse, 2))
+daily_predictions = best_predictions.groupBy("date").agg(
+    F.sum("flights").alias("actual_flights"),
+    F.sum("prediction").alias("predicted_flights")
+).orderBy("date").toPandas()
 
-        # Choose the model with the lowest test RMSE.
-        if best_rmse is None or rmse < best_rmse:
-            best_rmse = rmse
-            best_model = fitted_model
-            best_name = name
-            best_predictions = predictions
+plt.figure(figsize=(12, 5))
+plt.plot(
+    daily_predictions["date"],
+    daily_predictions["actual_flights"],
+    label="Actual Flights"
+)
+plt.plot(
+    daily_predictions["date"],
+    daily_predictions["predicted_flights"],
+    label="Predicted Flights"
+)
+plt.title("Actual vs Predicted Daily Flight Traffic")
+plt.xlabel("Date")
+plt.ylabel("Total Flights Across Airports")
+plt.legend()
+plt.xticks(rotation=30)
+plt.tight_layout()
+plt.savefig(OUTPUT_PATH + "/actual_vs_predicted.png", dpi=150)
+plt.show()
+plt.close()
 
-    print("\nModel comparison (lower MAE and RMSE are better):")
-    results.sort(key=lambda row: row[2])
-    spark.createDataFrame(results, ["model", "MAE", "RMSE"]).show(truncate=False)
-    print("Best machine-learning model by test RMSE:", best_name)
+errors = best_predictions.select(
+    (F.col("flights") - F.col("prediction")).alias("error")
+).sample(False, 0.2, seed=42).limit(10000).toPandas()
 
-    print("Actual and predicted flights using the selected model:")
-    best_predictions.select(
-        "date", "APT_ICAO", "APT_NAME", "flights", "prediction"
-    ).orderBy("date").show(20, truncate=False)
+plt.figure(figsize=(10, 5))
+plt.hist(errors["error"].dropna(), bins=40, edgecolor="black")
+plt.title("Prediction Error Distribution")
+plt.xlabel("Actual Flights - Predicted Flights")
+plt.ylabel("Number of Predictions")
+plt.tight_layout()
+plt.savefig(OUTPUT_PATH + "/prediction_errors.png", dpi=150)
+plt.show()
+plt.close()
 
-    # 13. Predict flights for the day after the last date in the CSV
-    last_date = df.agg(F.max("date")).first()[0]
-    if last_date is None:
-        raise ValueError("No valid dates were found in the CSV.")
+forecast_pd = forecast.select(
+    "APT_NAME", "prediction"
+).orderBy(
+    F.desc("prediction")
+).limit(10).toPandas()
 
-    forecast_date = last_date + timedelta(days=1)
-    print("Forecast date:", forecast_date)
+if not forecast_pd.empty:
+    forecast_pd = forecast_pd.sort_values("prediction")
 
-    # For the forecast date, yesterday's flights are the flights on the last date.
-    forecast = df.filter(F.col("date") == F.lit(last_date)).select(
-        "APT_ICAO", "APT_NAME", F.col("flights").alias("yesterday")
-    ).withColumn("date", F.lit(forecast_date).cast("date"))
+    plt.figure(figsize=(10, 6))
+    plt.barh(forecast_pd["APT_NAME"], forecast_pd["prediction"])
+    plt.title("Top 10 Airports by Next-Day Forecast")
+    plt.xlabel("Predicted Flights")
+    plt.ylabel("Airport")
+    plt.tight_layout()
+    plt.savefig(OUTPUT_PATH + "/next_day_forecast.png", dpi=150)
+    plt.show()
+    plt.close()
 
-    # Join the value from seven days before the forecast date.
-    forecast = forecast.join(last_week, ["APT_ICAO", "date"], "left")
-    forecast = forecast.dropna(subset=["yesterday", "last_week"])
-    forecast = assembler.transform(forecast)
+print("All graphs saved in:", OUTPUT_PATH)
 
-    forecast = best_model.transform(forecast).withColumn(
-        "prediction", F.greatest(F.col("prediction"), F.lit(0.0))
-    )
-
-    print("Next-day predictions using", best_name, ":")
-    forecast.select(
-        "date", "APT_ICAO", "APT_NAME", "yesterday", "last_week", "prediction"
-    ).orderBy(F.desc("prediction")).show(20, truncate=False)
-
-    # 14. Save the test predictions and next-day forecast
-    best_predictions.select(
-        "date", "APT_ICAO", "APT_NAME", "flights", "prediction"
-    ).coalesce(1).write.mode("overwrite").option("header", True).csv(
-        OUTPUT_PATH + "/test_predictions"
-    )
-
-    forecast.select(
-        "date", "APT_ICAO", "APT_NAME", "yesterday", "last_week", "prediction"
-    ).coalesce(1).write.mode("overwrite").option("header", True).csv(
-        OUTPUT_PATH + "/next_day_predictions"
-    )
-
-    print("Results saved in:", OUTPUT_PATH)
-
-finally:
-    spark.stop()
+spark.stop()
