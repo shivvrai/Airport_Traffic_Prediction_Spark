@@ -1,60 +1,18 @@
 import os
-import sys
 from datetime import timedelta
-
-# Auto-locate PySpark from SPARK_HOME or default directories if not in site-packages
-try:
-    import pyspark
-except ImportError:
-    for candidate in [
-        os.environ.get("SPARK_HOME", ""),
-        r"C:\spark-3.5.9-bin-hadoop3",
-        r"C:\spark",
-        r"/opt/spark",
-        r"/usr/local/spark",
-    ]:
-        if candidate and os.path.exists(candidate):
-            py_dir = os.path.join(candidate, "python")
-            lib_dir = os.path.join(py_dir, "lib")
-            if os.path.exists(py_dir):
-                sys.path.insert(0, py_dir)
-            if os.path.exists(lib_dir):
-                for f in os.listdir(lib_dir):
-                    if f.endswith(".zip"):
-                        sys.path.insert(0, os.path.join(lib_dir, f))
-            try:
-                import pyspark
-                break
-            except ImportError:
-                continue
-
 from pyspark.sql import SparkSession, functions as F
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression, RandomForestRegressor, GBTRegressor
 from pyspark.ml.evaluation import RegressionEvaluator
 import matplotlib.pyplot as plt
 
-# Auto-detect dataset path (Google Colab vs. Local Windows/Linux Environment)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in locals() else os.getcwd()
-if os.path.exists("/content/airport_traffic_2025.csv"):
-    INPUT_PATH = "/content/airport_traffic_2025.csv"
-    OUTPUT_PATH = "/content/airport_results"
-elif os.path.exists(os.path.join(BASE_DIR, "airport_traffic_2025.csv")):
-    INPUT_PATH = os.path.join(BASE_DIR, "airport_traffic_2025.csv")
-    OUTPUT_PATH = os.path.join(BASE_DIR, "airport_results")
-else:
-    INPUT_PATH = "airport_traffic_2025.csv"
-    OUTPUT_PATH = "airport_results"
+# Raw string prefix (r"...") prevents Python from interpreting \U as a Unicode escape sequence
+INPUT_PATH = r"C:\Users\yashm\Desktop\spark_Data\airport_traffic_2025.csv"
+OUTPUT_PATH = r"C:\Users\yashm\Desktop\spark_Data\airport_results"
 
 os.makedirs(OUTPUT_PATH, exist_ok=True)
 
-spark = (
-    SparkSession.builder
-    .appName("AirportTrafficModels")
-    .master("local[*]")
-    .getOrCreate()
-)
-spark.sparkContext.setLogLevel("WARN")
+spark = SparkSession.builder.appName("AirportTrafficModels").getOrCreate()
 
 raw = spark.read.option("header", True).option("inferSchema", True).csv(INPUT_PATH)
 
